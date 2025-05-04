@@ -9,19 +9,10 @@ import SwiftUI
 
 struct CardListView: View {
     
-    @State private var showSplash = true
     @State private var randomBundleIndex = Int.random(in: 0..<3)
     
     var body: some View {
-        NavigationView {
-            VStack {
-                
-                if showSplash {
-                    SplashView()
-                        .transition(.opacity)
-                        .animation(.easeInOut(duration: 0.1), value: UUID())
-                } else {
-                    NavigationView {
+                NavigationView {
                         VStack(alignment: .leading) {
                             Text("I want to understand...")
                                 .font(.title)
@@ -52,25 +43,19 @@ struct CardListView: View {
                             }
                         }
                         .background(Color(red: 65/255, green: 70/255, blue: 151/255))
-
+                        .overlay(SplashView())
+                        .containerRelativeFrame([.horizontal, .vertical])
                     }
+                .navigationBarBackButtonHidden(true)
+
                     
-                
                 }
                 
                 }
-                }
-                    .onAppear {
-                        DispatchQueue.main.asyncAfter(deadline: .now()+3) {
-                            withAnimation {
-                                self.showSplash = false
-                            }
-                        }
-                    }
-                    .containerRelativeFrame([.horizontal, .vertical])
+                
+                
 
-            }
-        }
+        
     
 struct CardView: View {
     let imageName: String

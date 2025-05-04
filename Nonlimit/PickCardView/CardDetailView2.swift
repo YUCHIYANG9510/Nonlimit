@@ -1,13 +1,13 @@
 //
-//  CardDetailView.swift
+//  CardDetailView2.swift
 //  Nonlimit
 //
-//  Created by Designer on 2024/4/13.
+//  Created by Designer on 2024/4/16.
 //
 
 import SwiftUI
 
-struct CardDetailView: View {
+struct CardDetailView2: View {
     let icon: String
     let title: String
     
@@ -19,7 +19,7 @@ struct CardDetailView: View {
                 Image("askQuestion")
                     .resizable()
                     .frame(width: 233, height: 217)
-                Text("Keep Calm and Ask Question")
+                Text("Keep Calm and Ask Career Question")
                     .font(.title3)
                     .fontWeight(.bold)
                     .foregroundColor(.white)
@@ -35,6 +35,7 @@ struct CardDetailView: View {
                 }
                 .padding()
             }
+            .navigationBarBackButtonHidden(true)
             .containerRelativeFrame([.horizontal, .vertical])
             .background {
                 LinearGradient(gradient: Gradient(colors: [Color(red: 65/255, green: 70/255, blue: 151/255),
@@ -48,7 +49,7 @@ struct CardDetailView: View {
             }
             
             }
-            /*.background(Color(red: 86/255, green: 85/255, blue: 175/255))*/
         }
     }
+
 
