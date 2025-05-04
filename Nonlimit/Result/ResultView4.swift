@@ -15,9 +15,9 @@ struct ImageTextBundle4 {
 struct ResultView4: View {
     
     let bundles: [ImageTextBundle4] = [
-        ImageTextBundle4(imageName: "drink", text: "船到橋頭自然直"),
-        ImageTextBundle4(imageName: "spring", text:"放下它"),
-        ImageTextBundle4(imageName: "trash", text: "相信自己的直覺")
+        ImageTextBundle4(imageName: "drink", text: "去一趟獨旅"),
+        ImageTextBundle4(imageName: "spring", text:"聽一首搖滾樂"),
+        ImageTextBundle4(imageName: "trash", text: "看一部偵探小說")
     ]
     
     @State private var randomBundleIndex = Int.random(in: 0..<3)

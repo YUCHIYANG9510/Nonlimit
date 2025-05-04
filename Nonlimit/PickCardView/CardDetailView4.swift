@@ -6,7 +6,7 @@
 //
 
 import SwiftUI
-
+import Lottie
 
 struct CardDetailView4: View {
     let icon: String
@@ -17,38 +17,55 @@ struct CardDetailView4: View {
     var body: some View {
    
             VStack {
-                Image("askQuestion")
-                    .resizable()
-                    .frame(width: 233, height: 217)
-                Text("Keep Calm and Ask Future Question")
-                    .font(.title3)
-                    .fontWeight(.bold)
-                    .foregroundColor(.white)
+            
+                Text("Keep Calm and Ask Question...")
                     .padding()
-                NavigationLink(destination: ResultView()) {
+                    .font(.title2)
+                    .fontWeight(/*@START_MENU_TOKEN@*/.bold/*@END_MENU_TOKEN@*/)
+                    .multilineTextAlignment(.center)
+                    .foregroundColor(.black.opacity(Double(0.8)))
+                
+                LottieView(animation: .named("universe.json"))
+                    .playbackMode(.playing(.toProgress(1, loopMode: .loop)))
+                    .resizable()
+                    .frame(width: 350, height: 350)
+                
+                NavigationLink(destination: ResultView4()) {
                     Text("SUBMIT")
                         .font(.title)
-                        .fontWeight(.bold)
+                        .fontWeight(.medium)
                         .frame(width: 147, height: 52)
-                        .background(Color(red: 254/255, green: 129/255, blue: 248/255))
-                        .foregroundColor(Color.white)
-                        .cornerRadius(10)
+                        .background(Color.white)
+                                 .cornerRadius(10)
+                                 .overlay(
+                                     RoundedRectangle(cornerRadius: 10)
+                                        .stroke(Color.white.opacity(0.3), lineWidth: 12)
+                                  )
+                                 .shadow(radius: 100)
+                    
+                        .foregroundColor(Color.black.opacity(Double(0.8)))
                 }
-                .padding()
             }
             .navigationBarBackButtonHidden(true)
             .containerRelativeFrame([.horizontal, .vertical])
             .background {
-                LinearGradient(gradient: Gradient(colors: [Color(red: 65/255, green: 70/255, blue: 151/255),
-                                                           Color(red: 88/255, green: 85/255, blue: 175/255)]), startPoint: .topLeading, endPoint: .bottomTrailing)
+                LinearGradient(gradient: Gradient(colors: [Color(red: 237/255, green: 220/255, blue: 244/255),
+                                                               Color(red: 255/255, green: 229/255, blue: 255/255)]), startPoint: .topLeading, endPoint: .bottomTrailing)
                     .edgesIgnoringSafeArea(.all)
                     .hueRotation(.degrees(animateGradient ? 45 : 0))
                     .onAppear {
                         withAnimation(.easeInOut(duration: 3).repeatForever(autoreverses: true)) {
                             animateGradient.toggle()
                         }
+                    }
+                    
+                
             }
-            
+        
             }
         }
-    }
+    
+
+#Preview {
+    CardListView()
+}

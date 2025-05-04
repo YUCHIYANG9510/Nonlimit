@@ -14,6 +14,21 @@
 		C28C954C2BCAAF81003CB92D /* CardListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C28C954B2BCAAF81003CB92D /* CardListView.swift */; };
 		C28C95502BCAB008003CB92D /* ResultView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C28C954F2BCAB008003CB92D /* ResultView.swift */; };
 		C28C95522BCAB35D003CB92D /* CardDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C28C95512BCAB35D003CB92D /* CardDetailView.swift */; };
+		C28C95592BCEAF78003CB92D /* CardDetailView2.swift in Sources */ = {isa = PBXBuildFile; fileRef = C28C95582BCEAF78003CB92D /* CardDetailView2.swift */; };
+		C28C955D2BCEB165003CB92D /* CardDetailView3.swift in Sources */ = {isa = PBXBuildFile; fileRef = C28C955C2BCEB165003CB92D /* CardDetailView3.swift */; };
+		C28C955F2BCEB183003CB92D /* CardDetailView4.swift in Sources */ = {isa = PBXBuildFile; fileRef = C28C955E2BCEB183003CB92D /* CardDetailView4.swift */; };
+		C28C95622BCEB57E003CB92D /* ResultView2.swift in Sources */ = {isa = PBXBuildFile; fileRef = C28C95612BCEB57E003CB92D /* ResultView2.swift */; };
+		C28C95642BCEB62C003CB92D /* ResultView3.swift in Sources */ = {isa = PBXBuildFile; fileRef = C28C95632BCEB62C003CB92D /* ResultView3.swift */; };
+		C28C95662BCEB6D2003CB92D /* ResultView4.swift in Sources */ = {isa = PBXBuildFile; fileRef = C28C95652BCEB6D2003CB92D /* ResultView4.swift */; };
+		C2D4F1412C030E3D004DDD24 /* Lottie in Frameworks */ = {isa = PBXBuildFile; productRef = C2D4F1402C030E3D004DDD24 /* Lottie */; };
+		C2D4F1432C031414004DDD24 /* bgAnimation.json in Resources */ = {isa = PBXBuildFile; fileRef = C2D4F1422C031413004DDD24 /* bgAnimation.json */; };
+		C2D4F1452C032063004DDD24 /* crystal.json in Resources */ = {isa = PBXBuildFile; fileRef = C2D4F1442C032062004DDD24 /* crystal.json */; };
+		C2D4F1472C03229C004DDD24 /* breathAnimation.json in Resources */ = {isa = PBXBuildFile; fileRef = C2D4F1462C03229C004DDD24 /* breathAnimation.json */; };
+		C2D4F1492C032330004DDD24 /* gradient.json in Resources */ = {isa = PBXBuildFile; fileRef = C2D4F1482C032330004DDD24 /* gradient.json */; };
+		C2D4F14B2C037413004DDD24 /* work_result.json in Resources */ = {isa = PBXBuildFile; fileRef = C2D4F14A2C037413004DDD24 /* work_result.json */; };
+		C2D4F14D2C037621004DDD24 /* work-result.json in Resources */ = {isa = PBXBuildFile; fileRef = C2D4F14C2C037621004DDD24 /* work-result.json */; };
+		C2D4F14F2C037723004DDD24 /* Flow 1.json in Resources */ = {isa = PBXBuildFile; fileRef = C2D4F14E2C037722004DDD24 /* Flow 1.json */; };
+		C2D4F1512C15B0E5004DDD24 /* universe.json in Resources */ = {isa = PBXBuildFile; fileRef = C2D4F1502C15B0E5004DDD24 /* universe.json */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -25,6 +40,20 @@
 		C28C954B2BCAAF81003CB92D /* CardListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardListView.swift; sourceTree = "<group>"; };
 		C28C954F2BCAB008003CB92D /* ResultView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResultView.swift; sourceTree = "<group>"; };
 		C28C95512BCAB35D003CB92D /* CardDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardDetailView.swift; sourceTree = "<group>"; };
+		C28C95582BCEAF78003CB92D /* CardDetailView2.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardDetailView2.swift; sourceTree = "<group>"; };
+		C28C955C2BCEB165003CB92D /* CardDetailView3.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardDetailView3.swift; sourceTree = "<group>"; };
+		C28C955E2BCEB183003CB92D /* CardDetailView4.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardDetailView4.swift; sourceTree = "<group>"; };
+		C28C95612BCEB57E003CB92D /* ResultView2.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResultView2.swift; sourceTree = "<group>"; };
+		C28C95632BCEB62C003CB92D /* ResultView3.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResultView3.swift; sourceTree = "<group>"; };
+		C28C95652BCEB6D2003CB92D /* ResultView4.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResultView4.swift; sourceTree = "<group>"; };
+		C2D4F1422C031413004DDD24 /* bgAnimation.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = bgAnimation.json; sourceTree = "<group>"; };
+		C2D4F1442C032062004DDD24 /* crystal.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = crystal.json; sourceTree = "<group>"; };
+		C2D4F1462C03229C004DDD24 /* breathAnimation.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = breathAnimation.json; sourceTree = "<group>"; };
+		C2D4F1482C032330004DDD24 /* gradient.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = gradient.json; sourceTree = "<group>"; };
+		C2D4F14A2C037413004DDD24 /* work_result.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = work_result.json; sourceTree = "<group>"; };
+		C2D4F14C2C037621004DDD24 /* work-result.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "work-result.json"; sourceTree = "<group>"; };
+		C2D4F14E2C037722004DDD24 /* Flow 1.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "Flow 1.json"; sourceTree = "<group>"; };
+		C2D4F1502C15B0E5004DDD24 /* universe.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = universe.json; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -32,6 +61,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C2D4F1412C030E3D004DDD24 /* Lottie in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -42,6 +72,15 @@
 			isa = PBXGroup;
 			children = (
 				C28C953A2BCAAE9F003CB92D /* Nonlimit */,
+				C28C953F2BCAAEA1003CB92D /* Assets.xcassets */,
+				C2D4F1442C032062004DDD24 /* crystal.json */,
+				C2D4F1462C03229C004DDD24 /* breathAnimation.json */,
+				C2D4F1482C032330004DDD24 /* gradient.json */,
+				C2D4F1422C031413004DDD24 /* bgAnimation.json */,
+				C2D4F14A2C037413004DDD24 /* work_result.json */,
+				C2D4F14C2C037621004DDD24 /* work-result.json */,
+				C2D4F14E2C037722004DDD24 /* Flow 1.json */,
+				C2D4F1502C15B0E5004DDD24 /* universe.json */,
 				C28C95392BCAAE9F003CB92D /* Products */,
 			);
 			sourceTree = "<group>";
@@ -60,9 +99,8 @@
 				C28C953B2BCAAE9F003CB92D /* NonlimitApp.swift */,
 				C28C95492BCAAF1C003CB92D /* SplashView.swift */,
 				C28C954B2BCAAF81003CB92D /* CardListView.swift */,
-				C28C95512BCAB35D003CB92D /* CardDetailView.swift */,
-				C28C954F2BCAB008003CB92D /* ResultView.swift */,
-				C28C953F2BCAAEA1003CB92D /* Assets.xcassets */,
+				C28C95602BCEB50E003CB92D /* PickCardView */,
+				C28C95672BCEB6FC003CB92D /* Result */,
 				C28C95412BCAAEA1003CB92D /* Preview Content */,
 			);
 			path = Nonlimit;
@@ -74,6 +112,28 @@
 				C28C95422BCAAEA1003CB92D /* Preview Assets.xcassets */,
 			);
 			path = "Preview Content";
+			sourceTree = "<group>";
+		};
+		C28C95602BCEB50E003CB92D /* PickCardView */ = {
+			isa = PBXGroup;
+			children = (
+				C28C95512BCAB35D003CB92D /* CardDetailView.swift */,
+				C28C95582BCEAF78003CB92D /* CardDetailView2.swift */,
+				C28C955C2BCEB165003CB92D /* CardDetailView3.swift */,
+				C28C955E2BCEB183003CB92D /* CardDetailView4.swift */,
+			);
+			path = PickCardView;
+			sourceTree = "<group>";
+		};
+		C28C95672BCEB6FC003CB92D /* Result */ = {
+			isa = PBXGroup;
+			children = (
+				C28C954F2BCAB008003CB92D /* ResultView.swift */,
+				C28C95612BCEB57E003CB92D /* ResultView2.swift */,
+				C28C95632BCEB62C003CB92D /* ResultView3.swift */,
+				C28C95652BCEB6D2003CB92D /* ResultView4.swift */,
+			);
+			path = Result;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -92,6 +152,9 @@
 			dependencies = (
 			);
 			name = Nonlimit;
+			packageProductDependencies = (
+				C2D4F1402C030E3D004DDD24 /* Lottie */,
+			);
 			productName = Nonlimit;
 			productReference = C28C95382BCAAE9F003CB92D /* Nonlimit.app */;
 			productType = "com.apple.product-type.application";
@@ -120,6 +183,9 @@
 				Base,
 			);
 			mainGroup = C28C952F2BCAAE9F003CB92D;
+			packageReferences = (
+				C2D4F13F2C030E3D004DDD24 /* XCRemoteSwiftPackageReference "lottie-ios" */,
+			);
 			productRefGroup = C28C95392BCAAE9F003CB92D /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -134,8 +200,16 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C2D4F1512C15B0E5004DDD24 /* universe.json in Resources */,
+				C2D4F14B2C037413004DDD24 /* work_result.json in Resources */,
 				C28C95432BCAAEA1003CB92D /* Preview Assets.xcassets in Resources */,
+				C2D4F14F2C037723004DDD24 /* Flow 1.json in Resources */,
 				C28C95402BCAAEA1003CB92D /* Assets.xcassets in Resources */,
+				C2D4F1492C032330004DDD24 /* gradient.json in Resources */,
+				C2D4F1472C03229C004DDD24 /* breathAnimation.json in Resources */,
+				C2D4F1452C032063004DDD24 /* crystal.json in Resources */,
+				C2D4F1432C031414004DDD24 /* bgAnimation.json in Resources */,
+				C2D4F14D2C037621004DDD24 /* work-result.json in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -147,9 +221,15 @@
 			buildActionMask = 2147483647;
 			files = (
 				C28C953C2BCAAE9F003CB92D /* NonlimitApp.swift in Sources */,
+				C28C95622BCEB57E003CB92D /* ResultView2.swift in Sources */,
 				C28C95502BCAB008003CB92D /* ResultView.swift in Sources */,
 				C28C95522BCAB35D003CB92D /* CardDetailView.swift in Sources */,
+				C28C95662BCEB6D2003CB92D /* ResultView4.swift in Sources */,
 				C28C954C2BCAAF81003CB92D /* CardListView.swift in Sources */,
+				C28C95642BCEB62C003CB92D /* ResultView3.swift in Sources */,
+				C28C955F2BCEB183003CB92D /* CardDetailView4.swift in Sources */,
+				C28C955D2BCEB165003CB92D /* CardDetailView3.swift in Sources */,
+				C28C95592BCEAF78003CB92D /* CardDetailView2.swift in Sources */,
 				C28C954A2BCAAF1C003CB92D /* SplashView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -358,6 +438,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		C2D4F13F2C030E3D004DDD24 /* XCRemoteSwiftPackageReference "lottie-ios" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/airbnb/lottie-ios.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 4.4.3;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		C2D4F1402C030E3D004DDD24 /* Lottie */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = C2D4F13F2C030E3D004DDD24 /* XCRemoteSwiftPackageReference "lottie-ios" */;
+			productName = Lottie;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = C28C95302BCAAE9F003CB92D /* Project object */;
 }
