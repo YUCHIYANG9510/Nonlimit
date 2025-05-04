@@ -12,7 +12,7 @@ struct CardListView: View {
     @State private var randomBundleIndex = Int.random(in: 0..<3)
     @State private var animateGradient: Bool = false
     
-    // 定義所有卡片資料
+    // Define all cards data
     private let cards = [
         CardInfo(imageName: "work", title: "WORK", destinationIndex: 1),
         CardInfo(imageName: "love", title: "LOVE", destinationIndex: 2),
@@ -28,54 +28,51 @@ struct CardListView: View {
     private let titleColor = Color(red: 65/255, green: 70/255, blue: 151/255)
 
     var body: some View {
-        NavigationView {
-            VStack(alignment: .leading) {
-                // 標題區域
-                VStack(alignment: .leading, spacing: 4) {
-                    Text("What Answers Do You Seek?")
-                        .font(.title2)
-                        .fontWeight(.bold)
-                        .foregroundColor(titleColor)
-                    
-                    Text("Pick one and ask question")
-                        .font(.body)
-                        .fontWeight(.medium)
-                        .foregroundColor(titleColor.opacity(0.5))
-                }
-                .padding(.top, 24)
-                .padding(.bottom, 4)
-                .padding(.leading, 32)
-
-                // 卡片網格
-                ScrollView {
-                    LazyVGrid(columns: [GridItem(.flexible()), GridItem(.flexible())], spacing: 12) {
-                        ForEach(cards) { card in
-                            CardView(info: card)
-                        }
-                    }
-                    .padding(24)
-                }
+        VStack(alignment: .leading) {
+            // Title area
+            VStack(alignment: .leading, spacing: 4) {
+                Text("What Answers Do You Seek?")
+                    .font(.title2)
+                    .fontWeight(.bold)
+                    .foregroundColor(titleColor)
+                
+                Text("Pick one and ask question")
+                    .font(.body)
+                    .fontWeight(.medium)
+                    .foregroundColor(titleColor.opacity(0.5))
             }
-            .background(
-                LinearGradient(gradient: Gradient(colors: gradientColors),
-                               startPoint: .topLeading,
-                               endPoint: .bottomTrailing)
-                    .edgesIgnoringSafeArea(.all)
-                    .hueRotation(.degrees(animateGradient ? 45 : 0))
-                    .onAppear {
-                        withAnimation(.easeInOut(duration: 3).repeatForever(autoreverses: true)) {
-                            animateGradient.toggle()
-                        }
+            .padding(.top, 24)
+            .padding(.bottom, 4)
+            .padding(.leading, 32)
+
+            // Card grid
+            ScrollView {
+                LazyVGrid(columns: [GridItem(.flexible()), GridItem(.flexible())], spacing: 12) {
+                    ForEach(cards) { card in
+                        CardView(info: card)
                     }
-            )
-            .overlay(SplashView())
-            .containerRelativeFrame([.horizontal, .vertical])
+                }
+                .padding(24)
+            }
         }
+        .background(
+            LinearGradient(gradient: Gradient(colors: gradientColors),
+                           startPoint: .topLeading,
+                           endPoint: .bottomTrailing)
+                .edgesIgnoringSafeArea(.all)
+                .hueRotation(.degrees(animateGradient ? 45 : 0))
+                .onAppear {
+                    withAnimation(.easeInOut(duration: 3).repeatForever(autoreverses: true)) {
+                        animateGradient.toggle()
+                    }
+                }
+        )
+        .containerRelativeFrame([.horizontal, .vertical])
         .navigationBarBackButtonHidden(true)
     }
 }
 
-// 卡片資訊模型
+// Card info model
 struct CardInfo: Identifiable {
     let id = UUID()
     let imageName: String
@@ -83,7 +80,7 @@ struct CardInfo: Identifiable {
     let destinationIndex: Int
 }
 
-// 統一的卡片視圖
+// Unified card view
 struct CardView: View {
     let info: CardInfo
     
@@ -113,7 +110,7 @@ struct CardView: View {
         }
     }
     
-    // 根據卡片類型返回對應的詳情視圖
+    // Return the corresponding detail view based on card type
     @ViewBuilder
     private var destinationView: some View {
         switch info.destinationIndex {
@@ -131,7 +128,6 @@ struct CardView: View {
     }
 }
 
-// 預覽
 #Preview {
     CardListView()
 }

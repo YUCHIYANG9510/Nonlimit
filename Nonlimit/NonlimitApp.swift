@@ -9,9 +9,12 @@ import SwiftUI
 
 @main
 struct NonlimitApp: App {
-    var body: some Scene {
-        WindowGroup {
-            CardListView()
-        }
-    }
-}
+    @StateObject private var appViewModel = AppViewModel()
+       
+       var body: some Scene {
+           WindowGroup {
+               MainView()
+                   .environmentObject(appViewModel)
+           }
+       }
+   }

@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		C21C49B72DC7B3C200583000 /* AppViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C21C49B62DC7B3C100583000 /* AppViewModel.swift */; };
+		C21C49B92DC7B42500583000 /* MainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C21C49B82DC7B42400583000 /* MainView.swift */; };
 		C28C953C2BCAAE9F003CB92D /* NonlimitApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = C28C953B2BCAAE9F003CB92D /* NonlimitApp.swift */; };
 		C28C95402BCAAEA1003CB92D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C28C953F2BCAAEA1003CB92D /* Assets.xcassets */; };
 		C28C95432BCAAEA1003CB92D /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C28C95422BCAAEA1003CB92D /* Preview Assets.xcassets */; };
@@ -32,6 +34,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		C21C49B62DC7B3C100583000 /* AppViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppViewModel.swift; sourceTree = "<group>"; };
+		C21C49B82DC7B42400583000 /* MainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainView.swift; sourceTree = "<group>"; };
 		C28C95382BCAAE9F003CB92D /* Nonlimit.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Nonlimit.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C28C953B2BCAAE9F003CB92D /* NonlimitApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NonlimitApp.swift; sourceTree = "<group>"; };
 		C28C953F2BCAAEA1003CB92D /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -96,6 +100,8 @@
 		C28C953A2BCAAE9F003CB92D /* Nonlimit */ = {
 			isa = PBXGroup;
 			children = (
+				C21C49B82DC7B42400583000 /* MainView.swift */,
+				C21C49B62DC7B3C100583000 /* AppViewModel.swift */,
 				C28C953B2BCAAE9F003CB92D /* NonlimitApp.swift */,
 				C28C95492BCAAF1C003CB92D /* SplashView.swift */,
 				C28C954B2BCAAF81003CB92D /* CardListView.swift */,
@@ -221,7 +227,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				C28C953C2BCAAE9F003CB92D /* NonlimitApp.swift in Sources */,
+				C21C49B92DC7B42500583000 /* MainView.swift in Sources */,
 				C28C95622BCEB57E003CB92D /* ResultView2.swift in Sources */,
+				C21C49B72DC7B3C200583000 /* AppViewModel.swift in Sources */,
 				C28C95502BCAB008003CB92D /* ResultView.swift in Sources */,
 				C28C95522BCAB35D003CB92D /* CardDetailView.swift in Sources */,
 				C28C95662BCEB6D2003CB92D /* ResultView4.swift in Sources */,

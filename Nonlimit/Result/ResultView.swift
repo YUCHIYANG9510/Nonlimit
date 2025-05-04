@@ -9,7 +9,6 @@ import SwiftUI
 import Lottie
 
 struct ResultView: View {
-    
     @Environment(\.presentationMode) var presentationMode
     @State private var animateGradient: Bool = false
 
@@ -20,7 +19,6 @@ struct ResultView: View {
                 .resizable()
                 .edgesIgnoringSafeArea(.all)
                 .overlay(ImageOverlay())
-
             
             VStack {
                 NavigationLink(destination: CardListView()) {
@@ -30,25 +28,21 @@ struct ResultView: View {
                         .frame(width: 147, height: 52)
                         .foregroundColor(Color.black.opacity(Double(0.8)))
                         .background(Color.white)
-                                 .cornerRadius(10)
-                                 .overlay(
-                                     RoundedRectangle(cornerRadius: 10)
-                                        .stroke(Color.white.opacity(0.3), lineWidth: 12)
-                                  )
-                                 .shadow(radius: 100)
+                        .cornerRadius(10)
+                        .overlay(
+                            RoundedRectangle(cornerRadius: 10)
+                                .stroke(Color.white.opacity(0.3), lineWidth: 12)
+                        )
+                        .shadow(radius: 100)
                 }
                 .padding(.top, 650)
                 .padding(.horizontal, 300)
                 Spacer()
             }
             .navigationBarBackButtonHidden(true)
-            
         }
-        
     }
-    
 }
-
 
 struct TextBundle1 {
     let messages: String
@@ -56,7 +50,6 @@ struct TextBundle1 {
 }
 
 struct ImageOverlay: View {
-    
     let bundles: [TextBundle1] = [
         TextBundle1(messages: "You will not be disappointed", osmessages: "你不會失望的"),
         TextBundle1(messages: "Do it early", osmessages: "及早開始"),
@@ -67,13 +60,9 @@ struct ImageOverlay: View {
         TextBundle1(messages: "Go for it", osmessages: "快去吧！"),
         TextBundle1(messages: "Follow your heart", osmessages: "相信你的直覺"),
         TextBundle1(messages: "No", osmessages: "不行"),
-
     ]
 
-
-    
     @State private var randomBundleIndex = Int.random(in: 0..<9)
-
     
     var body: some View {
         VStack {
@@ -82,10 +71,9 @@ struct ImageOverlay: View {
                 .foregroundColor(Color.black.opacity(Double(0.8)))
                 .padding(.bottom, 18)
             VStack {
-                
                 Text(bundles[randomBundleIndex].messages)
                     .font(.title)
-                    .fontWeight(/*@START_MENU_TOKEN@*/.bold/*@END_MENU_TOKEN@*/)
+                    .fontWeight(.bold)
                     .multilineTextAlignment(.center)
                     .foregroundColor(Color(red: 85/255, green: 86/255, blue: 175/255))
                     .padding(.bottom, 4)
@@ -94,24 +82,18 @@ struct ImageOverlay: View {
                     .font(.title3)
                     .foregroundColor(Color(red: 85/255, green: 86/255, blue: 175/255))
                     .opacity(0.7)
-                  
             }
             .padding()
-            .frame(width: 350, height: nil, alignment: .center) // 移除高度限制，允許內容增長
-           .frame(minHeight: 125) // 設置最小高度
+            .frame(width: 350, height: nil, alignment: .center)
+            .frame(minHeight: 125)
             .background(
                 RoundedRectangle(cornerRadius: 20)
                     .fill(Color.white.opacity(0.3))
-                )
+            )
             .padding(.bottom, 330)
-
         }
-        
-        
-
     }
 }
-    
     
 
 
