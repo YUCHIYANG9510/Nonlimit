@@ -14,7 +14,7 @@ struct ResultView: View {
 
     var body: some View {
         ZStack(alignment: .topLeading) {
-            LottieView(animation: .named("Flow 1.json"))
+            LottieView(animation: .named("work-result.json"))
                 .playbackMode(.playing(.toProgress(1, loopMode: .loop)))
                 .resizable()
                 .edgesIgnoringSafeArea(.all)
@@ -46,46 +46,40 @@ struct ResultView: View {
 
 struct TextBundle1 {
     let messages: String
-    let osmessages: String
 }
 
 struct ImageOverlay: View {
     let bundles: [TextBundle1] = [
-        TextBundle1(messages: "You will not be disappointed", osmessages: "你不會失望的"),
-        TextBundle1(messages: "Do it early", osmessages: "及早開始"),
-        TextBundle1(messages: "Let it go", osmessages: "放下吧！"),
-        TextBundle1(messages: "Ask your mother", osmessages: "去問你媽"),
-        TextBundle1(messages: "Ask for help", osmessages: "請人幫忙"),
-        TextBundle1(messages: "Don't be silly", osmessages: "別傻了！"),
-        TextBundle1(messages: "Go for it", osmessages: "快去吧！"),
-        TextBundle1(messages: "Follow your heart", osmessages: "相信你的直覺"),
-        TextBundle1(messages: "No", osmessages: "不行"),
+        TextBundle1(messages: "要記得打卡"),
+        TextBundle1(messages: "領完年終再走"),
+        TextBundle1(messages: "先跑就對了！"),
+        TextBundle1(messages: "該下班了"),
+        TextBundle1(messages: "不是你的問題"),
+        TextBundle1(messages: "相信你的直覺"),
+        TextBundle1(messages: "這裡不是你該待的地方"),
+        TextBundle1(messages: "不可能"),
+        TextBundle1(messages: "放棄吧"),
     ]
 
     @State private var randomBundleIndex = Int.random(in: 0..<9)
     
     var body: some View {
         VStack {
-            Text("A message from the universe...")
+            Text("來自宇宙的訊息...")
                 .font(.title3)
                 .foregroundColor(Color.black.opacity(Double(0.8)))
                 .padding(.bottom, 18)
             VStack {
                 Text(bundles[randomBundleIndex].messages)
-                    .font(.title)
+                    .font(.title2)
                     .fontWeight(.bold)
                     .multilineTextAlignment(.center)
                     .foregroundColor(Color(red: 85/255, green: 86/255, blue: 175/255))
-                    .padding(.bottom, 4)
-
-                Text(bundles[randomBundleIndex].osmessages)
-                    .font(.title3)
-                    .foregroundColor(Color(red: 85/255, green: 86/255, blue: 175/255))
-                    .opacity(0.7)
+                    .padding(2)
             }
             .padding()
             .frame(width: 350, height: nil, alignment: .center)
-            .frame(minHeight: 125)
+            .frame(minHeight: 130)
             .background(
                 RoundedRectangle(cornerRadius: 20)
                     .fill(Color.white.opacity(0.3))

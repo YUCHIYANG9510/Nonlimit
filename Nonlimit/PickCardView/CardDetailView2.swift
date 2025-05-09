@@ -25,10 +25,10 @@ struct CardDetailView2: View {
                     .multilineTextAlignment(.center)
                     .foregroundColor(.black.opacity(Double(0.8)))
                 
-                LottieView(animation: .named("universe.json"))
+                LottieView(animation: .named("crystal.json"))
                     .playbackMode(.playing(.toProgress(1, loopMode: .loop)))
                     .resizable()
-                    .frame(width: 350, height: 350)
+                    .frame(width: 150, height: 300)
                 
                 NavigationLink(destination: ResultView2()) {
                     Text("SUBMIT")
@@ -67,5 +67,8 @@ struct CardDetailView2: View {
     
 
 #Preview {
-    CardListView()
+    // Wrap in NavigationView because it contains a NavigationLink
+    NavigationView {
+        CardDetailView2(icon: "love", title: "LOVE")
+    }
 }

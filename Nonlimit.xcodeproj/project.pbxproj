@@ -9,6 +9,10 @@
 /* Begin PBXBuildFile section */
 		C21C49B72DC7B3C200583000 /* AppViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C21C49B62DC7B3C100583000 /* AppViewModel.swift */; };
 		C21C49B92DC7B42500583000 /* MainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C21C49B82DC7B42400583000 /* MainView.swift */; };
+		C21C4A1D2DC9165A00583000 /* work-result.json in Resources */ = {isa = PBXBuildFile; fileRef = C21C4A1C2DC9165A00583000 /* work-result.json */; };
+		C21C4A5B2DCA5AF800583000 /* lunch-result.json in Resources */ = {isa = PBXBuildFile; fileRef = C21C4A5A2DCA5AF800583000 /* lunch-result.json */; };
+		C21C4A5D2DCA634900583000 /* love-result.json in Resources */ = {isa = PBXBuildFile; fileRef = C21C4A5C2DCA634900583000 /* love-result.json */; };
+		C21C4A5F2DCE5A5900583000 /* future-result.json in Resources */ = {isa = PBXBuildFile; fileRef = C21C4A5E2DCE5A5900583000 /* future-result.json */; };
 		C28C953C2BCAAE9F003CB92D /* NonlimitApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = C28C953B2BCAAE9F003CB92D /* NonlimitApp.swift */; };
 		C28C95402BCAAEA1003CB92D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C28C953F2BCAAEA1003CB92D /* Assets.xcassets */; };
 		C28C95432BCAAEA1003CB92D /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C28C95422BCAAEA1003CB92D /* Preview Assets.xcassets */; };
@@ -23,19 +27,17 @@
 		C28C95642BCEB62C003CB92D /* ResultView3.swift in Sources */ = {isa = PBXBuildFile; fileRef = C28C95632BCEB62C003CB92D /* ResultView3.swift */; };
 		C28C95662BCEB6D2003CB92D /* ResultView4.swift in Sources */ = {isa = PBXBuildFile; fileRef = C28C95652BCEB6D2003CB92D /* ResultView4.swift */; };
 		C2D4F1412C030E3D004DDD24 /* Lottie in Frameworks */ = {isa = PBXBuildFile; productRef = C2D4F1402C030E3D004DDD24 /* Lottie */; };
-		C2D4F1432C031414004DDD24 /* bgAnimation.json in Resources */ = {isa = PBXBuildFile; fileRef = C2D4F1422C031413004DDD24 /* bgAnimation.json */; };
 		C2D4F1452C032063004DDD24 /* crystal.json in Resources */ = {isa = PBXBuildFile; fileRef = C2D4F1442C032062004DDD24 /* crystal.json */; };
-		C2D4F1472C03229C004DDD24 /* breathAnimation.json in Resources */ = {isa = PBXBuildFile; fileRef = C2D4F1462C03229C004DDD24 /* breathAnimation.json */; };
-		C2D4F1492C032330004DDD24 /* gradient.json in Resources */ = {isa = PBXBuildFile; fileRef = C2D4F1482C032330004DDD24 /* gradient.json */; };
-		C2D4F14B2C037413004DDD24 /* work_result.json in Resources */ = {isa = PBXBuildFile; fileRef = C2D4F14A2C037413004DDD24 /* work_result.json */; };
-		C2D4F14D2C037621004DDD24 /* work-result.json in Resources */ = {isa = PBXBuildFile; fileRef = C2D4F14C2C037621004DDD24 /* work-result.json */; };
-		C2D4F14F2C037723004DDD24 /* Flow 1.json in Resources */ = {isa = PBXBuildFile; fileRef = C2D4F14E2C037722004DDD24 /* Flow 1.json */; };
 		C2D4F1512C15B0E5004DDD24 /* universe.json in Resources */ = {isa = PBXBuildFile; fileRef = C2D4F1502C15B0E5004DDD24 /* universe.json */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		C21C49B62DC7B3C100583000 /* AppViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppViewModel.swift; sourceTree = "<group>"; };
 		C21C49B82DC7B42400583000 /* MainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainView.swift; sourceTree = "<group>"; };
+		C21C4A1C2DC9165A00583000 /* work-result.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = "work-result.json"; sourceTree = "<group>"; };
+		C21C4A5A2DCA5AF800583000 /* lunch-result.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = "lunch-result.json"; sourceTree = "<group>"; };
+		C21C4A5C2DCA634900583000 /* love-result.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = "love-result.json"; sourceTree = "<group>"; };
+		C21C4A5E2DCE5A5900583000 /* future-result.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = "future-result.json"; sourceTree = "<group>"; };
 		C28C95382BCAAE9F003CB92D /* Nonlimit.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Nonlimit.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C28C953B2BCAAE9F003CB92D /* NonlimitApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NonlimitApp.swift; sourceTree = "<group>"; };
 		C28C953F2BCAAEA1003CB92D /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -50,13 +52,7 @@
 		C28C95612BCEB57E003CB92D /* ResultView2.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResultView2.swift; sourceTree = "<group>"; };
 		C28C95632BCEB62C003CB92D /* ResultView3.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResultView3.swift; sourceTree = "<group>"; };
 		C28C95652BCEB6D2003CB92D /* ResultView4.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResultView4.swift; sourceTree = "<group>"; };
-		C2D4F1422C031413004DDD24 /* bgAnimation.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = bgAnimation.json; sourceTree = "<group>"; };
 		C2D4F1442C032062004DDD24 /* crystal.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = crystal.json; sourceTree = "<group>"; };
-		C2D4F1462C03229C004DDD24 /* breathAnimation.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = breathAnimation.json; sourceTree = "<group>"; };
-		C2D4F1482C032330004DDD24 /* gradient.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = gradient.json; sourceTree = "<group>"; };
-		C2D4F14A2C037413004DDD24 /* work_result.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = work_result.json; sourceTree = "<group>"; };
-		C2D4F14C2C037621004DDD24 /* work-result.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "work-result.json"; sourceTree = "<group>"; };
-		C2D4F14E2C037722004DDD24 /* Flow 1.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "Flow 1.json"; sourceTree = "<group>"; };
 		C2D4F1502C15B0E5004DDD24 /* universe.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = universe.json; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -78,12 +74,10 @@
 				C28C953A2BCAAE9F003CB92D /* Nonlimit */,
 				C28C953F2BCAAEA1003CB92D /* Assets.xcassets */,
 				C2D4F1442C032062004DDD24 /* crystal.json */,
-				C2D4F1462C03229C004DDD24 /* breathAnimation.json */,
-				C2D4F1482C032330004DDD24 /* gradient.json */,
-				C2D4F1422C031413004DDD24 /* bgAnimation.json */,
-				C2D4F14A2C037413004DDD24 /* work_result.json */,
-				C2D4F14C2C037621004DDD24 /* work-result.json */,
-				C2D4F14E2C037722004DDD24 /* Flow 1.json */,
+				C21C4A5C2DCA634900583000 /* love-result.json */,
+				C21C4A1C2DC9165A00583000 /* work-result.json */,
+				C21C4A5A2DCA5AF800583000 /* lunch-result.json */,
+				C21C4A5E2DCE5A5900583000 /* future-result.json */,
 				C2D4F1502C15B0E5004DDD24 /* universe.json */,
 				C28C95392BCAAE9F003CB92D /* Products */,
 			);
@@ -206,16 +200,14 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C21C4A5B2DCA5AF800583000 /* lunch-result.json in Resources */,
+				C21C4A5F2DCE5A5900583000 /* future-result.json in Resources */,
 				C2D4F1512C15B0E5004DDD24 /* universe.json in Resources */,
-				C2D4F14B2C037413004DDD24 /* work_result.json in Resources */,
+				C21C4A5D2DCA634900583000 /* love-result.json in Resources */,
+				C21C4A1D2DC9165A00583000 /* work-result.json in Resources */,
 				C28C95432BCAAEA1003CB92D /* Preview Assets.xcassets in Resources */,
-				C2D4F14F2C037723004DDD24 /* Flow 1.json in Resources */,
 				C28C95402BCAAEA1003CB92D /* Assets.xcassets in Resources */,
-				C2D4F1492C032330004DDD24 /* gradient.json in Resources */,
-				C2D4F1472C03229C004DDD24 /* breathAnimation.json in Resources */,
 				C2D4F1452C032063004DDD24 /* crystal.json in Resources */,
-				C2D4F1432C031414004DDD24 /* bgAnimation.json in Resources */,
-				C2D4F14D2C037621004DDD24 /* work-result.json in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

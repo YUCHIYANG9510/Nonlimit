@@ -63,5 +63,8 @@ struct CardDetailView: View {
     
 
 #Preview {
-    CardListView()
+    // Wrap in NavigationView because it contains a NavigationLink
+    NavigationView {
+        CardDetailView(icon: "work", title: "WORK")
+    }
 }
