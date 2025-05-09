@@ -46,20 +46,19 @@ struct ResultView2: View {
 
 struct TextBundle2 {
     let messages: String
-    let osmessages: String
 }
 
 struct ImageOverlay2: View {
     let bundles: [TextBundle2] = [
-        TextBundle2(messages: "They're not the one", osmessages: "他/她不是對的人"),
-        TextBundle2(messages: "Make the first move", osmessages: "主動出擊"),
-        TextBundle2(messages: "Wait a little longer", osmessages: "再等等看"),
-        TextBundle2(messages: "Open your heart", osmessages: "敞開心扉"),
-        TextBundle2(messages: "Look elsewhere", osmessages: "看看其他選擇"),
-        TextBundle2(messages: "Cherish what you have", osmessages: "珍惜現在擁有的"),
-        TextBundle2(messages: "Don't rush", osmessages: "別操之過急"),
-        TextBundle2(messages: "Say what you feel", osmessages: "說出你的感受"),
-        TextBundle2(messages: "Time will tell", osmessages: "時間會證明一切"),
+        TextBundle2(messages: "感情的問題一律建議分手"),
+        TextBundle2(messages: "單身比和錯的人在一起更好"),
+        TextBundle2(messages: "愛真的需要勇氣"),
+        TextBundle2(messages: "去問你媽"),
+        TextBundle2(messages: "下一個會更好"),
+        TextBundle2(messages: "顯而易見"),
+        TextBundle2(messages: "當然"),
+        TextBundle2(messages: "怎麼可能"),
+        TextBundle2(messages: "相信你的直覺"),
     ]
 
     @State private var randomBundleIndex = Int.random(in: 0..<9)
@@ -78,10 +77,6 @@ struct ImageOverlay2: View {
                     .foregroundColor(Color(red: 85/255, green: 86/255, blue: 175/255))
                     .padding(.bottom, 4)
 
-                Text(bundles[randomBundleIndex].osmessages)
-                    .font(.title3)
-                    .foregroundColor(Color(red: 85/255, green: 86/255, blue: 175/255))
-                    .opacity(0.7)
             }
             .padding()
             .frame(width: 350, height: nil, alignment: .center)

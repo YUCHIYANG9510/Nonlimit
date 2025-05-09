@@ -34,6 +34,8 @@ struct SplashView: View {
     }
 }
 
+
 #Preview {
     SplashView()
+        .environmentObject(AppViewModel())
 }
