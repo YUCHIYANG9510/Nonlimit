@@ -9,8 +9,8 @@ import SwiftUI
 import Lottie
 
 struct ResultView2: View {
+    @EnvironmentObject var appState: AppState
     @Environment(\.presentationMode) var presentationMode
-    @State private var animateGradient: Bool = false
 
     var body: some View {
         ZStack(alignment: .topLeading) {
@@ -21,7 +21,8 @@ struct ResultView2: View {
                 .overlay(ImageOverlay2())
             
             VStack {
-                NavigationLink(destination: CardListView()) {
+                // 修改為返回到新的 CardListView 實例，保持已選中的卡片索引
+                NavigationLink(destination: CardListView().environmentObject(appState)) {
                     Text("BACK")
                         .font(.title)
                         .fontWeight(.medium)
@@ -39,10 +40,10 @@ struct ResultView2: View {
                 .padding(.horizontal, 300)
                 Spacer()
             }
-            .navigationBarBackButtonHidden(true)
-        }
-    }
-}
+                        .navigationBarBackButtonHidden(true)
+                    }
+                }
+            }
 
 struct TextBundle2 {
     let messages: String

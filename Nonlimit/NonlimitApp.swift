@@ -9,12 +9,15 @@ import SwiftUI
 
 @main
 struct NonlimitApp: App {
-    @StateObject private var appViewModel = AppViewModel()
-       
-       var body: some Scene {
-           WindowGroup {
-               MainView()
-                   .environmentObject(appViewModel)
-           }
-       }
-   }
+    // 創建應用狀態並注入到環境中
+    @StateObject private var appState = AppState()
+    
+    var body: some Scene {
+        WindowGroup {
+            NavigationStack {
+                CardListView()
+            }
+            .environmentObject(appState)
+        }
+    }
+}

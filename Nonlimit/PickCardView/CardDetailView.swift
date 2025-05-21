@@ -12,6 +12,7 @@ struct CardDetailView: View {
     let icon: String
     let title: String
     
+    @EnvironmentObject var appState: AppState
     @State private var animateGradient: Bool = false
     
     var body: some View {
@@ -66,8 +67,6 @@ struct CardDetailView: View {
     
 
 #Preview {
-    // Wrap in NavigationView because it contains a NavigationLink
-    NavigationView {
-        CardDetailView(icon: "work", title: "WORK")
-    }
+    ResultView()
+        .environmentObject(AppState())
 }

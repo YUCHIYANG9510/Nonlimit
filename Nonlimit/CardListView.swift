@@ -8,6 +8,8 @@
 import SwiftUI
 
 struct CardListView: View {
+    // 使用環境對象
+    @EnvironmentObject var appState: AppState
     @State private var animateGradient: Bool = false
     
     private let cards = [
@@ -49,20 +51,33 @@ struct CardListView: View {
                     let cardWidth = size.width - 60
                     
                     ScrollView(.horizontal) {
-                        HStack(spacing: 15) {
-                            ForEach(cards) { card in
-                                CardView(card: card, cardWidth: cardWidth, cardHeight: size.height - 40)
+                        ScrollViewReader { scrollProxy in
+                            HStack(spacing: 15) {
+                                ForEach(Array(cards.enumerated()), id: \.element.id) { index, card in
+                                    CardView(card: card, cardWidth: cardWidth, cardHeight: size.height - 40, index: index)
+                                    .id(index) // 添加 ID 以便滾動定位
+                                }
+                                
+                                Spacer()
+                                    .frame(width: 20)
                             }
-                            
-                            Spacer()
-                                .frame(width: 20)
+                            .padding(.horizontal, 20)
+                            .scrollTargetLayout()
+                            .frame(height: size.height, alignment: .top)
+                            .onAppear {
+                                // 添加延遲以確保視圖已經完全加載
+                                DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
+                                    // 使用更平滑的動畫曲線和較長的持續時間
+                                    withAnimation(.spring(response: 0.8, dampingFraction: 0.7)) {
+                                        scrollProxy.scrollTo(appState.selectedCardIndex, anchor: .center)
+                                    }
+                                }
+                            }
                         }
-                        .padding(.horizontal, 20)
-                        .scrollTargetLayout()
-                        .frame(height: size.height, alignment: .top)
                     }
                     .scrollTargetBehavior(.viewAligned)
                     .scrollIndicators(.hidden)
+                    
                 }
                 .frame(height: 500)
                 .padding(.top, 10)
@@ -73,12 +88,17 @@ struct CardListView: View {
 }
 
 struct CardView: View {
+    @EnvironmentObject var appState: AppState
+    
     let card: CardInfo
     let cardWidth: CGFloat
     let cardHeight: CGFloat
+    let index: Int
 
     var body: some View {
-        NavigationLink(destination: destinationView(for: card)) {
+        NavigationLink {
+            destinationView(for: card)
+        } label: {
             ZStack {
                 GeometryReader { proxy in
                     let cardSize = proxy.size
@@ -89,20 +109,9 @@ struct CardView: View {
 
                         Image(card.imageName)
                             .resizable()
-                            .aspectRatio(contentMode: .fill)                            .frame(width: cardSize.width, height: cardSize.height)
+                            .aspectRatio(contentMode: .fill)
+                            .frame(width: cardSize.width, height: cardSize.height)
                             .clipShape(RoundedRectangle(cornerRadius: 16))
-
-                       /* VStack(alignment: .leading) {
-                            Text(card.title)
-                                .font(.title3)
-                                .fontWeight(.bold)
-                                .foregroundColor(.white)
-                                .padding(.vertical, 8)
-                                .padding(.horizontal, 16)
-                                .background(Color.black.opacity(0.6))
-                                .cornerRadius(8)
-                        }
-                        .padding() */
                     }
                     .clipShape(RoundedRectangle(cornerRadius: 16))
                 }
@@ -112,7 +121,10 @@ struct CardView: View {
                 view.scaleEffect(phase.isIdentity ? 1 : 0.95)
             }
         }
-        .buttonStyle(PlainButtonStyle())
+        .simultaneousGesture(TapGesture().onEnded {
+            // Update the selected index when tapped, but don't block navigation
+            appState.selectedCardIndex = index
+        })
     }
 
     @ViewBuilder
@@ -132,11 +144,6 @@ struct CardView: View {
     }
 }
 
-
-
-
-
-
 // Card info model
 struct CardInfo: Identifiable {
     let id = UUID()
@@ -148,6 +155,6 @@ struct CardInfo: Identifiable {
 #Preview {
     NavigationStack {
         CardListView()
+            .environmentObject(AppState())
     }
 }
-
