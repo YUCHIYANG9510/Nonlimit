@@ -71,12 +71,11 @@ struct ImageOverlay2: View {
                 .padding(.bottom, 18)
             VStack {
                 Text(bundles[randomBundleIndex].messages)
-                    .font(.title)
+                    .font(.title2)
                     .fontWeight(.bold)
                     .multilineTextAlignment(.center)
                     .foregroundColor(Color(red: 85/255, green: 86/255, blue: 175/255))
-                    .padding(.bottom, 4)
-
+                    .padding(2)
             }
             .padding()
             .frame(width: 350, height: nil, alignment: .center)

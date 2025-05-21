@@ -18,17 +18,20 @@ struct CardDetailView2: View {
    
             VStack {
             
-                Text("Keep Calm and Ask Question...")
-                    .padding()
+                Text("深呼吸、保持冷靜...")
                     .font(.title2)
-                    .fontWeight(/*@START_MENU_TOKEN@*/.bold/*@END_MENU_TOKEN@*/)
+                    .fontWeight(.bold)
                     .multilineTextAlignment(.center)
-                    .foregroundColor(.black.opacity(Double(0.8)))
-                
-                LottieView(animation: .named("crystal.json"))
+                    .foregroundColor(.black.opacity(Double(0.7)))
+                Text("提出你想問的問題")
+                    .font(.title2)
+                    .fontWeight(.bold)
+                    .multilineTextAlignment(.center)
+                    .foregroundColor(.black.opacity(Double(0.7)))
+                LottieView(animation: .named("mediation.json"))
                     .playbackMode(.playing(.toProgress(1, loopMode: .loop)))
                     .resizable()
-                    .frame(width: 150, height: 300)
+                    .frame(width: 350, height: 350)
                 
                 NavigationLink(destination: ResultView2()) {
                     Text("SUBMIT")
