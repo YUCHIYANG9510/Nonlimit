@@ -14,6 +14,10 @@ struct FortuneEntry: TimelineEntry {
     let dayOfYear: Int
     let idiom: String
     let imageName: String
+    let idiomDescription: String
+    let lunarTerm: String
+    let suitableActivities: String
+    let unsuitableActivities: String
 }
 
 // MARK: - Timeline Provider
@@ -23,28 +27,54 @@ struct FortuneProvider: TimelineProvider {
     }
 
     func getSnapshot(in context: Context, completion: @escaping (FortuneEntry) -> Void) {
-        completion(sampleEntry)
+        completion(getCurrentEntry())
     }
 
     func getTimeline(in context: Context, completion: @escaping (Timeline<FortuneEntry>) -> Void) {
+        let currentEntry = getCurrentEntry()
+        
+        // 設定下次更新時間為明天的 00:00
+        let calendar = Calendar.current
+        let nextUpdate = calendar.startOfDay(for: currentEntry.date.addingTimeInterval(86400))
+        let timeline = Timeline(entries: [currentEntry], policy: .after(nextUpdate))
+        completion(timeline)
+    }
+    
+    private func getCurrentEntry() -> FortuneEntry {
         let currentDate = Date()
         let calendar = Calendar.current
         let dayOfYear = calendar.ordinality(of: .day, in: .year, for: currentDate) ?? 1
-
-        let entry = FortuneEntry(
+        
+        // 從 LunarCalendarDataManager 獲取當天資料
+        let lunarData = LunarCalendarDataManager.shared.getData(for: currentDate)
+        
+        return FortuneEntry(
             date: currentDate,
             dayOfYear: dayOfYear,
-            idiom: "一灘爛泥",
-            imageName: "widget"
+            idiom: lunarData.idiom,
+            imageName: lunarData.idiomImageName,
+            idiomDescription: lunarData.idiomDescription,
+            lunarTerm: lunarData.lunarTerm,
+            suitableActivities: lunarData.suitableActivities,
+            unsuitableActivities: lunarData.unsuitableActivities
         )
-
-        let nextUpdate = calendar.startOfDay(for: currentDate.addingTimeInterval(86400))
-        let timeline = Timeline(entries: [entry], policy: .after(nextUpdate))
-        completion(timeline)
     }
 
     private var sampleEntry: FortuneEntry {
-        FortuneEntry(date: Date(), dayOfYear: 139, idiom: "一灘爛泥", imageName: "widget")
+        let sampleDate = Date()
+        let lunarData = LunarCalendarDataManager.shared.getData(for: sampleDate)
+        let dayOfYear = Calendar.current.ordinality(of: .day, in: .year, for: sampleDate) ?? 139
+        
+        return FortuneEntry(
+            date: sampleDate,
+            dayOfYear: dayOfYear,
+            idiom: lunarData.idiom,
+            imageName: lunarData.idiomImageName,
+            idiomDescription: lunarData.idiomDescription,
+            lunarTerm: lunarData.lunarTerm,
+            suitableActivities: lunarData.suitableActivities,
+            unsuitableActivities: lunarData.unsuitableActivities
+        )
     }
 }
 
@@ -72,13 +102,13 @@ struct FortuneWidgetEntryView: View {
             VStack(spacing: 10) {
                 HStack {
                     Text(entry.idiom)
-                        .font(.caption2)
-                        .fontWeight(.semibold)
-                        .foregroundColor(.purple)
+                        .font(.system(size: 12, weight: .regular))
+                        .foregroundColor(.accent)
+                        .lineLimit(1)
                     Spacer()
                     Text("#\(entry.dayOfYear)")
-                        .font(.caption2)
-                        .foregroundColor(.purple)
+                        .font(.system(size: 12, weight: .regular, design: .monospaced))
+                        .foregroundColor(.accent)
                 }
 
                 Image(entry.imageName)
@@ -88,12 +118,12 @@ struct FortuneWidgetEntryView: View {
 
                 HStack {
                     Text(entry.date.weekdayString)
-                        .font(.caption2)
-                        .foregroundColor(.purple)
+                        .font(.system(size: 12, weight: .regular, design: .monospaced))
+                        .foregroundColor(.accent)
                     Spacer()
                     Text(entry.date.formattedMMdd())
-                        .font(.caption2)
-                        .foregroundColor(.purple.opacity(0.8))
+                        .font(.system(size: 12, weight: .regular, design: .monospaced))
+                        .foregroundColor(.accent.opacity(0.8))
                 }
             }
             .padding(4)
@@ -110,17 +140,26 @@ struct FortuneWidgetEntryView: View {
                     .scaledToFit()
                     .frame(width: 120)
 
-                VStack(alignment: .leading, spacing: 12) {
+                VStack(alignment: .leading, spacing: 10) {
+                    
                     Text(entry.idiom)
-                        .font(.title3)
-                        .foregroundColor(.purple)
-                    HStack{
-                        Text(entry.date.weekdayString)
-                            .font(.caption)
-                            .foregroundColor(.purple)
-                        Text(entry.date.formattedMMdd())
-                            .font(.caption)
-                            .foregroundColor(.purple.opacity(0.8))
+                            .font(.system(size: 16, weight: .regular))
+                            .fontWeight(.semibold)
+                            .foregroundColor(.accent)
+                        
+                    VStack(alignment: .leading, spacing: 4) {
+                        
+                        HStack {
+                            Text(entry.date.weekdayString)
+                                .font(.system(size: 13, weight: .regular, design: .monospaced))
+                                .foregroundColor(.accent)
+                            Text(entry.date.formattedMMdd())
+                                .font(.system(size: 13, weight: .regular, design: .monospaced))
+                                .foregroundColor(.accent.opacity(0.8))
+                        }
+                        Text("#\(entry.dayOfYear)")
+                            .font(.system(size: 13, weight: .regular, design: .monospaced))
+                            .foregroundColor(.accent.opacity(0.6))
                     }
                 }
 
@@ -133,31 +172,45 @@ struct FortuneWidgetEntryView: View {
     private var largeView: some View {
             VStack(spacing: 12) {
                 HStack {
-                    Text("\(entry.idiom)")
-                        .font(.headline)
-                        .foregroundColor(.purple)
+                    VStack(alignment: .leading, spacing: 2) {
+                        Text(entry.idiom)
+                            .font(.system(size: 18, weight: .regular))
+                            .foregroundColor(.accent)
+                    }
                     Spacer()
                     Text("#\(entry.dayOfYear)")
-                        .font(.subheadline)
-                        .foregroundColor(.purple)
+                        .font(.system(size: 18, weight: .regular, design: .monospaced))
+                        .foregroundColor(.accent)
                 }
                 
-                Spacer()
 
                 Image(entry.imageName)
                     .resizable()
                     .scaledToFit()
                     .frame(height: 180)
+            
 
-                Spacer()
-
-                HStack {
-                    Text(entry.date.weekdayString.capitalized)
-                    Spacer()
-                    Text(entry.date.formattedMMdd())
+                
+                // 宜忌資訊
+                VStack(spacing: 28) {
+                    Text("\(entry.suitableActivities) | \(entry.unsuitableActivities)")
+                        .font(.system(size: 14, weight: .regular, design: .monospaced))
+                        .foregroundColor(.accent.opacity(0.6))
+                        .lineLimit(2)
+                        .multilineTextAlignment(.center)
+                    
+                    HStack {
+                        Text(entry.date.weekdayString)
+                            .font(.system(size: 18, weight: .regular, design: .monospaced))
+                            .foregroundColor(.accent)
+                        Spacer()
+                        Text(entry.date.formattedMMdd())
+                            .font(.system(size: 18, weight: .regular, design: .monospaced))
+                            .foregroundColor(.accent.opacity(0.8))
+                    }
+                    .font(.headline)
+                    .foregroundColor(.accent.opacity(0.8))
                 }
-                .font(.headline)
-                .foregroundColor(.purple.opacity(0.8))
             }
             .padding()
             .containerBackground(Color(.systemPink).opacity(0.1), for: .widget)
@@ -218,11 +271,19 @@ struct FortuneWidget_Previews: PreviewProvider {
     }
 
     static var sampleEntry: FortuneEntry {
-        FortuneEntry(
-            date: Date(),
-            dayOfYear: 139,
-            idiom: "一灘爛泥",
-            imageName: "widget"
+        let sampleDate = Date()
+        let lunarData = LunarCalendarDataManager.shared.getData(for: sampleDate)
+        let dayOfYear = Calendar.current.ordinality(of: .day, in: .year, for: sampleDate) ?? 139
+        
+        return FortuneEntry(
+            date: sampleDate,
+            dayOfYear: dayOfYear,
+            idiom: lunarData.idiom,
+            imageName: lunarData.idiomImageName,
+            idiomDescription: lunarData.idiomDescription,
+            lunarTerm: lunarData.lunarTerm,
+            suitableActivities: lunarData.suitableActivities,
+            unsuitableActivities: lunarData.unsuitableActivities
         )
     }
 }

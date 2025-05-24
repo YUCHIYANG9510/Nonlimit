@@ -25,6 +25,10 @@ struct CardListView: View {
                     // 第二個頁面 - 日曆
                     CalendarView()
                         .frame(width: geometry.size.width)
+                    
+                    // 第三個頁面 - 年度總覽
+                    YearOverviewView()
+                        .frame(width: geometry.size.width)
                 }
                 .offset(x: -CGFloat(selectedTab) * geometry.size.width)
                 .contentShape(Rectangle()) // 確保點擊區域正確
@@ -56,10 +60,17 @@ struct CustomTabBar: View {
                 selectedImage: "calendar-on",
                 unselectedImage: "calendar-off"
             )
+            
+            tabButton(
+                index: 2,
+                selectedImage: "year-overview-on",
+                unselectedImage: "year-overview-off"
+            )
         }
         .background(
             RoundedRectangle(cornerRadius: 16)
                 .fill(Color.white.opacity(0.5))
+                
         )
         .padding(.bottom, 32)
     }
@@ -80,6 +91,111 @@ struct CustomTabBar: View {
             .padding(.vertical, 10)
         }
         .buttonStyle(PlainButtonStyle())
+    }
+}
+
+// MARK: - Year Overview View
+struct YearOverviewView: View {
+    @State private var animateGradient = false
+    
+    private var daysRemaining: Int {
+        let now = Date()
+        let calendar = Calendar.current
+        let year = calendar.component(.year, from: now)
+        let endOfYear = calendar.date(from: DateComponents(year: year, month: 12, day: 31)) ?? now
+        return calendar.dateComponents([.day], from: now, to: endOfYear).day ?? 0
+    }
+    
+    private var dayOfYear: Int {
+        Calendar.current.ordinality(of: .day, in: .year, for: Date()) ?? 1
+    }
+    
+    var body: some View {
+        ZStack {
+            // 背景漸層
+            LinearGradient(
+                gradient: Gradient(colors: [
+                    Color(red: 237/255, green: 220/255, blue: 244/255),
+                    Color(red: 255/255, green: 229/255, blue: 255/255)
+                ]),
+                startPoint: .topLeading,
+                endPoint: .bottomTrailing
+            )
+            .ignoresSafeArea(.all)
+            .hueRotation(.degrees(animateGradient ? 45 : 0))
+            .onAppear {
+                withAnimation(.easeInOut(duration: 3).repeatForever(autoreverses: true)) {
+                    animateGradient.toggle()
+                }
+            }
+            
+            ScrollView {
+                VStack(spacing: 16) {
+                    // 頂部空間
+                    Spacer()
+                        .frame(height: 80)
+                    
+                    // 剩餘天數標題
+                    Text("\(daysRemaining) days left")
+                        .font(.system(size: 16, weight: .regular, design: .monospaced))
+                        .fontWeight(.medium)
+                        .foregroundColor(.accentColor)
+                    
+                    // 365天圖片網格
+                    LazyVGrid(columns: Array(repeating: GridItem(.flexible(), spacing: 4), count: 14), spacing: 4) {
+                        ForEach(1...365, id: \.self) { dayIndex in
+                            if dayIndex <= dayOfYear {
+                                // 已過去的日期顯示對應的成語圖片（縮小版）
+                                DayImageView(dayIndex: dayIndex, isCompleted: true)
+                            } else {
+                                // 未來的日期顯示圓點
+                                DayImageView(dayIndex: dayIndex, isCompleted: false)
+                            }
+                        }
+                    }
+                    .padding(.horizontal, 30)
+                    
+                    // 底部空間
+                    Spacer()
+                        .frame(height: 120)
+                }
+            }
+        }
+    }
+}
+
+// MARK: - Day Image View
+struct DayImageView: View {
+    let dayIndex: Int
+    let isCompleted: Bool
+    
+    private func getImageForDay(_ day: Int) -> String {
+        // 根據日期獲取對應的成語圖片
+        // 這裡你需要根據實際的 LunarCalendarDataManager 來獲取對應日期的圖片
+        let calendar = Calendar.current
+        let year = calendar.component(.year, from: Date())
+        let date = calendar.date(from: DateComponents(year: year, day: day)) ?? Date()
+        let lunarData = LunarCalendarDataManager.shared.getData(for: date)
+        return lunarData.idiomImageName
+    }
+    
+    var body: some View {
+        ZStack {
+            if isCompleted {
+                // 顯示成語圖片（縮小版）
+                Image(getImageForDay(dayIndex))
+                    .resizable()
+                    .aspectRatio(contentMode: .fit)
+                    .frame(width: 24, height: 24)
+                    .clipShape(Circle())
+            } else {
+                // 顯示圓點
+                Circle()
+                    .fill(Color.accentColor.opacity(0.2))
+                    .frame(width: 4, height: 4)
+            }
+        }
+        .frame(width: 30, height: 30)
     }
 }
 
@@ -262,7 +378,6 @@ struct CalendarView: View {
         }
     }
 }
-
 
 // MARK: - Calendar View Extensions
 extension CalendarView {

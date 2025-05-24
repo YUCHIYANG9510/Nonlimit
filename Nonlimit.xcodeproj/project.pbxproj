@@ -22,6 +22,8 @@
 		C2BB86862DE01BFA00334E97 /* AnswerBookWidgetExtension.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = C2BB86722DE01BF800334E97 /* AnswerBookWidgetExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		C2BB86AB2DE1790700334E97 /* CardType.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2BB86AA2DE1790500334E97 /* CardType.swift */; };
 		C2BB86C42DE1D74D00334E97 /* LunarCalendarDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2BB86C32DE1D74C00334E97 /* LunarCalendarDataManager.swift */; };
+		C2BB86C52DE2098F00334E97 /* LunarCalendarDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2BB86C32DE1D74C00334E97 /* LunarCalendarDataManager.swift */; };
+		C2BB86C62DE209CD00334E97 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C28C953F2BCAAEA1003CB92D /* Assets.xcassets */; };
 		C2D4F1412C030E3D004DDD24 /* Lottie in Frameworks */ = {isa = PBXBuildFile; productRef = C2D4F1402C030E3D004DDD24 /* Lottie */; };
 		C2D4F1452C032063004DDD24 /* crystal.json in Resources */ = {isa = PBXBuildFile; fileRef = C2D4F1442C032062004DDD24 /* crystal.json */; };
 		C2D4F1512C15B0E5004DDD24 /* universe.json in Resources */ = {isa = PBXBuildFile; fileRef = C2D4F1502C15B0E5004DDD24 /* universe.json */; };
@@ -80,10 +82,17 @@
 			);
 			target = C2BB86712DE01BF800334E97 /* AnswerBookWidgetExtension */;
 		};
+		C2BB86C82DE20A8200334E97 /* PBXFileSystemSynchronizedBuildFileExceptionSet */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				Assets.xcassets,
+			);
+			target = C28C95372BCAAE9F003CB92D /* Nonlimit */;
+		};
 /* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
-		C2BB86782DE01BF800334E97 /* AnswerBookWidget */ = {isa = PBXFileSystemSynchronizedRootGroup; exceptions = (C2BB868A2DE01BFA00334E97 /* PBXFileSystemSynchronizedBuildFileExceptionSet */, ); explicitFileTypes = {}; explicitFolders = (); path = AnswerBookWidget; sourceTree = "<group>"; };
+		C2BB86782DE01BF800334E97 /* AnswerBookWidget */ = {isa = PBXFileSystemSynchronizedRootGroup; exceptions = (C2BB86C82DE20A8200334E97 /* PBXFileSystemSynchronizedBuildFileExceptionSet */, C2BB868A2DE01BFA00334E97 /* PBXFileSystemSynchronizedBuildFileExceptionSet */, ); explicitFileTypes = {}; explicitFolders = (); path = AnswerBookWidget; sourceTree = "<group>"; };
 		C2BB86C22DE18F3700334E97 /* View */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = View; sourceTree = "<group>"; };
 /* End PBXFileSystemSynchronizedRootGroup section */
 
@@ -277,6 +286,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C2BB86C62DE209CD00334E97 /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -299,6 +309,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C2BB86C52DE2098F00334E97 /* LunarCalendarDataManager.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

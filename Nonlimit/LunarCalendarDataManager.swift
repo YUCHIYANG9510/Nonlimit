@@ -25,8 +25,26 @@ class LunarCalendarDataManager {
     
     private let calendarData: [String: LunarCalendarData] = [
         // 使用 "MM-dd" 格式作為 key，方便查詢
+        "05-22": LunarCalendarData(
+            lunarTerm: "廿五",
+            suitableActivities: "宜出行、會友",
+            unsuitableActivities: "忌造廟、掘井",
+            idiom: "勢在必行",
+            idiomDescription: "形容迫於情勢，非做不可。",
+            idiomImageName: "day142"
+        ),
+        
+        "05-23": LunarCalendarData(
+            lunarTerm: "廿六",
+            suitableActivities: "宜出行、會友",
+            unsuitableActivities: "忌造廟、掘井",
+            idiom: "勢在必行",
+            idiomDescription: "形容迫於情勢，非做不可。",
+            idiomImageName: "day143"
+        ),
+        
         "05-24": LunarCalendarData(
-            lunarTerm: "小滿",
+            lunarTerm: "廿七",
             suitableActivities: "宜出行、會友",
             unsuitableActivities: "忌造廟、掘井",
             idiom: "一事無成",
@@ -34,23 +52,22 @@ class LunarCalendarDataManager {
             idiomImageName: "day144"
         ),
         "05-25": LunarCalendarData(
-            lunarTerm: "小滿",
+            lunarTerm: "廿八",
             suitableActivities: "宜祈福、納財",
-            unsuitableActivities: "忌婚嫁、安葬",
-            idiom: "春風得意",
-            idiomDescription: "春風和煦，令人感到得意舒暢。後多指進士及第後的得意心情。",
+            unsuitableActivities: "忌蓋屋、安葬",
+            idiom: "鬼鬼祟祟",
+            idiomDescription: "形容行事不光明，偷偷摸摸的樣子。",
             idiomImageName: "day145"
         ),
         "05-26": LunarCalendarData(
-            lunarTerm: "小滿",
+            lunarTerm: "廿九",
             suitableActivities: "宜開市、立券",
             unsuitableActivities: "忌動土、修造",
-            idiom: "花好月圓",
-            idiomDescription: "花兒正盛開，月亮正圓滿。比喻美好圓滿。多用於祝賀人新婚。",
+            idiom: "一天三杯",
+            idiomDescription: "指一天至少需要喝三杯手搖飲料，才有益於身心健康，專家建議早中晚各來一杯。",
             idiomImageName: "day146"
         ),
-        // 你可以繼續添加更多日期的資料...
-        // 建議按月份分組，方便管理
+
         
         // 六月資料
         "06-01": LunarCalendarData(
