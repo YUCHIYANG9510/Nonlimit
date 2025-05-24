@@ -15,48 +15,62 @@ struct CardListView: View {
     
     var body: some View {
         ZStack(alignment: .bottom) {
-            // TabView with tag only
-            TabView(selection: $selectedTab) {
-                CardSelectionView()
-                    .tag(0)
-                CalendarView()
-                    .tag(1)
+            // 使用 GeometryReader 來實現自定義滑動動畫
+            GeometryReader { geometry in
+                HStack(spacing: 0) {
+                    // 第一個頁面 - 卡片選擇
+                    CardSelectionView()
+                        .frame(width: geometry.size.width)
+                    
+                    // 第二個頁面 - 日曆
+                    CalendarView()
+                        .frame(width: geometry.size.width)
+                }
+                .offset(x: -CGFloat(selectedTab) * geometry.size.width)
+                .contentShape(Rectangle()) // 確保點擊區域正確
             }
+            .clipped() // 防止內容溢出顯示白底
             .edgesIgnoringSafeArea(.all)
             
-            // Custom tab bar
+            // 自定義底部 Tab Bar
             CustomTabBar(selectedTab: $selectedTab)
         }
         .navigationBarBackButtonHidden(true)
     }
 }
 
+// MARK: - Custom Tab Bar
 struct CustomTabBar: View {
     @Binding var selectedTab: Int
-
+    
     var body: some View {
         HStack(spacing: -16) {
-            tabButton(index: 0,
-                      selectedImage: "ask-question-on",
-                      unselectedImage: "ask-question-off")
-
-            tabButton(index: 1,
-                      selectedImage: "calendar-on",
-                      unselectedImage: "calendar-off")
+            tabButton(
+                index: 0,
+                selectedImage: "ask-question-on",
+                unselectedImage: "ask-question-off"
+            )
+            
+            tabButton(
+                index: 1,
+                selectedImage: "calendar-on",
+                unselectedImage: "calendar-off"
+            )
         }
-
         .background(
             RoundedRectangle(cornerRadius: 16)
                 .fill(Color.white.opacity(0.5))
         )
         .padding(.bottom, 32)
     }
-
-    func tabButton(index: Int, selectedImage: String, unselectedImage: String) -> some View {
+    
+    private func tabButton(index: Int, selectedImage: String, unselectedImage: String) -> some View {
         Button(action: {
-            selectedTab = index
+            withAnimation(.spring(response: 0.6, dampingFraction: 0.8)) {
+                selectedTab = index
+            }
         }) {
-            VStack() {
+            VStack {
                 Image(selectedTab == index ? selectedImage : unselectedImage)
                     .resizable()
                     .aspectRatio(contentMode: .fit)
@@ -64,56 +78,73 @@ struct CustomTabBar: View {
             }
             .padding(.horizontal, 12)
             .padding(.vertical, 10)
-            
         }
+        .buttonStyle(PlainButtonStyle())
     }
 }
 
-
-
-// MARK: - Card Selection View (原本的選擇頁面)
+// MARK: - Card Selection View
 struct CardSelectionView: View {
     @EnvironmentObject var appState: AppState
-    @State private var animateGradient: Bool = false
-
+    @State private var animateGradient = false
+    
     private let cards = [
-        CardSelectionInfo(imageName: "work-button", title: "Work.", cardType: .work, detailIcon: "work-card-2"),
-        CardSelectionInfo(imageName: "love-button", title: "Love.", cardType: .love, detailIcon: "love-card-2"),
-        CardSelectionInfo(imageName: "future-button", title: "Future.", cardType: .future, detailIcon: "future-card-2"),
-        CardSelectionInfo(imageName: "lunch-button", title: "Lunch.", cardType: .lunch, detailIcon: "lunch-card-2")
+        CardSelectionInfo(
+            imageName: "work-button",
+            title: "Work.",
+            cardType: .work,
+            detailIcon: "work-card-2"
+        ),
+        CardSelectionInfo(
+            imageName: "love-button",
+            title: "Love.",
+            cardType: .love,
+            detailIcon: "love-card-2"
+        ),
+        CardSelectionInfo(
+            imageName: "future-button",
+            title: "Future.",
+            cardType: .future,
+            detailIcon: "future-card-2"
+        ),
+        CardSelectionInfo(
+            imageName: "lunch-button",
+            title: "Lunch.",
+            cardType: .lunch,
+            detailIcon: "lunch-card-2"
+        )
     ]
     
     var body: some View {
         ZStack {
+            // 背景漸層
             LinearGradient(
-                    gradient: Gradient(colors: [
-                        Color(red: 237/255, green: 220/255, blue: 244/255),
-                        Color(red: 255/255, green: 229/255, blue: 255/255)
-                    ]),
-                    startPoint: .topLeading,
-                    endPoint: .bottomTrailing
-                )
-                .edgesIgnoringSafeArea(.all)
-                .hueRotation(.degrees(animateGradient ? 45 : 0))
-                .onAppear {
-                    withAnimation(.easeInOut(duration: 3).repeatForever(autoreverses: true)) {
-                        animateGradient.toggle()
-                    }
+                gradient: Gradient(colors: [
+                    Color(red: 237/255, green: 220/255, blue: 244/255),
+                    Color(red: 255/255, green: 229/255, blue: 255/255)
+                ]),
+                startPoint: .topLeading,
+                endPoint: .bottomTrailing
+            )
+            .ignoresSafeArea(.all)
+            .hueRotation(.degrees(animateGradient ? 45 : 0))
+            .onAppear {
+                withAnimation(.easeInOut(duration: 3).repeatForever(autoreverses: true)) {
+                    animateGradient.toggle()
                 }
-            
-            .ignoresSafeArea()
+            }
             
             VStack(spacing: 40) {
-                
                 Spacer()
                 
+                // 標題
                 Text("你在尋找哪方面的答案呢？")
                     .font(.title2)
                     .fontWeight(.medium)
                     .foregroundColor(.accentColor)
                     .padding(.bottom, 16)
                 
-                // 選項卡片
+                // 卡片選項
                 VStack(spacing: 24) {
                     ForEach(cards, id: \.id) { card in
                         CardSelectionButton(card: card)
@@ -127,29 +158,29 @@ struct CardSelectionView: View {
     }
 }
 
-// MARK: - Calendar View (新的日曆頁面)
+// MARK: - Calendar View
 struct CalendarView: View {
     @State private var currentDate = Date()
-    @State private var animateGradient: Bool = false
-
+    @State private var animateGradient = false
+    
     var body: some View {
         ZStack {
+            // 背景漸層
             LinearGradient(
-                    gradient: Gradient(colors: [
-                        Color(red: 237/255, green: 220/255, blue: 244/255),
-                        Color(red: 255/255, green: 229/255, blue: 255/255)
-                    ]),
-                    startPoint: .topLeading,
-                    endPoint: .bottomTrailing
-                )
-                .edgesIgnoringSafeArea(.all)
-                .hueRotation(.degrees(animateGradient ? 45 : 0))
-                .onAppear {
-                    withAnimation(.easeInOut(duration: 3).repeatForever(autoreverses: true)) {
-                        animateGradient.toggle()
-                    }
+                gradient: Gradient(colors: [
+                    Color(red: 237/255, green: 220/255, blue: 244/255),
+                    Color(red: 255/255, green: 229/255, blue: 255/255)
+                ]),
+                startPoint: .topLeading,
+                endPoint: .bottomTrailing
+            )
+            .ignoresSafeArea(.all)
+            .hueRotation(.degrees(animateGradient ? 45 : 0))
+            .onAppear {
+                withAnimation(.easeInOut(duration: 3).repeatForever(autoreverses: true)) {
+                    animateGradient.toggle()
                 }
-            .ignoresSafeArea()
+            }
             
             VStack(spacing: 30) {
                 // 日期資訊區塊
@@ -166,18 +197,18 @@ struct CalendarView: View {
                         
                         Spacer()
                         
-                        Text(dayOfYearDescription)
-                            .font(.system(size: 64, weight: .bold, design: .monospaced))                            .foregroundColor(.accentColor)
+                        Text(dayOfMonth)
+                            .font(.system(size: 64, weight: .bold, design: .monospaced))
+                            .foregroundColor(.accentColor)
                         
                         Spacer()
-
+                        
                         VStack(alignment: .trailing, spacing: 4) {
                             Text(yearMonthFormatter.string(from: currentDate))
                                 .font(.headline)
                                 .foregroundColor(.accentColor)
                         }
                     }
-                    
                     
                     VStack(spacing: 4) {
                         Text(lunarDate)
@@ -188,23 +219,18 @@ struct CalendarView: View {
                             .foregroundColor(.black.opacity(0.7))
                     }
                 }
-                .padding(.top, 50)
+                .padding(.top, 100)
                 .padding(.horizontal, 30)
                 
                 // 成語卡片
                 VStack {
                     RoundedRectangle(cornerRadius: 20)
-                        .fill(Color.white.opacity(0.9))
+                        .fill(Color.white.opacity(0.5))
                         .frame(height: 400)
                         .overlay(
                             VStack(spacing: 20) {
-                                ZStack {
-
-                                    Image("day144")
-                                        .foregroundColor(.blue)
-                                        .frame(width: 200, height: 200)
-
-                                }
+                                Image("day144")
+                                    .frame(width: 200, height: 200)
                                 
                                 Text("一事無成")
                                     .font(.title)
@@ -232,8 +258,10 @@ struct CalendarView: View {
             }
         }
     }
-    
-    // MARK: - Date Formatters and Computed Properties
+}
+
+// MARK: - Calendar View Extensions
+extension CalendarView {
     private var dateFormatter: DateFormatter {
         let formatter = DateFormatter()
         formatter.dateFormat = "EEEE"
@@ -250,23 +278,23 @@ struct CalendarView: View {
         Calendar.current.ordinality(of: .day, in: .year, for: currentDate) ?? 1
     }
     
-    private var dayOfYearDescription: String {
+    private var dayOfMonth: String {
         let day = Calendar.current.component(.day, from: currentDate)
         return String(day)
     }
     
     private var lunarDate: String {
-        // 這裡應該使用真正的農曆轉換，暫時使用假資料
+        // TODO: 實際實現農曆轉換
         return "小滿"
     }
     
     private var suitableActivities: String {
-        // 宜的活動，實際應該從農曆資料獲取
+        // TODO: 從真實農曆資料獲取
         return "宜出行、會友"
     }
     
     private var unsuitableActivities: String {
-        // 忌的活動，實際應該從農曆資料獲取
+        // TODO: 從真實農曆資料獲取
         return "忌造廟、掘井"
     }
 }
@@ -276,16 +304,20 @@ struct CardSelectionButton: View {
     let card: CardSelectionInfo
     
     var body: some View {
-        NavigationLink(destination: CardDetailView(
-            icon: card.detailIcon,
-            title: card.title.uppercased().replacingOccurrences(of: ".", with: ""),
-            cardType: card.cardType
-        )) {
+        NavigationLink(
+            destination: CardDetailView(
+                icon: card.detailIcon,
+                title: card.title.uppercased().replacingOccurrences(of: ".", with: ""),
+                cardType: card.cardType
+            )
+        ) {
             Image(card.imageName)
                 .resizable()
                 .aspectRatio(contentMode: .fit)
-                .frame(height: 70) // 調整高度，寬度會自動適應
+                .frame(height: 70)
+                .shadow(color: .primary.opacity(0.2), radius: 2, x: 1, y: 1)
         }
+        .buttonStyle(PlainButtonStyle())
     }
 }
 
