@@ -15,17 +15,12 @@
 		C28C953C2BCAAE9F003CB92D /* NonlimitApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = C28C953B2BCAAE9F003CB92D /* NonlimitApp.swift */; };
 		C28C95402BCAAEA1003CB92D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C28C953F2BCAAEA1003CB92D /* Assets.xcassets */; };
 		C28C95432BCAAEA1003CB92D /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C28C95422BCAAEA1003CB92D /* Preview Assets.xcassets */; };
-		C28C954A2BCAAF1C003CB92D /* SplashView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C28C95492BCAAF1C003CB92D /* SplashView.swift */; };
-		C28C954C2BCAAF81003CB92D /* CardListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C28C954B2BCAAF81003CB92D /* CardListView.swift */; };
-		C28C95502BCAB008003CB92D /* ResultView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C28C954F2BCAB008003CB92D /* ResultView.swift */; };
-		C28C95522BCAB35D003CB92D /* CardDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C28C95512BCAB35D003CB92D /* CardDetailView.swift */; };
 		C2BA45F32DD36B7D004387FF /* mediation.json in Resources */ = {isa = PBXBuildFile; fileRef = C2BA45F22DD36B7D004387FF /* mediation.json */; };
 		C2BA46242DDDCB29004387FF /* AppState.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2BA46232DDDCB28004387FF /* AppState.swift */; };
 		C2BB86752DE01BF800334E97 /* WidgetKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C2BB86742DE01BF800334E97 /* WidgetKit.framework */; };
 		C2BB86772DE01BF800334E97 /* SwiftUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C2BB86762DE01BF800334E97 /* SwiftUI.framework */; };
 		C2BB86862DE01BFA00334E97 /* AnswerBookWidgetExtension.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = C2BB86722DE01BF800334E97 /* AnswerBookWidgetExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		C2BB86AB2DE1790700334E97 /* CardType.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2BB86AA2DE1790500334E97 /* CardType.swift */; };
-		C2BB86AD2DE17A4700334E97 /* CardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2BB86AC2DE17A4600334E97 /* CardView.swift */; };
 		C2D4F1412C030E3D004DDD24 /* Lottie in Frameworks */ = {isa = PBXBuildFile; productRef = C2D4F1402C030E3D004DDD24 /* Lottie */; };
 		C2D4F1452C032063004DDD24 /* crystal.json in Resources */ = {isa = PBXBuildFile; fileRef = C2D4F1442C032062004DDD24 /* crystal.json */; };
 		C2D4F1512C15B0E5004DDD24 /* universe.json in Resources */ = {isa = PBXBuildFile; fileRef = C2D4F1502C15B0E5004DDD24 /* universe.json */; };
@@ -65,17 +60,12 @@
 		C28C953B2BCAAE9F003CB92D /* NonlimitApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NonlimitApp.swift; sourceTree = "<group>"; };
 		C28C953F2BCAAEA1003CB92D /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		C28C95422BCAAEA1003CB92D /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
-		C28C95492BCAAF1C003CB92D /* SplashView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplashView.swift; sourceTree = "<group>"; };
-		C28C954B2BCAAF81003CB92D /* CardListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardListView.swift; sourceTree = "<group>"; };
-		C28C954F2BCAB008003CB92D /* ResultView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResultView.swift; sourceTree = "<group>"; };
-		C28C95512BCAB35D003CB92D /* CardDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardDetailView.swift; sourceTree = "<group>"; };
 		C2BA45F22DD36B7D004387FF /* mediation.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = mediation.json; sourceTree = "<group>"; };
 		C2BA46232DDDCB28004387FF /* AppState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppState.swift; sourceTree = "<group>"; };
 		C2BB86722DE01BF800334E97 /* AnswerBookWidgetExtension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = AnswerBookWidgetExtension.appex; sourceTree = BUILT_PRODUCTS_DIR; };
 		C2BB86742DE01BF800334E97 /* WidgetKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WidgetKit.framework; path = System/Library/Frameworks/WidgetKit.framework; sourceTree = SDKROOT; };
 		C2BB86762DE01BF800334E97 /* SwiftUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftUI.framework; path = System/Library/Frameworks/SwiftUI.framework; sourceTree = SDKROOT; };
 		C2BB86AA2DE1790500334E97 /* CardType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardType.swift; sourceTree = "<group>"; };
-		C2BB86AC2DE17A4600334E97 /* CardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardView.swift; sourceTree = "<group>"; };
 		C2D4F1442C032062004DDD24 /* crystal.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = crystal.json; sourceTree = "<group>"; };
 		C2D4F1502C15B0E5004DDD24 /* universe.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = universe.json; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -92,6 +82,7 @@
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
 		C2BB86782DE01BF800334E97 /* AnswerBookWidget */ = {isa = PBXFileSystemSynchronizedRootGroup; exceptions = (C2BB868A2DE01BFA00334E97 /* PBXFileSystemSynchronizedBuildFileExceptionSet */, ); explicitFileTypes = {}; explicitFolders = (); path = AnswerBookWidget; sourceTree = "<group>"; };
+		C2BB86C22DE18F3700334E97 /* View */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = View; sourceTree = "<group>"; };
 /* End PBXFileSystemSynchronizedRootGroup section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -148,12 +139,8 @@
 				C2BA46232DDDCB28004387FF /* AppState.swift */,
 				C21C49B82DC7B42400583000 /* MainView.swift */,
 				C28C953B2BCAAE9F003CB92D /* NonlimitApp.swift */,
-				C28C95492BCAAF1C003CB92D /* SplashView.swift */,
 				C2BB86AA2DE1790500334E97 /* CardType.swift */,
-				C28C954B2BCAAF81003CB92D /* CardListView.swift */,
-				C2BB86AC2DE17A4600334E97 /* CardView.swift */,
-				C28C95512BCAB35D003CB92D /* CardDetailView.swift */,
-				C28C954F2BCAB008003CB92D /* ResultView.swift */,
+				C2BB86C22DE18F3700334E97 /* View */,
 				C28C95412BCAAEA1003CB92D /* Preview Content */,
 			);
 			path = Nonlimit;
@@ -192,6 +179,9 @@
 			);
 			dependencies = (
 				C2BB86852DE01BFA00334E97 /* PBXTargetDependency */,
+			);
+			fileSystemSynchronizedGroups = (
+				C2BB86C22DE18F3700334E97 /* View */,
 			);
 			name = Nonlimit;
 			packageProductDependencies = (
@@ -296,12 +286,7 @@
 			files = (
 				C28C953C2BCAAE9F003CB92D /* NonlimitApp.swift in Sources */,
 				C21C49B92DC7B42500583000 /* MainView.swift in Sources */,
-				C28C95502BCAB008003CB92D /* ResultView.swift in Sources */,
-				C2BB86AD2DE17A4700334E97 /* CardView.swift in Sources */,
-				C28C95522BCAB35D003CB92D /* CardDetailView.swift in Sources */,
-				C28C954C2BCAAF81003CB92D /* CardListView.swift in Sources */,
 				C2BA46242DDDCB29004387FF /* AppState.swift in Sources */,
-				C28C954A2BCAAF1C003CB92D /* SplashView.swift in Sources */,
 				C2BB86AB2DE1790700334E97 /* CardType.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
