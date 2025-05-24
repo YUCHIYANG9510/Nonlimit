@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct SplashView: View {
-    @EnvironmentObject private var appViewModel: AppViewModel
+    @EnvironmentObject private var appState: AppState
     
     var body: some View {
         VStack {
@@ -27,7 +27,7 @@ struct SplashView: View {
         .onAppear {
             DispatchQueue.main.asyncAfter(deadline: .now() + 2.0) {
                 withAnimation {
-                    appViewModel.markSplashAsShown()
+                    appState.markSplashAsShown()
                 }
             }
         }
@@ -37,5 +37,5 @@ struct SplashView: View {
 
 #Preview {
     SplashView()
-        .environmentObject(AppViewModel())
+        .environmentObject(AppState())
 }

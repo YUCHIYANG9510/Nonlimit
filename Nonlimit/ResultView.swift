@@ -9,24 +9,27 @@ import SwiftUI
 import Lottie
 
 struct ResultView: View {
+    let cardType: CardType
+    
+    @EnvironmentObject var appState: AppState
     @Environment(\.presentationMode) var presentationMode
-    @State private var animateGradient: Bool = false
-
+    @State private var randomMessageIndex: Int = 0
+    
     var body: some View {
         ZStack(alignment: .topLeading) {
-            LottieView(animation: .named("work-result.json"))
+            LottieView(animation: .named(cardType.animationName))
                 .playbackMode(.playing(.toProgress(1, loopMode: .loop)))
                 .resizable()
                 .edgesIgnoringSafeArea(.all)
-                .overlay(ImageOverlay())
+                .overlay(MessageOverlay(cardType: cardType, messageIndex: randomMessageIndex))
             
             VStack {
-                NavigationLink(destination: CardListView()) {
+                NavigationLink(destination: CardListView().environmentObject(appState)) {
                     Text("BACK")
                         .font(.title)
                         .fontWeight(.medium)
                         .frame(width: 147, height: 52)
-                        .foregroundColor(Color.black.opacity(Double(0.8)))
+                        .foregroundColor(Color.black.opacity(0.8))
                         .background(Color.white)
                         .cornerRadius(10)
                         .overlay(
@@ -41,37 +44,27 @@ struct ResultView: View {
             }
             .navigationBarBackButtonHidden(true)
         }
+        .onAppear {
+            randomMessageIndex = Int.random(in: 0..<cardType.messages.count)
+        }
     }
 }
 
-struct TextBundle1 {
-    let messages: String
-}
-
-struct ImageOverlay: View {
-    let bundles: [TextBundle1] = [
-        TextBundle1(messages: "要記得打卡"),
-        TextBundle1(messages: "領完年終再走"),
-        TextBundle1(messages: "先跑就對了！"),
-        TextBundle1(messages: "該下班了"),
-        TextBundle1(messages: "不是你的問題"),
-        TextBundle1(messages: "相信你的直覺"),
-        TextBundle1(messages: "這裡不是你該待的地方"),
-        TextBundle1(messages: "不可能"),
-        TextBundle1(messages: "放棄吧"),
-    ]
-
-    @State private var randomBundleIndex = Int.random(in: 0..<9)
+// MARK: - Message Overlay
+struct MessageOverlay: View {
+    let cardType: CardType
+    let messageIndex: Int
     
     var body: some View {
         VStack {
             Text("來自宇宙的訊息...")
                 .font(.title3)
-                .foregroundColor(Color.black.opacity(Double(0.8)))
+                .foregroundColor(Color.black.opacity(0.8))
                 .padding(.bottom, 18)
+                
             VStack {
-                Text(bundles[randomBundleIndex].messages)
-                    .font(.title2)
+                Text(cardType.messages[messageIndex])
+                    .font(cardType == .lunch ? .title : .title2)
                     .fontWeight(.bold)
                     .multilineTextAlignment(.center)
                     .foregroundColor(Color(red: 85/255, green: 86/255, blue: 175/255))
@@ -88,9 +81,31 @@ struct ImageOverlay: View {
         }
     }
 }
-    
 
+#Preview("Result - Work") {
+    NavigationView {
+        ResultView(cardType: .work)
+            .environmentObject(AppState())
+    }
+}
 
-#Preview {
-    ResultView()
+#Preview("Result - Love") {
+    NavigationView {
+        ResultView(cardType: .love)
+            .environmentObject(AppState())
+    }
+}
+
+#Preview("Result - Future") {
+    NavigationView {
+        ResultView(cardType: .future)
+            .environmentObject(AppState())
+    }
+}
+
+#Preview("Result - Lunch") {
+    NavigationView {
+        ResultView(cardType: .lunch)
+            .environmentObject(AppState())
+    }
 }
