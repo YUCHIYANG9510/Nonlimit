@@ -21,6 +21,7 @@
 		C2BB86772DE01BF800334E97 /* SwiftUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C2BB86762DE01BF800334E97 /* SwiftUI.framework */; };
 		C2BB86862DE01BFA00334E97 /* AnswerBookWidgetExtension.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = C2BB86722DE01BF800334E97 /* AnswerBookWidgetExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		C2BB86AB2DE1790700334E97 /* CardType.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2BB86AA2DE1790500334E97 /* CardType.swift */; };
+		C2BB86C42DE1D74D00334E97 /* LunarCalendarDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2BB86C32DE1D74C00334E97 /* LunarCalendarDataManager.swift */; };
 		C2D4F1412C030E3D004DDD24 /* Lottie in Frameworks */ = {isa = PBXBuildFile; productRef = C2D4F1402C030E3D004DDD24 /* Lottie */; };
 		C2D4F1452C032063004DDD24 /* crystal.json in Resources */ = {isa = PBXBuildFile; fileRef = C2D4F1442C032062004DDD24 /* crystal.json */; };
 		C2D4F1512C15B0E5004DDD24 /* universe.json in Resources */ = {isa = PBXBuildFile; fileRef = C2D4F1502C15B0E5004DDD24 /* universe.json */; };
@@ -66,6 +67,7 @@
 		C2BB86742DE01BF800334E97 /* WidgetKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WidgetKit.framework; path = System/Library/Frameworks/WidgetKit.framework; sourceTree = SDKROOT; };
 		C2BB86762DE01BF800334E97 /* SwiftUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftUI.framework; path = System/Library/Frameworks/SwiftUI.framework; sourceTree = SDKROOT; };
 		C2BB86AA2DE1790500334E97 /* CardType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardType.swift; sourceTree = "<group>"; };
+		C2BB86C32DE1D74C00334E97 /* LunarCalendarDataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LunarCalendarDataManager.swift; sourceTree = "<group>"; };
 		C2D4F1442C032062004DDD24 /* crystal.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = crystal.json; sourceTree = "<group>"; };
 		C2D4F1502C15B0E5004DDD24 /* universe.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = universe.json; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -136,6 +138,7 @@
 		C28C953A2BCAAE9F003CB92D /* Nonlimit */ = {
 			isa = PBXGroup;
 			children = (
+				C2BB86C32DE1D74C00334E97 /* LunarCalendarDataManager.swift */,
 				C2BA46232DDDCB28004387FF /* AppState.swift */,
 				C21C49B82DC7B42400583000 /* MainView.swift */,
 				C28C953B2BCAAE9F003CB92D /* NonlimitApp.swift */,
@@ -284,6 +287,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C2BB86C42DE1D74D00334E97 /* LunarCalendarDataManager.swift in Sources */,
 				C28C953C2BCAAE9F003CB92D /* NonlimitApp.swift in Sources */,
 				C21C49B92DC7B42500583000 /* MainView.swift in Sources */,
 				C2BA46242DDDCB29004387FF /* AppState.swift in Sources */,

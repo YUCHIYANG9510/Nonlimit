@@ -163,6 +163,10 @@ struct CalendarView: View {
     @State private var currentDate = Date()
     @State private var animateGradient = false
     
+    private var currentLunarData: LunarCalendarData {
+        LunarCalendarDataManager.shared.getData(for: currentDate)
+    }
+
     var body: some View {
         ZStack {
             // 背景漸層
@@ -181,17 +185,18 @@ struct CalendarView: View {
                     animateGradient.toggle()
                 }
             }
-            
+
             VStack(spacing: 30) {
                 // 日期資訊區塊
                 VStack(spacing: 24) {
                     HStack(alignment: .top) {
                         VStack(alignment: .leading, spacing: 4) {
                             Text(dateFormatter.string(from: currentDate))
-                                .font(.headline)
+                                .font(.system(size: 16, weight: .regular, design: .monospaced))
                                 .foregroundColor(.accentColor)
+                            
                             Text("#\(dayOfYear)")
-                                .font(.subheadline)
+                                .font(.system(size: 14, weight: .regular, design: .monospaced))
                                 .foregroundColor(.accentColor.opacity(0.7))
                         }
                         
@@ -205,18 +210,19 @@ struct CalendarView: View {
                         
                         VStack(alignment: .trailing, spacing: 4) {
                             Text(yearMonthFormatter.string(from: currentDate))
-                                .font(.headline)
+                                .font(.system(size: 16, weight: .regular, design: .monospaced))
                                 .foregroundColor(.accentColor)
                         }
                     }
                     
                     VStack(spacing: 4) {
-                        Text(lunarDate)
+                        Text(currentLunarData.lunarTerm)
                             .font(.headline)
-                            .foregroundColor(.black)
-                        Text("\(suitableActivities) | \(unsuitableActivities)")
+                            .foregroundColor(.accentColor)
+                        
+                        Text("\(currentLunarData.suitableActivities)  |  \(currentLunarData.unsuitableActivities)")
                             .font(.subheadline)
-                            .foregroundColor(.black.opacity(0.7))
+                            .foregroundColor(.accentColor.opacity(0.7))
                     }
                 }
                 .padding(.top, 100)
@@ -224,31 +230,28 @@ struct CalendarView: View {
                 
                 // 成語卡片
                 VStack {
-                    RoundedRectangle(cornerRadius: 20)
+                    RoundedRectangle(cornerRadius: 24)
                         .fill(Color.white.opacity(0.5))
                         .frame(height: 400)
                         .overlay(
                             VStack(spacing: 20) {
-                                Image("day144")
+                                Image(currentLunarData.idiomImageName)
+                                    .resizable()
+                                    .scaledToFit()
                                     .frame(width: 200, height: 200)
                                 
-                                Text("一事無成")
-                                    .font(.title)
-                                    .fontWeight(.bold)
-                                    .foregroundColor(.black)
-                                
-                                VStack(spacing: 8) {
-                                    Text("一件事也沒做成。指事業毫無成就。")
-                                        .font(.body)
-                                        .foregroundColor(.black.opacity(0.8))
-                                        .multilineTextAlignment(.center)
+                                VStack(spacing: 12) {
+                                    Text(currentLunarData.idiom)
+                                        .font(.title)
+                                        .fontWeight(.bold)
+                                        .foregroundColor(.accentColor)
                                     
-                                    Text("語出唐·白居易《除夜寄微之》詩。")
-                                        .font(.caption)
-                                        .foregroundColor(.black.opacity(0.6))
+                                    Text(currentLunarData.idiomDescription)
+                                        .font(.system(size: 14))
+                                        .foregroundColor(.accentColor.opacity(0.8))
                                         .multilineTextAlignment(.center)
+                                        .padding(.horizontal, 28)
                                 }
-                                .padding(.horizontal, 20)
                             }
                         )
                 }
@@ -259,6 +262,7 @@ struct CalendarView: View {
         }
     }
 }
+
 
 // MARK: - Calendar View Extensions
 extension CalendarView {
