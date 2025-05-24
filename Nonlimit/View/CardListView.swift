@@ -77,10 +77,10 @@ struct CardSelectionView: View {
     @State private var animateGradient: Bool = false
 
     private let cards = [
-        CardSelectionInfo(imageName: "work-button", title: "Work.", color: Color.purple, cardType: .work, detailIcon: "work-card-2"),
-        CardSelectionInfo(imageName: "love-button", title: "Love.", color: Color.pink, cardType: .love, detailIcon: "love-card-2"),
-        CardSelectionInfo(imageName: "future-button", title: "Future.", color: Color.green, cardType: .future, detailIcon: "future-card-2"),
-        CardSelectionInfo(imageName: "lunch-button", title: "Lunch.", color: Color.orange, cardType: .lunch, detailIcon: "lunch-card-2")
+        CardSelectionInfo(imageName: "work-button", title: "Work.", cardType: .work, detailIcon: "work-card-2"),
+        CardSelectionInfo(imageName: "love-button", title: "Love.", cardType: .love, detailIcon: "love-card-2"),
+        CardSelectionInfo(imageName: "future-button", title: "Future.", cardType: .future, detailIcon: "future-card-2"),
+        CardSelectionInfo(imageName: "lunch-button", title: "Lunch.", cardType: .lunch, detailIcon: "lunch-card-2")
     ]
     
     var body: some View {
@@ -110,7 +110,7 @@ struct CardSelectionView: View {
                 Text("你在尋找哪方面的答案呢？")
                     .font(.title2)
                     .fontWeight(.medium)
-                    .foregroundColor(Color(red: 85/255, green: 86/255, blue: 175/255))
+                    .foregroundColor(.accentColor)
                     .padding(.bottom, 16)
                 
                 // 選項卡片
@@ -153,29 +153,31 @@ struct CalendarView: View {
             
             VStack(spacing: 30) {
                 // 日期資訊區塊
-                VStack(spacing: 8) {
-                    HStack {
+                VStack(spacing: 24) {
+                    HStack(alignment: .top) {
                         VStack(alignment: .leading, spacing: 4) {
                             Text(dateFormatter.string(from: currentDate))
                                 .font(.headline)
-                                .foregroundColor(.black)
+                                .foregroundColor(.accentColor)
                             Text("#\(dayOfYear)")
                                 .font(.subheadline)
-                                .foregroundColor(.black.opacity(0.7))
+                                .foregroundColor(.accentColor.opacity(0.7))
                         }
                         
                         Spacer()
                         
+                        Text(dayOfYearDescription)
+                            .font(.system(size: 64, weight: .bold, design: .monospaced))                            .foregroundColor(.accentColor)
+                        
+                        Spacer()
+
                         VStack(alignment: .trailing, spacing: 4) {
                             Text(yearMonthFormatter.string(from: currentDate))
                                 .font(.headline)
-                                .foregroundColor(.black)
+                                .foregroundColor(.accentColor)
                         }
                     }
                     
-                    Text(dayOfYearDescription)
-                        .font(.system(size: 50, weight: .bold))
-                        .foregroundColor(.black)
                     
                     VStack(spacing: 4) {
                         Text(lunarDate)
@@ -186,7 +188,7 @@ struct CalendarView: View {
                             .foregroundColor(.black.opacity(0.7))
                     }
                 }
-                .padding(.top, 40)
+                .padding(.top, 50)
                 .padding(.horizontal, 30)
                 
                 // 成語卡片
@@ -196,16 +198,12 @@ struct CalendarView: View {
                         .frame(height: 400)
                         .overlay(
                             VStack(spacing: 20) {
-                                // 企鵝圖示區域
                                 ZStack {
-                                    Circle()
-                                        .fill(Color.blue.opacity(0.1))
-                                        .frame(width: 120, height: 120)
-                                    
-                                    // 這裡可以放置企鵝圖片
-                                    Image(systemName: "face.smiling")
-                                        .font(.system(size: 50))
+
+                                    Image("day144")
                                         .foregroundColor(.blue)
+                                        .frame(width: 200, height: 200)
+
                                 }
                                 
                                 Text("一事無成")
@@ -239,7 +237,6 @@ struct CalendarView: View {
     private var dateFormatter: DateFormatter {
         let formatter = DateFormatter()
         formatter.dateFormat = "EEEE"
-        formatter.locale = Locale(identifier: "zh_TW")
         return formatter
     }
     
@@ -297,7 +294,6 @@ struct CardSelectionInfo: Identifiable {
     let id = UUID()
     let imageName: String
     let title: String
-    let color: Color
     let cardType: CardType
     let detailIcon: String
 }
