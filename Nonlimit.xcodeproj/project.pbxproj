@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 56;
+	objectVersion = 70;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -28,10 +28,37 @@
 		C28C95662BCEB6D2003CB92D /* ResultView4.swift in Sources */ = {isa = PBXBuildFile; fileRef = C28C95652BCEB6D2003CB92D /* ResultView4.swift */; };
 		C2BA45F32DD36B7D004387FF /* mediation.json in Resources */ = {isa = PBXBuildFile; fileRef = C2BA45F22DD36B7D004387FF /* mediation.json */; };
 		C2BA46242DDDCB29004387FF /* AppState.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2BA46232DDDCB28004387FF /* AppState.swift */; };
+		C2BB86752DE01BF800334E97 /* WidgetKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C2BB86742DE01BF800334E97 /* WidgetKit.framework */; };
+		C2BB86772DE01BF800334E97 /* SwiftUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C2BB86762DE01BF800334E97 /* SwiftUI.framework */; };
+		C2BB86862DE01BFA00334E97 /* AnswerBookWidgetExtension.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = C2BB86722DE01BF800334E97 /* AnswerBookWidgetExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		C2D4F1412C030E3D004DDD24 /* Lottie in Frameworks */ = {isa = PBXBuildFile; productRef = C2D4F1402C030E3D004DDD24 /* Lottie */; };
 		C2D4F1452C032063004DDD24 /* crystal.json in Resources */ = {isa = PBXBuildFile; fileRef = C2D4F1442C032062004DDD24 /* crystal.json */; };
 		C2D4F1512C15B0E5004DDD24 /* universe.json in Resources */ = {isa = PBXBuildFile; fileRef = C2D4F1502C15B0E5004DDD24 /* universe.json */; };
 /* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		C2BB86842DE01BFA00334E97 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = C28C95302BCAAE9F003CB92D /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = C2BB86712DE01BF800334E97;
+			remoteInfo = AnswerBookWidgetExtension;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		C2BB86872DE01BFA00334E97 /* Embed Foundation Extensions */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 13;
+			files = (
+				C2BB86862DE01BFA00334E97 /* AnswerBookWidgetExtension.appex in Embed Foundation Extensions */,
+			);
+			name = "Embed Foundation Extensions";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		C21C49B62DC7B3C100583000 /* AppViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppViewModel.swift; sourceTree = "<group>"; };
@@ -56,9 +83,26 @@
 		C28C95652BCEB6D2003CB92D /* ResultView4.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResultView4.swift; sourceTree = "<group>"; };
 		C2BA45F22DD36B7D004387FF /* mediation.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = mediation.json; sourceTree = "<group>"; };
 		C2BA46232DDDCB28004387FF /* AppState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppState.swift; sourceTree = "<group>"; };
+		C2BB86722DE01BF800334E97 /* AnswerBookWidgetExtension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = AnswerBookWidgetExtension.appex; sourceTree = BUILT_PRODUCTS_DIR; };
+		C2BB86742DE01BF800334E97 /* WidgetKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WidgetKit.framework; path = System/Library/Frameworks/WidgetKit.framework; sourceTree = SDKROOT; };
+		C2BB86762DE01BF800334E97 /* SwiftUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftUI.framework; path = System/Library/Frameworks/SwiftUI.framework; sourceTree = SDKROOT; };
 		C2D4F1442C032062004DDD24 /* crystal.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = crystal.json; sourceTree = "<group>"; };
 		C2D4F1502C15B0E5004DDD24 /* universe.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = universe.json; sourceTree = "<group>"; };
 /* End PBXFileReference section */
+
+/* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
+		C2BB868A2DE01BFA00334E97 /* PBXFileSystemSynchronizedBuildFileExceptionSet */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				Info.plist,
+			);
+			target = C2BB86712DE01BF800334E97 /* AnswerBookWidgetExtension */;
+		};
+/* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
+
+/* Begin PBXFileSystemSynchronizedRootGroup section */
+		C2BB86782DE01BF800334E97 /* AnswerBookWidget */ = {isa = PBXFileSystemSynchronizedRootGroup; exceptions = (C2BB868A2DE01BFA00334E97 /* PBXFileSystemSynchronizedBuildFileExceptionSet */, ); explicitFileTypes = {}; explicitFolders = (); path = AnswerBookWidget; sourceTree = "<group>"; };
+/* End PBXFileSystemSynchronizedRootGroup section */
 
 /* Begin PBXFrameworksBuildPhase section */
 		C28C95352BCAAE9F003CB92D /* Frameworks */ = {
@@ -66,6 +110,15 @@
 			buildActionMask = 2147483647;
 			files = (
 				C2D4F1412C030E3D004DDD24 /* Lottie in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		C2BB866F2DE01BF800334E97 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				C2BB86772DE01BF800334E97 /* SwiftUI.framework in Frameworks */,
+				C2BB86752DE01BF800334E97 /* WidgetKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -84,6 +137,8 @@
 				C21C4A5E2DCE5A5900583000 /* future-result.json */,
 				C2D4F1502C15B0E5004DDD24 /* universe.json */,
 				C2BA45F22DD36B7D004387FF /* mediation.json */,
+				C2BB86782DE01BF800334E97 /* AnswerBookWidget */,
+				C2BB86732DE01BF800334E97 /* Frameworks */,
 				C28C95392BCAAE9F003CB92D /* Products */,
 			);
 			sourceTree = "<group>";
@@ -92,6 +147,7 @@
 			isa = PBXGroup;
 			children = (
 				C28C95382BCAAE9F003CB92D /* Nonlimit.app */,
+				C2BB86722DE01BF800334E97 /* AnswerBookWidgetExtension.appex */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -142,6 +198,15 @@
 			path = Result;
 			sourceTree = "<group>";
 		};
+		C2BB86732DE01BF800334E97 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				C2BB86742DE01BF800334E97 /* WidgetKit.framework */,
+				C2BB86762DE01BF800334E97 /* SwiftUI.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -152,10 +217,12 @@
 				C28C95342BCAAE9F003CB92D /* Sources */,
 				C28C95352BCAAE9F003CB92D /* Frameworks */,
 				C28C95362BCAAE9F003CB92D /* Resources */,
+				C2BB86872DE01BFA00334E97 /* Embed Foundation Extensions */,
 			);
 			buildRules = (
 			);
 			dependencies = (
+				C2BB86852DE01BFA00334E97 /* PBXTargetDependency */,
 			);
 			name = Nonlimit;
 			packageProductDependencies = (
@@ -165,6 +232,28 @@
 			productReference = C28C95382BCAAE9F003CB92D /* Nonlimit.app */;
 			productType = "com.apple.product-type.application";
 		};
+		C2BB86712DE01BF800334E97 /* AnswerBookWidgetExtension */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = C2BB868B2DE01BFA00334E97 /* Build configuration list for PBXNativeTarget "AnswerBookWidgetExtension" */;
+			buildPhases = (
+				C2BB866E2DE01BF800334E97 /* Sources */,
+				C2BB866F2DE01BF800334E97 /* Frameworks */,
+				C2BB86702DE01BF800334E97 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			fileSystemSynchronizedGroups = (
+				C2BB86782DE01BF800334E97 /* AnswerBookWidget */,
+			);
+			name = AnswerBookWidgetExtension;
+			packageProductDependencies = (
+			);
+			productName = AnswerBookWidgetExtension;
+			productReference = C2BB86722DE01BF800334E97 /* AnswerBookWidgetExtension.appex */;
+			productType = "com.apple.product-type.app-extension";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -172,11 +261,14 @@
 			isa = PBXProject;
 			attributes = {
 				BuildIndependentTargetsInParallel = 1;
-				LastSwiftUpdateCheck = 1500;
+				LastSwiftUpdateCheck = 1610;
 				LastUpgradeCheck = 1500;
 				TargetAttributes = {
 					C28C95372BCAAE9F003CB92D = {
 						CreatedOnToolsVersion = 15.0.1;
+					};
+					C2BB86712DE01BF800334E97 = {
+						CreatedOnToolsVersion = 16.1;
 					};
 				};
 			};
@@ -197,6 +289,7 @@
 			projectRoot = "";
 			targets = (
 				C28C95372BCAAE9F003CB92D /* Nonlimit */,
+				C2BB86712DE01BF800334E97 /* AnswerBookWidgetExtension */,
 			);
 		};
 /* End PBXProject section */
@@ -215,6 +308,13 @@
 				C28C95432BCAAEA1003CB92D /* Preview Assets.xcassets in Resources */,
 				C28C95402BCAAEA1003CB92D /* Assets.xcassets in Resources */,
 				C2D4F1452C032063004DDD24 /* crystal.json in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		C2BB86702DE01BF800334E97 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -242,7 +342,22 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		C2BB866E2DE01BF800334E97 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		C2BB86852DE01BFA00334E97 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = C2BB86712DE01BF800334E97 /* AnswerBookWidgetExtension */;
+			targetProxy = C2BB86842DE01BFA00334E97 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
 
 /* Begin XCBuildConfiguration section */
 		C28C95442BCAAEA1003CB92D /* Debug */ = {
@@ -424,6 +539,62 @@
 			};
 			name = Release;
 		};
+		C2BB86882DE01BFA00334E97 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				ASSETCATALOG_COMPILER_WIDGET_BACKGROUND_COLOR_NAME = WidgetBackground;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = FC7BJ52G9K;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = AnswerBookWidget/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = AnswerBookWidget;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				IPHONEOS_DEPLOYMENT_TARGET = 18.1;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.daisyyang.Nonlimit.AnswerBookWidget;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		C2BB86892DE01BFA00334E97 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				ASSETCATALOG_COMPILER_WIDGET_BACKGROUND_COLOR_NAME = WidgetBackground;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = FC7BJ52G9K;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = AnswerBookWidget/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = AnswerBookWidget;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				IPHONEOS_DEPLOYMENT_TARGET = 18.1;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.daisyyang.Nonlimit.AnswerBookWidget;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -441,6 +612,15 @@
 			buildConfigurations = (
 				C28C95472BCAAEA1003CB92D /* Debug */,
 				C28C95482BCAAEA1003CB92D /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		C2BB868B2DE01BFA00334E97 /* Build configuration list for PBXNativeTarget "AnswerBookWidgetExtension" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				C2BB86882DE01BFA00334E97 /* Debug */,
+				C2BB86892DE01BFA00334E97 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
