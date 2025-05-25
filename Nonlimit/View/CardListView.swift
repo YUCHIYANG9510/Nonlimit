@@ -424,7 +424,6 @@ struct CardSelectionView: View {
             }
             
             VStack(spacing: 40) {
-                Spacer()
                 
                 // 標題
                 Text("你在尋找哪方面的答案呢？")
@@ -432,6 +431,7 @@ struct CardSelectionView: View {
                     .fontWeight(.medium)
                     .foregroundColor(.accentColor)
                     .padding(.bottom, 16)
+                    .padding(.top, 150)
                 
                 // 卡片選項
                 VStack(spacing: 24) {

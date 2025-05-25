@@ -25,35 +25,39 @@ class LunarCalendarDataManager {
     
     private let calendarData: [String: LunarCalendarData] = [
         // 使用 "MM-dd" 格式作為 key，方便查詢
+        
+        // 一月資料
         "01-01": LunarCalendarData(
-            lunarTerm: "初一",
-            suitableActivities: "宜祭祀、祈福",
-            unsuitableActivities: "忌開市、動土",
-            idiom: "萬象更新",
-            idiomDescription: "宇宙間一切景象都煥然一新。多用來形容新年新氣象。",
+            lunarTerm: "初三",
+            suitableActivities: "宜出行、納財",
+            unsuitableActivities: "忌嫁娶、安葬",
+            idiom: "一元復始",
+            idiomDescription: "天地之氣在新的一年又回到起點重新運轉。借指新的一年開始。",
             idiomImageName: "day001"
         ),
         
         "01-02": LunarCalendarData(
             lunarTerm: "初二",
-            suitableActivities: "宜出行、納財",
-            unsuitableActivities: "忌嫁娶、安葬",
-            idiom: "吉星高照",
-            idiomDescription: "吉祥的星宿高高照臨。比喻運氣好，得到幸運。",
+            suitableActivities: "宜祭祀、祈福",
+            unsuitableActivities: "忌開市、動土",
+            idiom: "萬象更新",
+            idiomDescription: "宇宙間一切景象都煥然一新。多用來形容新年新氣象。",
             idiomImageName: "day002"
         ),
         
+        
+        
         "01-03": LunarCalendarData(
-            lunarTerm: "初三",
+            lunarTerm: "初四",
             suitableActivities: "宜會友、納采",
             unsuitableActivities: "忌造屋、破土",
-            idiom: "三陽開泰",
-            idiomDescription: "《易經》稱爻連的為陽卦，斷的為陰卦，正月為泰卦，三陽生於下；冬去春來，陰消陽長，有吉亨之象。常用以稱頌歲首或寓意吉祥。",
+            idiom: "愛莫能助",
+            idiomDescription: "指內心雖然同情，想要幫助卻無能為力。語本《詩經．大雅．烝民》。",
             idiomImageName: "day003"
         ),
         
         "01-04": LunarCalendarData(
-            lunarTerm: "初四",
+            lunarTerm: "初五",
             suitableActivities: "宜祈福、修造",
             unsuitableActivities: "忌出行、開倉",
             idiom: "四季平安",
@@ -62,7 +66,7 @@ class LunarCalendarDataManager {
         ),
         
         "01-05": LunarCalendarData(
-            lunarTerm: "初五",
+            lunarTerm: "小寒",
             suitableActivities: "宜開市、納財",
             unsuitableActivities: "忌嫁娶、移徙",
             idiom: "五福臨門",
@@ -71,7 +75,7 @@ class LunarCalendarDataManager {
         ),
         
         "01-06": LunarCalendarData(
-            lunarTerm: "初六",
+            lunarTerm: "初七",
             suitableActivities: "宜沐浴、理髮",
             unsuitableActivities: "忌祭祀、安床",
             idiom: "六六大順",
@@ -80,7 +84,7 @@ class LunarCalendarDataManager {
         ),
         
         "01-07": LunarCalendarData(
-            lunarTerm: "初七",
+            lunarTerm: "初八",
             suitableActivities: "宜會友、宴會",
             unsuitableActivities: "忌動土、栽種",
             idiom: "七星高照",
@@ -89,7 +93,7 @@ class LunarCalendarDataManager {
         ),
         
         "01-08": LunarCalendarData(
-            lunarTerm: "初八",
+            lunarTerm: "初九",
             suitableActivities: "宜祈福、開光",
             unsuitableActivities: "忌嫁娶、入宅",
             idiom: "八面玲瓏",
@@ -98,7 +102,7 @@ class LunarCalendarDataManager {
         ),
         
         "01-09": LunarCalendarData(
-            lunarTerm: "初九",
+            lunarTerm: "初十",
             suitableActivities: "宜出行、交易",
             unsuitableActivities: "忌破土、動工",
             idiom: "九九歸一",
@@ -107,7 +111,7 @@ class LunarCalendarDataManager {
         ),
         
         "01-10": LunarCalendarData(
-            lunarTerm: "初十",
+            lunarTerm: "十一",
             suitableActivities: "宜納財、開倉",
             unsuitableActivities: "忌安葬、修墳",
             idiom: "十全十美",
@@ -116,7 +120,7 @@ class LunarCalendarDataManager {
         ),
         
         "01-11": LunarCalendarData(
-            lunarTerm: "十一",
+            lunarTerm: "十二",
             suitableActivities: "宜修造、裝修",
             unsuitableActivities: "忌嫁娶、出行",
             idiom: "一帆風順",
@@ -125,7 +129,7 @@ class LunarCalendarDataManager {
         ),
         
         "01-12": LunarCalendarData(
-            lunarTerm: "十二",
+            lunarTerm: "十三",
             suitableActivities: "宜祭祀、上樑",
             unsuitableActivities: "忌開市、立券",
             idiom: "一心一意",
@@ -134,7 +138,7 @@ class LunarCalendarDataManager {
         ),
         
         "01-13": LunarCalendarData(
-            lunarTerm: "十三",
+            lunarTerm: "十四",
             suitableActivities: "宜沐浴、掃舍",
             unsuitableActivities: "忌動土、造廟",
             idiom: "一鳴驚人",
@@ -143,7 +147,7 @@ class LunarCalendarDataManager {
         ),
         
         "01-14": LunarCalendarData(
-            lunarTerm: "十四",
+            lunarTerm: "十五",
             suitableActivities: "宜會友、納采",
             unsuitableActivities: "忌嫁娶、安床",
             idiom: "一步登天",
@@ -152,7 +156,7 @@ class LunarCalendarDataManager {
         ),
         
         "01-15": LunarCalendarData(
-            lunarTerm: "十五",
+            lunarTerm: "尾牙",
             suitableActivities: "宜祈福、賞燈",
             unsuitableActivities: "忌破土、掘井",
             idiom: "月圓人團圓",
@@ -161,7 +165,7 @@ class LunarCalendarDataManager {
         ),
         
         "01-16": LunarCalendarData(
-            lunarTerm: "十六",
+            lunarTerm: "十七",
             suitableActivities: "宜出行、開市",
             unsuitableActivities: "忌安葬、修墳",
             idiom: "一日千里",
@@ -170,7 +174,7 @@ class LunarCalendarDataManager {
         ),
         
         "01-17": LunarCalendarData(
-            lunarTerm: "十七",
+            lunarTerm: "十八",
             suitableActivities: "宜納財、交易",
             unsuitableActivities: "忌嫁娶、移徙",
             idiom: "一見如故",
@@ -179,7 +183,7 @@ class LunarCalendarDataManager {
         ),
         
         "01-18": LunarCalendarData(
-            lunarTerm: "十八",
+            lunarTerm: "十九",
             suitableActivities: "宜修造、安門",
             unsuitableActivities: "忌祭祀、開光",
             idiom: "一片丹心",
@@ -188,7 +192,7 @@ class LunarCalendarDataManager {
         ),
         
         "01-19": LunarCalendarData(
-            lunarTerm: "十九",
+            lunarTerm: "廿十",
             suitableActivities: "宜祈福、沐浴",
             unsuitableActivities: "忌動土、造屋",
             idiom: "一往無前",
@@ -197,7 +201,7 @@ class LunarCalendarDataManager {
         ),
         
         "01-20": LunarCalendarData(
-            lunarTerm: "二十",
+            lunarTerm: "大寒",
             suitableActivities: "宜會友、宴會",
             unsuitableActivities: "忌嫁娶、入宅",
             idiom: "二十不惑",
@@ -206,7 +210,7 @@ class LunarCalendarDataManager {
         ),
         
         "01-21": LunarCalendarData(
-            lunarTerm: "廿一",
+            lunarTerm: "廿二",
             suitableActivities: "宜出行、納采",
             unsuitableActivities: "忌安葬、破土",
             idiom: "一諾千金",
@@ -215,7 +219,7 @@ class LunarCalendarDataManager {
         ),
         
         "01-22": LunarCalendarData(
-            lunarTerm: "廿二",
+            lunarTerm: "廿三",
             suitableActivities: "宜開市、立券",
             unsuitableActivities: "忌祭祀、修墳",
             idiom: "一舉兩得",
@@ -224,7 +228,7 @@ class LunarCalendarDataManager {
         ),
         
         "01-23": LunarCalendarData(
-            lunarTerm: "廿三",
+            lunarTerm: "廿四",
             suitableActivities: "宜祈福、謝土",
             unsuitableActivities: "忌嫁娶、移徙",
             idiom: "一氣呵成",
@@ -233,7 +237,7 @@ class LunarCalendarDataManager {
         ),
         
         "01-24": LunarCalendarData(
-            lunarTerm: "廿四",
+            lunarTerm: "廿五",
             suitableActivities: "宜沐浴、理髮",
             unsuitableActivities: "忌動土、造廟",
             idiom: "一馬當先",
@@ -242,7 +246,7 @@ class LunarCalendarDataManager {
         ),
         
         "01-25": LunarCalendarData(
-            lunarTerm: "廿五",
+            lunarTerm: "廿六",
             suitableActivities: "宜會友、交易",
             unsuitableActivities: "忌安床、開倉",
             idiom: "一蹴而就",
@@ -251,7 +255,7 @@ class LunarCalendarDataManager {
         ),
         
         "01-26": LunarCalendarData(
-            lunarTerm: "廿六",
+            lunarTerm: "廿七",
             suitableActivities: "宜修造、上樑",
             unsuitableActivities: "忌嫁娶、出行",
             idiom: "一石二鳥",
@@ -260,7 +264,7 @@ class LunarCalendarDataManager {
         ),
         
         "01-27": LunarCalendarData(
-            lunarTerm: "廿七",
+            lunarTerm: "廿八",
             suitableActivities: "宜祭祀、開光",
             unsuitableActivities: "忌破土、掘井",
             idiom: "一絲不苟",
@@ -269,7 +273,7 @@ class LunarCalendarDataManager {
         ),
         
         "01-28": LunarCalendarData(
-            lunarTerm: "廿八",
+            lunarTerm: "除夕",
             suitableActivities: "宜納財、開市",
             unsuitableActivities: "忌安葬、修墳",
             idiom: "一生一世",
@@ -278,7 +282,7 @@ class LunarCalendarDataManager {
         ),
         
         "01-29": LunarCalendarData(
-            lunarTerm: "廿九",
+            lunarTerm: "春節",
             suitableActivities: "宜出行、會友",
             unsuitableActivities: "忌嫁娶、入宅",
             idiom: "一朝千里",
@@ -287,7 +291,7 @@ class LunarCalendarDataManager {
         ),
         
         "01-30": LunarCalendarData(
-            lunarTerm: "三十",
+            lunarTerm: "初二",
             suitableActivities: "宜祈福、除舊",
             unsuitableActivities: "忌動土、造屋",
             idiom: "除舊布新",
@@ -296,13 +300,16 @@ class LunarCalendarDataManager {
         ),
         
         "01-31": LunarCalendarData(
-            lunarTerm: "卅一",
+            lunarTerm: "初三",
             suitableActivities: "宜沐浴、掃除",
             unsuitableActivities: "忌開市、立券",
             idiom: "歲月如流",
             idiomDescription: "時光如流水般逝去。形容時間過得很快。",
             idiomImageName: "day031"
         ),
+        
+        // 五月資料
+
         "05-22": LunarCalendarData(
             lunarTerm: "廿五",
             suitableActivities: "宜出行、會友",
@@ -344,6 +351,14 @@ class LunarCalendarDataManager {
             idiom: "一天三杯",
             idiomDescription: "指一天至少需要喝三杯手搖飲料，才有益於身心健康，專家建議早中晚各來一杯。",
             idiomImageName: "day146"
+        ),
+        "05-27": LunarCalendarData(
+            lunarTerm: "五月",
+            suitableActivities: "宜認養、動土",
+            unsuitableActivities: "忌伐木、祭祀",
+            idiom: "不堪一擊",
+            idiomDescription: "比喻脆弱，禁不起任何的攻擊或打擊。",
+            idiomImageName: "day147"
         ),
         
         
