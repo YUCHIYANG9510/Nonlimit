@@ -12,6 +12,8 @@ import Lottie
 struct CardListView: View {
     @EnvironmentObject var appState: AppState
     @State private var selectedTab = 0
+    @State private var showSettings = false
+    @State private var displayName = "Daisy"
     
     var body: some View {
         ZStack(alignment: .bottom) {
@@ -36,12 +38,249 @@ struct CardListView: View {
             .clipped() // 防止內容溢出顯示白底
             .edgesIgnoringSafeArea(.all)
             
+            // 設定按鈕（左下角）
+            VStack {
+                Spacer()
+                HStack {
+                    Button(action: {
+                        showSettings = true
+                    }) {
+                        Image("setting-icon")
+                            .resizable()
+                            .frame(width: 36, height: 36)
+                    }
+                    .padding(.leading, 40)
+                    .padding(.bottom, 5)
+                    
+                    Spacer()
+                }
+            }
+            
             // 自定義底部 Tab Bar
             CustomTabBar(selectedTab: $selectedTab)
         }
         .navigationBarBackButtonHidden(true)
+        .sheet(isPresented: $showSettings) {
+            SettingsView(displayName: $displayName)
+                .presentationDetents([.fraction(0.5)])
+                .presentationCornerRadius(40)
+        }
     }
 }
+
+// MARK: - Settings View
+struct SettingsView: View {
+    @Binding var displayName: String
+    @Environment(\.dismiss) var dismiss
+    @State private var tempDisplayName: String = ""
+    @State private var showIconPicker = false
+    
+    var body: some View {
+        NavigationView {
+            ZStack {
+                
+                VStack(spacing: 0) {
+                    // Header
+                    Text("Setting")
+                    .font(.title2)
+                    .fontWeight(.medium)
+                    .foregroundColor(.accentColor)
+                    .padding(.top, 24)
+                    .padding(.bottom, 40)
+                    
+                    // Join Pro Section
+                    VStack(spacing: 16) {
+                        RoundedRectangle(cornerRadius: 24)
+                            .fill(
+                                        LinearGradient(
+                                            gradient: Gradient(colors: [
+                                                Color(red: 237/255, green: 220/255, blue: 244/255),
+                                                Color(red: 255/255, green: 229/255, blue: 255/255)
+                                            ]),
+                                            startPoint: .topLeading,
+                                            endPoint: .bottomTrailing
+                                        )
+                                    )
+                            .frame(height: 100)
+                            .overlay(
+                                HStack(spacing: 16) {
+                                    // Pro icon
+                                    ZStack {
+                                        RoundedRectangle(cornerRadius: 12)
+                                            .fill(
+                                                LinearGradient(
+                                                    gradient: Gradient(colors: [
+                                                        Color.purple.opacity(0.8),
+                                                        Color.pink.opacity(0.8)
+                                                    ]),
+                                                    startPoint: .topLeading,
+                                                    endPoint: .bottomTrailing
+                                                )
+                                            )
+                                            .frame(width: 48, height: 48)
+                                        
+                                        Image(systemName: "sparkles")
+                                            .font(.system(size: 20, weight: .bold))
+                                            .foregroundColor(.white)
+                                    }
+                                    
+                                    VStack(alignment: .leading, spacing: 4) {
+                                        Text("Join Pro")
+                                            .font(.system(size: 18, weight: .semibold))
+                                            .foregroundColor(.accentColor)
+                                        
+                                        Text("Subscription or one-time purchase")
+                                            .font(.system(size: 12))
+                                            .foregroundColor(.accentColor.opacity(0.7))
+                                    }
+                                    
+                                    
+                                    Button(action: {
+                                        // Handle upgrade action
+                                    }) {
+                                        Text("Upgrade")
+                                        .font(.system(size: 16, weight: .medium))
+                                        .foregroundColor(.white)
+                                        .padding(.horizontal, 20)
+                                        .padding(.vertical, 10)
+                                        .background(.accent)
+                                        .clipShape(Capsule())
+                                    }
+                                }
+                                .padding(.horizontal, 20)
+                            )
+                            .padding(.horizontal, 30)
+                    }
+                    .padding(.bottom, 40)
+                    
+                    // Settings Options
+                    VStack(spacing: 20) {
+                        // Display Name Setting
+                        HStack {
+                            Text("Display Name")
+                                .font(.system(size: 18))
+                                .foregroundColor(.accentColor)
+                            
+                            Spacer()
+                            
+                            TextField("", text: $tempDisplayName)
+                                .font(.system(size: 18))
+                                .foregroundColor(.accentColor.opacity(0.7))
+                                .multilineTextAlignment(.trailing)
+                        }
+                        .padding(.horizontal, 30)
+                        
+                        // Divider
+                        Rectangle()
+                            .fill(Color.accentColor.opacity(0.2))
+                            .frame(height: 1)
+                            .padding(.horizontal, 30)
+                        
+                        // Change Icon Setting
+                        Button(action: {
+                            showIconPicker = true
+                        }) {
+                            HStack {
+                                Text("Change icon")
+                                    .font(.system(size: 18))
+                                    .foregroundColor(.accentColor)
+                                
+                                Spacer()
+                                
+                                Image(systemName: "chevron.right")
+                                    .font(.system(size: 16))
+                                    .foregroundColor(.accentColor.opacity(0.5))
+                            }
+                            .padding(.horizontal, 30)
+                        }
+                        .buttonStyle(PlainButtonStyle())
+                        
+                        Spacer()
+                    }
+                }
+            }
+        }
+        .onAppear {
+            tempDisplayName = displayName
+        }
+        .sheet(isPresented: $showIconPicker) {
+            IconPickerView()
+                .presentationDetents([.fraction(0.7)])
+            .presentationCornerRadius(40)
+        }
+    }
+}
+
+// MARK: - Icon Picker View
+struct IconPickerView: View {
+    @Environment(\.dismiss) var dismiss
+    @State private var selectedIcon = "Default"
+
+    // (Title, ImageName)
+    private let iconOptions = [
+        ("Default", "icon_default", false),
+        ("Pink", "icon_pink", true),
+        ("Off-white", "icon_offwhite", true),
+        ("Off-black", "icon_offblack", true),
+        ("Blue", "icon_blue", true),
+    ]
+    
+    var body: some View {
+        NavigationView {
+            ScrollView {
+                VStack(spacing: 16) {
+                    Text("Change icon")
+                        .font(.title2)
+                        .fontWeight(.semibold)
+                        .padding(.top, 24)
+                    
+                    ForEach(iconOptions, id: \.0) { title, imageName, isPro in
+                        Button(action: {
+                            selectedIcon = title
+                            // 切換 App icon 的處理
+                            dismiss()
+                        }) {
+                            HStack(spacing: 16) {
+                                Image(imageName)
+                                    .resizable()
+                                    .aspectRatio(contentMode: .fit)
+                                    .frame(width: 60, height: 60)
+                                    .cornerRadius(12)
+                                
+                                Text(title)
+                                    .font(.body)
+                                    .foregroundColor(.primary)
+                                
+                                Spacer()
+                                
+                                
+                                if selectedIcon == title {
+                                    Image(systemName: "checkmark.circle.fill")
+                                        .foregroundColor(.accentColor)
+                                        .font(.system(size: 24))
+                                } else {
+                                    Image(systemName: "circle")
+                                        .foregroundColor(.black.opacity(0.3))
+                                        .font(.system(size: 24))
+                                }
+                            }
+                            .padding(.vertical, 24)
+                            .padding(.horizontal, 24)
+                            .background(Color(red: 247/255, green: 247/255, blue: 247/255))
+                            .cornerRadius(24)
+                        }
+                        .buttonStyle(PlainButtonStyle())
+                        .padding(.horizontal)
+                    }
+
+                    Spacer()
+                }
+            }
+            .navigationBarTitleDisplayMode(.inline)
+        }
+    }
+}
+
 
 // MARK: - Custom Tab Bar
 struct CustomTabBar: View {
@@ -179,6 +418,8 @@ struct YearOverviewView: View {
                 lunarData: dayInfo.lunarData,
                 isPresented: .constant(false)
             )
+            .presentationDetents([.fraction(0.6)])
+            .presentationCornerRadius(48)
         }
     }
     
@@ -303,8 +544,8 @@ struct DailyIdiomDialog: View {
                             .font(.system(size: 14, weight: .regular, design: .monospaced))
                             .foregroundColor(.accentColor.opacity(0.7))
                     }
-                    .padding(.horizontal, 30)
-                    .padding(.top, 32)
+                    .padding(.horizontal, 40)
+                    .padding(.top, 40)
                     
                     // 成語內容
                     VStack(spacing: 20) {
