@@ -211,20 +211,52 @@ struct SettingsView: View {
     }
 }
 
+enum AppIcon: String, CaseIterable {
+    case `default` = "Default"
+    case pink = "Pink"
+    case lightpink = "Light-Pink"
+    case offblack = "Off-black"
+    case blue = "Blue"
+    
+    var iconValue: String? {
+        switch self {
+        case .default:
+            return nil // 系統預設值用 nil
+        default:
+            return rawValue
+        }
+    }
+    
+    var previewImage: String {
+        switch self {
+        case .default:
+            return "icon_default"
+        case .pink:
+            return "icon_pink"
+        case .lightpink:
+            return "icon_lightpink"
+        case .offblack:
+            return "icon_offblack"
+        case .blue:
+            return "icon_blue"
+        }
+    }
+}
+
 // MARK: - Icon Picker View
 struct IconPickerView: View {
     @Environment(\.dismiss) var dismiss
-    @State private var selectedIcon = "Default"
+    @State private var pendingIcon: AppIcon? = nil
 
-    // (Title, ImageName)
-    private let iconOptions = [
-        ("Default", "icon_default", false),
-        ("Pink", "icon_pink", true),
-        ("Off-white", "icon_offwhite", true),
-        ("Off-black", "icon_offblack", true),
-        ("Blue", "icon_blue", true),
-    ]
-    
+    // 取得目前 App Icon
+    private var currentIcon: AppIcon {
+        if let currentName = UIApplication.shared.alternateIconName {
+            return AppIcon.allCases.first(where: { $0.rawValue == currentName }) ?? .default
+        } else {
+            return .default
+        }
+    }
+
     var body: some View {
         NavigationView {
             ScrollView {
@@ -233,28 +265,33 @@ struct IconPickerView: View {
                         .font(.title2)
                         .fontWeight(.semibold)
                         .padding(.top, 24)
-                    
-                    ForEach(iconOptions, id: \.0) { title, imageName, isPro in
+
+                    ForEach(AppIcon.allCases, id: \.rawValue) { icon in
                         Button(action: {
-                            selectedIcon = title
-                            // 切換 App icon 的處理
-                            dismiss()
+                            pendingIcon = icon
+                            UIApplication.shared.setAlternateIconName(icon.iconValue) { error in
+                                if error == nil {
+                                    // 略微延遲後關閉畫面（等系統 alert 結束）
+                                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
+                                        dismiss()
+                                    }
+                                }
+                            }
                         }) {
                             HStack(spacing: 16) {
-                                Image(imageName)
+                                Image(icon.previewImage)
                                     .resizable()
                                     .aspectRatio(contentMode: .fit)
                                     .frame(width: 60, height: 60)
                                     .cornerRadius(12)
-                                
-                                Text(title)
+
+                                Text(icon.rawValue)
                                     .font(.body)
                                     .foregroundColor(.primary)
-                                
+
                                 Spacer()
-                                
-                                
-                                if selectedIcon == title {
+
+                                if currentIcon == icon {
                                     Image(systemName: "checkmark.circle.fill")
                                         .foregroundColor(.accentColor)
                                         .font(.system(size: 24))
