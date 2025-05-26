@@ -87,7 +87,7 @@ struct CardListView: View {
                             .resizable()
                             .frame(width: 36, height: 36)
                     }
-                    .padding(.leading, 40)
+                    .padding(.leading, 32)
                     .padding(.bottom, 5)
                     
                     Spacer()
@@ -404,7 +404,7 @@ struct CustomTabBar: View {
     }
 }
 
-// MARK: - Year Overview View (方案2：使用 sheet(item:))
+// MARK: - Year Overview View
 struct YearOverviewView: View {
     @State private var animateGradient = false
     @State private var selectedDayInfo: DayInfo?
@@ -453,7 +453,7 @@ struct YearOverviewView: View {
                         .foregroundColor(.accentColor)
                     
                     // 365天圖片網格
-                    LazyVGrid(columns: Array(repeating: GridItem(.flexible(), spacing: 4), count: 14), spacing: 4) {
+                    LazyVGrid(columns: Array(repeating: GridItem(.flexible(), spacing: 4), count: 12), spacing: 4) {
                         ForEach(1...365, id: \.self) { dayIndex in
                             if dayIndex <= dayOfYear {
                                 // 已過去的日期顯示對應的成語圖片（縮小版）
@@ -481,6 +481,8 @@ struct YearOverviewView: View {
                         .frame(height: 120)
                 }
             }
+            .scrollIndicators(.hidden)
+
         }
         // 使用 sheet(item:) 顯示日期和成語信息
         .sheet(item: $selectedDayInfo) { dayInfo in
@@ -561,10 +563,10 @@ struct DayImageView: View {
                 // 顯示圓點（不可點擊）
                 Circle()
                     .fill(Color.accentColor.opacity(0.2))
-                    .frame(width: 4, height: 4)
+                    .frame(width: 2, height: 2)
             }
         }
-        .frame(width: 30, height: 30)
+        .frame(width: 24, height: 24)
     }
 }
 
@@ -686,26 +688,30 @@ struct CardSelectionView: View {
     
     private let cards = [
         CardSelectionInfo(
-            imageName: "work-button",
+            imageName: "icon_work",
             title: "Work.",
+            color: Color(red: 141/255, green: 125/255, blue: 220/255),
             cardType: .work,
             detailIcon: "work-card-2"
         ),
         CardSelectionInfo(
-            imageName: "love-button",
+            imageName: "icon_love",
             title: "Love.",
+            color: Color(red: 236/255, green: 116/255, blue: 236/255),
             cardType: .love,
             detailIcon: "love-card-2"
         ),
         CardSelectionInfo(
-            imageName: "future-button",
+            imageName: "icon_future",
             title: "Future.",
+            color: Color(red: 36/255, green: 212/255, blue: 148/255),
             cardType: .future,
             detailIcon: "future-card-2"
         ),
         CardSelectionInfo(
-            imageName: "lunch-button",
+            imageName: "icon_lunch",
             title: "Lunch.",
+            color: Color(red: 255/255, green: 151/255, blue: 77/255),
             cardType: .lunch,
             detailIcon: "lunch-card-2"
         )
@@ -932,38 +938,45 @@ struct CardSelectionButton: View {
     @State private var isPressed = false
     
     var body: some View {
-        Button(action: {
-                    // 這裡可以添加點擊反饋
-                    isPressed = true
-                }) {
-                    NavigationLink(
-                        destination: LazyView(
-                                CardDetailView(
-                                    icon: card.detailIcon,
-                                    title: card.title.uppercased().replacingOccurrences(of: ".", with: ""),
-                                    cardType: card.cardType
-                                )
-                            )
-                        ) {
-                        Image(card.imageName)
-                            .resizable()
-                            .aspectRatio(contentMode: .fit)
-                            .frame(height: 70)
-                            .shadow(color: .primary.opacity(0.2), radius: 2, x: 1, y: 1)
-                            .scaleEffect(isPressed ? 0.95 : 1.0)
-                    }
-                    .buttonStyle(PlainButtonStyle())
-                }
-                .buttonStyle(PlainButtonStyle())
-                .onTapGesture {
-                    withAnimation(.easeInOut(duration: 0.1)) {
-                        isPressed = false
-                    }
-                }
-                .allowsHitTesting(true) // 確保可以接收觸摸事件
+        NavigationLink(
+            destination: LazyView(
+                CardDetailView(
+                    icon: card.detailIcon,
+                    title: card.title.uppercased().replacingOccurrences(of: ".", with: ""),
+                    cardType: card.cardType
+                )
+            )
+        ) {
+            HStack(spacing: 0) {
+                Image(card.imageName)
+                    .resizable()
+                    .scaledToFit()
+                    .frame(width: 48, height: 48)
+                    .shadow(radius: 1)
+                
+                Text(card.title)
+                    .font(.system(size: 24, weight: .bold, design: .monospaced))
+                    .foregroundColor(.white)
             }
+            .padding(.horizontal, 20)
+            .padding(.vertical, 10)
+            .background(
+                RoundedRectangle(cornerRadius: 100)
+                    .fill(card.color)
+                    .shadow(color: .black.opacity(0.1), radius: 4, x: 2, y: 2)
+            )
+            .scaleEffect(isPressed ? 0.95 : 1.0)
+            .animation(.easeInOut(duration: 0.1), value: isPressed)
         }
-    
+        .buttonStyle(PlainButtonStyle())
+        .simultaneousGesture(
+            DragGesture(minimumDistance: 0)
+                .onChanged { _ in isPressed = true }
+                .onEnded { _ in isPressed = false }
+        )
+    }
+}
+
 
 
 // MARK: - Supporting Models
@@ -971,9 +984,11 @@ struct CardSelectionInfo: Identifiable {
     let id = UUID()
     let imageName: String
     let title: String
+    let color: Color
     let cardType: CardType
     let detailIcon: String
 }
+
 
 // MARK: - Preview
 #Preview("Updated Card List View") {
