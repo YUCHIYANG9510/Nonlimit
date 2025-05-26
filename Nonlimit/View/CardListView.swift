@@ -13,7 +13,7 @@ struct CardListView: View {
     @EnvironmentObject var appState: AppState
     @State private var selectedTab = 0
     @State private var showSettings = false
-    @State private var displayName = "Daisy"
+    @State private var displayName = ""
     
     var body: some View {
         ZStack(alignment: .bottom) {
@@ -21,8 +21,7 @@ struct CardListView: View {
             GeometryReader { geometry in
                 HStack(spacing: 0) {
                     // 第一個頁面 - 卡片選擇
-                    CardSelectionView()
-                        .frame(width: geometry.size.width)
+                    CardSelectionView(displayName: displayName)            .frame(width: geometry.size.width)
                     
                     // 第二個頁面 - 日曆
                     CalendarView()
@@ -86,7 +85,7 @@ struct SettingsView: View {
                     .fontWeight(.medium)
                     .foregroundColor(.accentColor)
                     .padding(.top, 24)
-                    .padding(.bottom, 40)
+                    .padding(.bottom, 24)
                     
                     // Join Pro Section
                     VStack(spacing: 16) {
@@ -163,10 +162,14 @@ struct SettingsView: View {
                             
                             Spacer()
                             
-                            TextField("", text: $tempDisplayName)
+                            TextField("Name", text: $tempDisplayName)
                                 .font(.system(size: 18))
                                 .foregroundColor(.accentColor.opacity(0.7))
                                 .multilineTextAlignment(.trailing)
+                                .onSubmit {
+                                    // 當用戶完成輸入時更新 displayName
+                                    displayName = tempDisplayName
+                                }
                         }
                         .padding(.horizontal, 30)
                         
@@ -203,6 +206,10 @@ struct SettingsView: View {
         .onAppear {
             tempDisplayName = displayName
         }
+        .onDisappear {
+                    // 當設定頁面關閉時也要更新 displayName
+                    displayName = tempDisplayName
+                }
         .sheet(isPresented: $showIconPicker) {
             IconPickerView()
                 .presentationDetents([.fraction(0.7)])
@@ -654,6 +661,7 @@ struct ClickableDayImageView: View {
 struct CardSelectionView: View {
     @EnvironmentObject var appState: AppState
     @State private var animateGradient = false
+    let displayName: String
     
     private let cards = [
         CardSelectionInfo(
@@ -682,6 +690,27 @@ struct CardSelectionView: View {
         )
     ]
     
+    private var greetingText: String {
+           let hour = Calendar.current.component(.hour, from: Date())
+           
+           switch hour {
+           case 5..<12:
+               return "早安"
+           case 12..<18:
+               return "午安"
+           default:
+               return "晚安"
+           }
+       }
+    
+    private var displayGreeting: String {
+        if displayName.isEmpty {
+            return "\(greetingText)！"
+        } else {
+            return "\(greetingText)！\(displayName)"
+        }
+    }
+    
     var body: some View {
         ZStack {
             // 背景漸層
@@ -704,12 +733,19 @@ struct CardSelectionView: View {
             VStack(spacing: 40) {
                 
                 // 標題
-                Text("你在尋找哪方面的答案呢？")
-                    .font(.title2)
-                    .fontWeight(.medium)
-                    .foregroundColor(.accentColor)
-                    .padding(.bottom, 16)
-                    .padding(.top, 150)
+                VStack(spacing: 8) {
+                    Text("\(greetingText) ! \(displayName)")
+                        .font(.system(size: 32, weight: .medium)
+)                       .foregroundColor(.accentColor)
+                        .padding(.bottom, 6)
+                    
+                    Text("開始你的每日一問")
+                        .font(.title2)
+                        .fontWeight(.medium)
+                        .foregroundColor(.accentColor)
+                }
+                .padding(.bottom, 16)
+                .padding(.top, 150)
                 
                 // 卡片選項
                 VStack(spacing: 24) {
