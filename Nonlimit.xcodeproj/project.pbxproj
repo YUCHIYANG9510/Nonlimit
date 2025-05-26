@@ -27,6 +27,7 @@
 		C2D4F1412C030E3D004DDD24 /* Lottie in Frameworks */ = {isa = PBXBuildFile; productRef = C2D4F1402C030E3D004DDD24 /* Lottie */; };
 		C2D4F1452C032063004DDD24 /* crystal.json in Resources */ = {isa = PBXBuildFile; fileRef = C2D4F1442C032062004DDD24 /* crystal.json */; };
 		C2D4F1512C15B0E5004DDD24 /* universe.json in Resources */ = {isa = PBXBuildFile; fileRef = C2D4F1502C15B0E5004DDD24 /* universe.json */; };
+		C2D7161E2DE462DA00921955 /* Helpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2D7161D2DE462D900921955 /* Helpers.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -72,6 +73,7 @@
 		C2BB86C32DE1D74C00334E97 /* LunarCalendarDataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LunarCalendarDataManager.swift; sourceTree = "<group>"; };
 		C2D4F1442C032062004DDD24 /* crystal.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = crystal.json; sourceTree = "<group>"; };
 		C2D4F1502C15B0E5004DDD24 /* universe.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = universe.json; sourceTree = "<group>"; };
+		C2D7161D2DE462D900921955 /* Helpers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Helpers.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
@@ -147,6 +149,7 @@
 		C28C953A2BCAAE9F003CB92D /* Nonlimit */ = {
 			isa = PBXGroup;
 			children = (
+				C2D7161D2DE462D900921955 /* Helpers.swift */,
 				C2BB86C32DE1D74C00334E97 /* LunarCalendarDataManager.swift */,
 				C2BA46232DDDCB28004387FF /* AppState.swift */,
 				C21C49B82DC7B42400583000 /* MainView.swift */,
@@ -300,6 +303,7 @@
 				C2BB86C42DE1D74D00334E97 /* LunarCalendarDataManager.swift in Sources */,
 				C28C953C2BCAAE9F003CB92D /* NonlimitApp.swift in Sources */,
 				C21C49B92DC7B42500583000 /* MainView.swift in Sources */,
+				C2D7161E2DE462DA00921955 /* Helpers.swift in Sources */,
 				C2BA46242DDDCB29004387FF /* AppState.swift in Sources */,
 				C2BB86AB2DE1790700334E97 /* CardType.swift in Sources */,
 			);

@@ -14,28 +14,67 @@ struct CardListView: View {
     @State private var selectedTab = 0
     @State private var showSettings = false
     @State private var displayName = ""
+    @State private var dragOffset: CGFloat = 0
     
     var body: some View {
-        ZStack(alignment: .bottom) {
-            // 使用 GeometryReader 來實現自定義滑動動畫
-            GeometryReader { geometry in
-                HStack(spacing: 0) {
-                    // 第一個頁面 - 卡片選擇
-                    CardSelectionView(displayName: displayName)            .frame(width: geometry.size.width)
-                    
-                    // 第二個頁面 - 日曆
-                    CalendarView()
-                        .frame(width: geometry.size.width)
-                    
-                    // 第三個頁面 - 年度總覽
-                    YearOverviewView()
-                        .frame(width: geometry.size.width)
-                }
-                .offset(x: -CGFloat(selectedTab) * geometry.size.width)
-                .contentShape(Rectangle()) // 確保點擊區域正確
-            }
-            .clipped() // 防止內容溢出顯示白底
-            .edgesIgnoringSafeArea(.all)
+           ZStack(alignment: .bottom) {
+               
+               LinearGradient(
+                       gradient: Gradient(colors: [
+                           Color(red: 237/255, green: 220/255, blue: 244/255),
+                           Color(red: 255/255, green: 229/255, blue: 255/255)
+                       ]),
+                       startPoint: .topLeading,
+                       endPoint: .bottomTrailing
+                   )
+                   .ignoresSafeArea()
+               
+               GeometryReader { geometry in
+                   HStack(spacing: 0) {
+                       // 第一個頁面 - 卡片選擇
+                       CardSelectionView(displayName: displayName)
+                           .frame(width: geometry.size.width)
+                       
+                       // 第二個頁面 - 日曆
+                       CalendarView()
+                           .frame(width: geometry.size.width)
+                       
+                       // 第三個頁面 - 年度總覽
+                       YearOverviewView()
+                           .frame(width: geometry.size.width)
+                   }
+                   .offset(x: -CGFloat(selectedTab) * geometry.size.width + dragOffset)
+                   .contentShape(Rectangle())
+                   .gesture(
+                       DragGesture()
+                           .onChanged { value in
+                               let proposedOffset = value.translation.width
+                               let currentIndex = selectedTab
+
+                               // 限制拖曳範圍，只允許在可滑動範圍內拖動
+                               if (currentIndex == 0 && proposedOffset > 0) || (currentIndex == 2 && proposedOffset < 0) {
+                                   dragOffset = proposedOffset / 4  // 加入阻尼效果（可選）
+                               } else {
+                                   dragOffset = proposedOffset
+                               }
+                           }
+                           .onEnded { value in
+                               let threshold: CGFloat = 50
+                               _ = geometry.size.width
+                               
+                               withAnimation(.spring(response: 0.6, dampingFraction: 0.8)) {
+                                   if value.translation.width > threshold && selectedTab > 0 {
+                                       selectedTab -= 1
+                                   } else if value.translation.width < -threshold && selectedTab < 2 {
+                                       selectedTab += 1
+                                   }
+                                   dragOffset = 0
+                               }
+                           }
+                   )
+                              }
+                              .clipped()
+                              .edgesIgnoringSafeArea(.all)
             
             // 設定按鈕（左下角）
             VStack {
@@ -893,24 +932,42 @@ extension CalendarView {
 // MARK: - Card Selection Button
 struct CardSelectionButton: View {
     let card: CardSelectionInfo
+    @State private var isPressed = false
     
     var body: some View {
-        NavigationLink(
-            destination: CardDetailView(
-                icon: card.detailIcon,
-                title: card.title.uppercased().replacingOccurrences(of: ".", with: ""),
-                cardType: card.cardType
-            )
-        ) {
-            Image(card.imageName)
-                .resizable()
-                .aspectRatio(contentMode: .fit)
-                .frame(height: 70)
-                .shadow(color: .primary.opacity(0.2), radius: 2, x: 1, y: 1)
+        Button(action: {
+                    // 這裡可以添加點擊反饋
+                    isPressed = true
+                }) {
+                    NavigationLink(
+                        destination: LazyView(
+                                CardDetailView(
+                                    icon: card.detailIcon,
+                                    title: card.title.uppercased().replacingOccurrences(of: ".", with: ""),
+                                    cardType: card.cardType
+                                )
+                            )
+                        ) {
+                        Image(card.imageName)
+                            .resizable()
+                            .aspectRatio(contentMode: .fit)
+                            .frame(height: 70)
+                            .shadow(color: .primary.opacity(0.2), radius: 2, x: 1, y: 1)
+                            .scaleEffect(isPressed ? 0.95 : 1.0)
+                    }
+                    .buttonStyle(PlainButtonStyle())
+                }
+                .buttonStyle(PlainButtonStyle())
+                .onTapGesture {
+                    withAnimation(.easeInOut(duration: 0.1)) {
+                        isPressed = false
+                    }
+                }
+                .allowsHitTesting(true) // 確保可以接收觸摸事件
+            }
         }
-        .buttonStyle(PlainButtonStyle())
-    }
-}
+    
+
 
 // MARK: - Supporting Models
 struct CardSelectionInfo: Identifiable {
