@@ -60,8 +60,8 @@ class LunarCalendarDataManager {
             lunarTerm: "初五",
             suitableActivities: "宜祈福、修造",
             unsuitableActivities: "忌出行、開倉",
-            idiom: "四季平安",
-            idiomDescription: "一年四季都平平安安。常用作祝福語。",
+            idiom: "草莓蛋糕",
+            idiomDescription: "適合冬天食用的甜點，吃了可以帶來幸福與快樂。",
             idiomImageName: "day004"
         ),
         
@@ -361,6 +361,14 @@ class LunarCalendarDataManager {
             idiomImageName: "day147"
         ),
         
+        "05-28": LunarCalendarData(
+            lunarTerm: "初二",
+            suitableActivities: "宜破土、修造",
+            unsuitableActivities: "忌理髮、嫁娶",
+            idiom: "大手一揮",
+            idiomDescription: "形容一個人揮霍無度，揮一揮手就把金錢揮出去，散盡家財。",
+            idiomImageName: "day148"
+        ),
         
         // 六月資料
         "06-01": LunarCalendarData(
