@@ -408,6 +408,7 @@ struct CustomTabBar: View {
 struct YearOverviewView: View {
     @State private var animateGradient = false
     @State private var selectedDayInfo: DayInfo?
+    @State private var scrollOffset: CGFloat = 0
     
     private var daysRemaining: Int {
         let now = Date()
@@ -440,49 +441,108 @@ struct YearOverviewView: View {
                 }
             }
             
-            ScrollView {
-                VStack(spacing: 16) {
-                    // 頂部空間
+            VStack(spacing: 0) {
+                // 固定在頂部的標題區域
+                VStack {
                     Spacer()
                         .frame(height: 80)
                     
-                    // 剩餘天數標題
                     Text("\(daysRemaining) days left")
                         .font(.system(size: 16, weight: .regular, design: .monospaced))
                         .fontWeight(.medium)
                         .foregroundColor(.accentColor)
-                    
-                    // 365天圖片網格
-                    LazyVGrid(columns: Array(repeating: GridItem(.flexible(), spacing: 4), count: 12), spacing: 4) {
-                        ForEach(1...365, id: \.self) { dayIndex in
-                            if dayIndex <= dayOfYear {
-                                // 已過去的日期顯示對應的成語圖片（縮小版）
-                                DayImageView(
-                                    dayIndex: dayIndex,
-                                    isCompleted: true,
-                                    onTap: {
-                                        handleDayTap(dayIndex: dayIndex)
+                        .padding(.bottom, 16)
+                }
+                .zIndex(2)
+                
+                // 可滾動的內容區域
+                ZStack {
+                    // 使用 GeometryReader 來追蹤滾動位置
+                    ScrollViewReader { proxy in
+                        ScrollView {
+                            VStack(spacing: 0) {
+                                // 365天圖片網格
+                                LazyVGrid(columns: Array(repeating: GridItem(.flexible(), spacing: 4), count: 12), spacing: 4) {
+                                    ForEach(1...365, id: \.self) { dayIndex in
+                                        if dayIndex <= dayOfYear {
+                                            // 已過去的日期顯示對應的成語圖片（縮小版）
+                                            DayImageView(
+                                                dayIndex: dayIndex,
+                                                isCompleted: true,
+                                                onTap: {
+                                                    handleDayTap(dayIndex: dayIndex)
+                                                }
+                                            )
+                                        } else {
+                                            // 未來的日期顯示圓點
+                                            DayImageView(
+                                                dayIndex: dayIndex,
+                                                isCompleted: false,
+                                                onTap: nil
+                                            )
+                                        }
                                     }
-                                )
-                            } else {
-                                // 未來的日期顯示圓點
-                                DayImageView(
-                                    dayIndex: dayIndex,
-                                    isCompleted: false,
-                                    onTap: nil
-                                )
+                                }
+                                .padding(.horizontal, 30)
+                                .padding(.top, 20)
+                                
+                                // 底部空間
+                                Spacer()
+                                    .frame(height: 120)
                             }
+                            .background(
+                                GeometryReader { geometry in
+                                    Color.clear.preference(
+                                        key: ScrollOffsetPreferenceKey.self,
+                                        value: geometry.frame(in: .named("scroll")).minY
+                                    )
+                                }
+                            )
+                        }
+                        .coordinateSpace(name: "scroll")
+                        .scrollIndicators(.hidden)
+                        .onPreferenceChange(ScrollOffsetPreferenceKey.self) { value in
+                            scrollOffset = value
                         }
                     }
-                    .padding(.horizontal, 30)
                     
-                    // 底部空間
-                    Spacer()
-                        .frame(height: 120)
+                    // 頂部模糊遮罩
+                    VStack {
+                        LinearGradient(
+                            gradient: Gradient(colors: [
+                                Color.black.opacity(scrollOffset < -10 ? 0.1 : 0),
+                                Color.clear
+                            ]),
+                            startPoint: .top,
+                            endPoint: .bottom
+                        )
+                        .frame(height: 30)
+                        .blur(radius: 10)
+                        .opacity(scrollOffset < -10 ? 1 : 0)
+                        .animation(.easeInOut(duration: 0.3), value: scrollOffset)
+                        
+                        Spacer()
+                    }
+                    .zIndex(1)
+                    
+                    // 底部模糊遮罩
+                    VStack {
+                        Spacer()
+                        
+                        LinearGradient(
+                            gradient: Gradient(colors: [
+                                Color.clear,
+                                Color.black.opacity(0.1)
+                            ]),
+                            startPoint: .top,
+                            endPoint: .bottom
+                        )
+                        .frame(height: 30)
+                        .blur(radius: 10)
+                    }
+                    .zIndex(1)
                 }
             }
-            .scrollIndicators(.hidden)
-
         }
         // 使用 sheet(item:) 顯示日期和成語信息
         .sheet(item: $selectedDayInfo) { dayInfo in
@@ -514,6 +574,14 @@ struct YearOverviewView: View {
     }
 }
 
+// 用於追蹤滾動位置的 PreferenceKey
+struct ScrollOffsetPreferenceKey: PreferenceKey {
+    typealias Value = CGFloat
+    static var defaultValue: CGFloat = 0
+    static func reduce(value: inout CGFloat, nextValue: () -> CGFloat) {
+        value = nextValue()
+    }
+}
 // MARK: - Day Info Model
 struct DayInfo: Identifiable {
     let id = UUID()
