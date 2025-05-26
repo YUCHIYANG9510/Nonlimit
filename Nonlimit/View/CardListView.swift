@@ -104,24 +104,9 @@ struct SettingsView: View {
                             .overlay(
                                 HStack(spacing: 16) {
                                     // Pro icon
-                                    ZStack {
-                                        RoundedRectangle(cornerRadius: 12)
-                                            .fill(
-                                                LinearGradient(
-                                                    gradient: Gradient(colors: [
-                                                        Color.purple.opacity(0.8),
-                                                        Color.pink.opacity(0.8)
-                                                    ]),
-                                                    startPoint: .topLeading,
-                                                    endPoint: .bottomTrailing
-                                                )
-                                            )
-                                            .frame(width: 48, height: 48)
-                                        
-                                        Image(systemName: "sparkles")
-                                            .font(.system(size: 20, weight: .bold))
-                                            .foregroundColor(.white)
-                                    }
+                                    Image("pro-icon")
+                                            .resizable()
+                                            .frame(width: 40, height: 40)
                                     
                                     VStack(alignment: .leading, spacing: 4) {
                                         Text("Join Pro")
@@ -142,7 +127,7 @@ struct SettingsView: View {
                                         .foregroundColor(.white)
                                         .padding(.horizontal, 20)
                                         .padding(.vertical, 10)
-                                        .background(.accent)
+                                        .background(Color(red: 141/255, green: 125/255, blue: 220/255))
                                         .clipShape(Capsule())
                                     }
                                 }
