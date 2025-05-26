@@ -376,8 +376,11 @@ struct CustomTabBar: View {
         }
         .background(
             RoundedRectangle(cornerRadius: 16)
-                .fill(Color.white.opacity(0.5))
-                
+                .fill(.regularMaterial)
+        )
+        .overlay(
+            RoundedRectangle(cornerRadius: 16)
+                .stroke(Color.white.opacity(0.2), lineWidth: 1)
         )
         .padding(.bottom, 32)
     }
@@ -588,15 +591,9 @@ struct DailyIdiomDialog: View {
         NavigationView {
             ZStack {
                 // 背景漸層
-                LinearGradient(
-                    gradient: Gradient(colors: [
-                        Color(red: 237/255, green: 220/255, blue: 244/255),
-                        Color(red: 255/255, green: 229/255, blue: 255/255)
-                    ]),
-                    startPoint: .topLeading,
-                    endPoint: .bottomTrailing
-                )
-                .ignoresSafeArea(.all)
+                RoundedRectangle(cornerRadius: 48)
+                        .fill(.ultraThinMaterial)
+                        .ignoresSafeArea()
                 
                 VStack(spacing: 30) {
                     
