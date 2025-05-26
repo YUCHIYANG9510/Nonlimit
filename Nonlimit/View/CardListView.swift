@@ -215,8 +215,8 @@ enum AppIcon: String, CaseIterable {
     case `default` = "Default"
     case pink = "Pink"
     case lightpink = "Light-Pink"
-    case offblack = "Off-black"
-    case blue = "Blue"
+    case simpleblack = "Simple-Black"
+    case deadblack = "Dead-Black"
     
     var iconValue: String? {
         switch self {
@@ -235,10 +235,10 @@ enum AppIcon: String, CaseIterable {
             return "icon_pink"
         case .lightpink:
             return "icon_lightpink"
-        case .offblack:
-            return "icon_offblack"
-        case .blue:
-            return "icon_blue"
+        case .simpleblack:
+            return "icon_simple-black"
+        case .deadblack:
+            return "icon_dead-black"
         }
     }
 }
