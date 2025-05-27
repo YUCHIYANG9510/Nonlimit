@@ -32,7 +32,7 @@ struct CardListView: View {
                GeometryReader { geometry in
                    HStack(spacing: 0) {
                        // 第一個頁面 - 卡片選擇
-                       CardSelectionView(displayName: displayName)
+                       OptimizedCardSelectionView(displayName: displayName)
                            .frame(width: geometry.size.width)
                        
                        // 第二個頁面 - 日曆
@@ -749,12 +749,12 @@ struct ClickableDayImageView: View {
 }
 
 // MARK: - Card Selection View
-struct CardSelectionView: View {
+struct OptimizedCardSelectionView: View {
     @EnvironmentObject var appState: AppState
-    @State private var animateGradient = false
     let displayName: String
     
-    private let cards = [
+    // 將 cards 設為靜態，避免重複創建
+    private static let cards = [
         CardSelectionInfo(
             imageName: "icon_work",
             title: "Work.",
@@ -785,30 +785,12 @@ struct CardSelectionView: View {
         )
     ]
     
-    private var greetingText: String {
-           let hour = Calendar.current.component(.hour, from: Date())
-           
-           switch hour {
-           case 5..<12:
-               return "早安"
-           case 12..<18:
-               return "午安"
-           default:
-               return "晚安"
-           }
-       }
-    
-    private var displayGreeting: String {
-        if displayName.isEmpty {
-            return "\(greetingText)！"
-        } else {
-            return "\(greetingText)！\(displayName)"
-        }
-    }
+    // 使用 @State 但不要在 body 中重複計算
+    @State private var greetingText: String = ""
     
     var body: some View {
         ZStack {
-            // 背景漸層
+            // 背景 - 移除動畫避免持續重新渲染
             LinearGradient(
                 gradient: Gradient(colors: [
                     Color(red: 237/255, green: 220/255, blue: 244/255),
@@ -818,41 +800,98 @@ struct CardSelectionView: View {
                 endPoint: .bottomTrailing
             )
             .ignoresSafeArea(.all)
-            .hueRotation(.degrees(animateGradient ? 45 : 0))
-            .onAppear {
-                withAnimation(.easeInOut(duration: 3).repeatForever(autoreverses: true)) {
-                    animateGradient.toggle()
-                }
-            }
             
             VStack(spacing: 40) {
+                // 標題區域
+                HeaderView(greetingText: greetingText, displayName: displayName)
                 
-                // 標題
-                VStack(spacing: 8) {
-                    Text("\(greetingText) ! \(displayName)")
-                        .font(.system(size: 32, weight: .medium)
-)                       .foregroundColor(.accentColor)
-                        .padding(.bottom, 6)
-                    
-                    Text("開始你的每日一問")
-                        .font(.title2)
-                        .fontWeight(.medium)
-                        .foregroundColor(.accentColor)
-                }
-                .padding(.bottom, 16)
-                .padding(.top, 150)
-                
-                // 卡片選項
-                VStack(spacing: 24) {
-                    ForEach(cards, id: \.id) { card in
-                        CardSelectionButton(card: card)
-                    }
-                }
-                .padding(.horizontal, 40)
+                // 卡片區域 - 使用靜態數據
+                CardButtonsView()
                 
                 Spacer()
             }
         }
+        .onAppear {
+            // 只在出現時計算一次
+            greetingText = calculateGreeting()
+        }
+    }
+    
+    private func calculateGreeting() -> String {
+        let hour = Calendar.current.component(.hour, from: Date())
+        switch hour {
+        case 5..<12:
+            return "早安"
+        case 12..<18:
+            return "午安"
+        default:
+            return "晚安"
+        }
+    }
+}
+
+struct HeaderView: View {
+    let greetingText: String
+    let displayName: String
+    
+    var body: some View {
+        VStack(spacing: 8) {
+            Text("\(greetingText) ! \(displayName)")
+                .font(.system(size: 32, weight: .medium))
+                .foregroundColor(.accentColor)
+                .padding(.bottom, 6)
+            
+            Text("開始你的每日一問")
+                .font(.title2)
+                .fontWeight(.medium)
+                .foregroundColor(.accentColor)
+        }
+        .padding(.bottom, 16)
+        .padding(.top, 150)
+    }
+}
+
+struct CardButtonsView: View {
+    var body: some View {
+        VStack(spacing: 24) {
+            ForEach(cardData, id: \.id) { card in
+                StableCardSelectionButton(card: card)
+            }
+        }
+        .padding(.horizontal, 40)
+    }
+    
+    private var cardData: [CardSelectionInfo] {
+        [
+            CardSelectionInfo(
+                imageName: "icon_work",
+                title: "Work.",
+                color: Color(red: 141/255, green: 125/255, blue: 220/255),
+                cardType: .work,
+                detailIcon: "work-card-2"
+            ),
+            CardSelectionInfo(
+                imageName: "icon_love",
+                title: "Love.",
+                color: Color(red: 236/255, green: 116/255, blue: 236/255),
+                cardType: .love,
+                detailIcon: "love-card-2"
+            ),
+            CardSelectionInfo(
+                imageName: "icon_future",
+                title: "Future.",
+                color: Color(red: 36/255, green: 212/255, blue: 148/255),
+                cardType: .future,
+                detailIcon: "future-card-2"
+            ),
+            CardSelectionInfo(
+                imageName: "icon_lunch",
+                title: "Lunch.",
+                color: Color(red: 255/255, green: 151/255, blue: 77/255),
+                cardType: .lunch,
+                detailIcon: "lunch-card-2"
+            )
+        ]
     }
 }
 
@@ -1004,18 +1043,14 @@ extension CalendarView {
 struct CardSelectionButton: View {
     let card: CardSelectionInfo
     @State private var isPressed = false
+    @State private var navigateToDetail = false
     
     var body: some View {
-        NavigationLink(
-            destination: LazyView(
-                CardDetailView(
-                    icon: card.detailIcon,
-                    title: card.title.uppercased().replacingOccurrences(of: ".", with: ""),
-                    cardType: card.cardType
-                )
-            )
-        ) {
-            HStack(spacing: 0) {
+        Button(action: {
+            // 使用 Button 而不是 NavigationLink 來避免狀態衝突
+            navigateToDetail = true
+        }) {
+            HStack(spacing: 16) {
                 Image(card.imageName)
                     .resizable()
                     .scaledToFit()
@@ -1034,18 +1069,63 @@ struct CardSelectionButton: View {
                     .shadow(color: .black.opacity(0.1), radius: 4, x: 2, y: 2)
             )
             .scaleEffect(isPressed ? 0.95 : 1.0)
-            .animation(.easeInOut(duration: 0.1), value: isPressed)
         }
-        .buttonStyle(PlainButtonStyle())
-        .simultaneousGesture(
-            DragGesture(minimumDistance: 0)
-                .onChanged { _ in isPressed = true }
-                .onEnded { _ in isPressed = false }
-        )
+        .buttonStyle(CustomButtonStyle(isPressed: $isPressed))
+        .navigationDestination(isPresented: $navigateToDetail) {
+            CardDetailView(
+                icon: card.detailIcon,
+                title: card.title.uppercased().replacingOccurrences(of: ".", with: ""),
+                cardType: card.cardType
+            )
+        }
     }
 }
 
+// MARK: - 自定義按鈕樣式
+struct CustomButtonStyle: ButtonStyle {
+    @Binding var isPressed: Bool
+    
+    func makeBody(configuration: Configuration) -> some View {
+        configuration.label
+            .scaleEffect(configuration.isPressed ? 0.95 : 1.0)
+            .animation(.easeInOut(duration: 0.1), value: configuration.isPressed)
+            .onChange(of: configuration.isPressed) { oldValue, newValue in
+                isPressed = newValue
+            }
+    }
+}
 
+struct StableCardSelectionButton: View {
+    let card: CardSelectionInfo
+    
+    var body: some View {
+        NavigationLink(
+            destination: CardDetailView(
+                icon: card.detailIcon,
+                title: card.title.uppercased().replacingOccurrences(of: ".", with: ""),
+                cardType: card.cardType
+            )
+        ) {
+            HStack(spacing: 4) {
+                Image(card.imageName)
+                    .resizable()
+                    .scaledToFit()
+                    .frame(width: 48, height: 48)
+                
+                Text(card.title)
+                    .font(.system(size: 24, weight: .bold, design: .monospaced))
+                    .foregroundColor(.white)
+            }
+            .padding(.horizontal, 20)
+            .padding(.vertical, 10)
+            .background(
+                RoundedRectangle(cornerRadius: 100)
+                    .fill(card.color)
+            )
+        }
+        .buttonStyle(PlainButtonStyle())
+    }
+}
 
 // MARK: - Supporting Models
 struct CardSelectionInfo: Identifiable {
