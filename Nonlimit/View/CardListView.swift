@@ -842,8 +842,7 @@ struct HeaderView: View {
                 .padding(.bottom, 6)
             
             Text("選擇一個主題，開始你的每日一問")
-                .font(.title3)
-                .fontWeight(.regular)
+                .font(.system(size: 18, weight: .regular))
                 .foregroundColor(.accentColor.opacity(0.7))
                 
         }

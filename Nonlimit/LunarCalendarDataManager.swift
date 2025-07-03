@@ -306,21 +306,115 @@ class LunarCalendarDataManager {
             idiomImageName: "day031"
         ),
         
-        
-        /*
-        
          // 二月資料
          
-         "02-01": LunarCalendarData(
-             lunarTerm: "初三",
-             suitableActivities: "宜、",
-             unsuitableActivities: "忌、",
-             idiom: "",
-             idiomDescription: "",
-             idiomImageName: "day032"
-         ),
-         
-         */
+        "02-01": LunarCalendarData(
+            lunarTerm: "初四",
+            suitableActivities: "宜祭祀、馴畜",
+            unsuitableActivities: "忌季月紅紗",
+            idiom: "隨波逐流",
+            idiomDescription: "順著水流而行。比喻人沒有確定的方向和目標，只依從環境潮流行事。",
+            idiomImageName: "day032"
+        ),
+
+        "02-02": LunarCalendarData(
+            lunarTerm: "初五",
+            suitableActivities: "宜修造、認養",
+            unsuitableActivities: "忌四離",
+            idiom: "樂極生悲",
+            idiomDescription: "歡樂到了極點，往往會轉生悲哀。",
+            idiomImageName: "day033"
+        ),
+
+        "02-03": LunarCalendarData(
+            lunarTerm: "立春",
+            suitableActivities: "宜安床、會友",
+            unsuitableActivities: "忌掘井",
+            idiom: "惺惺相惜",
+            idiomDescription: "聰明才智相當的人彼此敬慕、愛惜。",
+            idiomImageName: "day034"
+        ),
+
+        "02-04": LunarCalendarData(
+            lunarTerm: "初七",
+            suitableActivities: "宜塑繪、針灸",
+            unsuitableActivities: "忌入宅、出火",
+            idiom: "如火如荼",
+            idiomDescription: "指像火那樣紅、像荼那樣白。形容事物的興盛或氣氛的熱烈。",
+            idiomImageName: "day035"
+        ),
+
+        "02-05": LunarCalendarData(
+            lunarTerm: "初八",
+            suitableActivities: "宜作灶、解除",
+            unsuitableActivities: "忌栽種、出行",
+            idiom: "樹大招風",
+            idiomDescription: "比喻一個人名聲太大或地位太高，容易招致別人的嫉妒、批評或陷害。",
+            idiomImageName: "day036"
+        ),
+
+        "02-06": LunarCalendarData(
+            lunarTerm: "天公生",
+            suitableActivities: "宜解除、沐浴",
+            unsuitableActivities: "忌入宅、安香",
+            idiom: "飛向宇宙",
+            idiomDescription: "來自玩具總動員的經典台詞，也說出了許多人對前進太空的未來嚮往。",
+            idiomImageName: "day037"
+        ),
+
+        "02-07": LunarCalendarData(
+            lunarTerm: "初十",
+            suitableActivities: "宜嫁娶、出行",
+            unsuitableActivities: "忌開市、理髮",
+            idiom: "浩瀚無垠",
+            idiomDescription: "形容水勢或地域廣大遼闊，沒有邊際。",
+            idiomImageName: "day038"
+        ),
+
+        "02-08": LunarCalendarData(
+            lunarTerm: "十一",
+            suitableActivities: "宜祭祀、掃舍",
+            unsuitableActivities: "忌月破",
+            idiom: "一飛沖天",
+            idiomDescription: "比喻人一下子成名或事業上升很快。",
+            idiomImageName: "day039"
+        ),
+
+        "02-09": LunarCalendarData(
+            lunarTerm: "十二",
+            suitableActivities: "宜出行、掛匾",
+            unsuitableActivities: "忌嫁娶、作灶",
+            idiom: "愛屋及烏",
+            idiomDescription: "比喻愛一個人而連帶地關心與他有關的人或物。",
+            idiomImageName: "day040"
+        ),
+
+        "02-10": LunarCalendarData(
+            lunarTerm: "十三",
+            suitableActivities: "宜結網、除服",
+            unsuitableActivities: "忌受死",
+            idiom: "吃藥了沒",
+            idiomDescription: "貼心提醒：記得定期服用藥物，以保身體健康。",
+            idiomImageName: "day041"
+        ),
+
+        "02-11": LunarCalendarData(
+            lunarTerm: "十四",
+            suitableActivities: "宜移徙、雇用",
+            unsuitableActivities: "忌嫁娶、安葬",
+            idiom: "入不敷出",
+            idiomDescription: "指收入不夠開支，形容非常貧窮。出自清代曹雪芹的《紅樓夢》第107回。",
+            idiomImageName: "day041"
+        ),
+        
+        "02-12": LunarCalendarData(
+            lunarTerm: "元宵節",
+            suitableActivities: "宜開光、祈福",
+            unsuitableActivities: "忌入宅、伐木",
+            idiom: "用愛發電",
+            idiomDescription: "指無償為自己喜歡的事物作貢獻。",
+            idiomImageName: "day041"
+        ),
         
         // 五月資料
 

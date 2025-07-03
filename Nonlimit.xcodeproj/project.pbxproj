@@ -28,6 +28,8 @@
 		C2D4F1452C032063004DDD24 /* crystal.json in Resources */ = {isa = PBXBuildFile; fileRef = C2D4F1442C032062004DDD24 /* crystal.json */; };
 		C2D4F1512C15B0E5004DDD24 /* universe.json in Resources */ = {isa = PBXBuildFile; fileRef = C2D4F1502C15B0E5004DDD24 /* universe.json */; };
 		C2D7161E2DE462DA00921955 /* Helpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2D7161D2DE462D900921955 /* Helpers.swift */; };
+		C2D716542E16B62500921955 /* WidgetKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C2BB86742DE01BF800334E97 /* WidgetKit.framework */; };
+		C2D716552E16B62500921955 /* SwiftUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C2BB86762DE01BF800334E97 /* SwiftUI.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -74,6 +76,7 @@
 		C2D4F1442C032062004DDD24 /* crystal.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = crystal.json; sourceTree = "<group>"; };
 		C2D4F1502C15B0E5004DDD24 /* universe.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = universe.json; sourceTree = "<group>"; };
 		C2D7161D2DE462D900921955 /* Helpers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Helpers.swift; sourceTree = "<group>"; };
+		C2D716532E16B62500921955 /* calendarExtension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = calendarExtension.appex; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
@@ -116,6 +119,15 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		C2D716502E16B62500921955 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				C2D716552E16B62500921955 /* SwiftUI.framework in Frameworks */,
+				C2D716542E16B62500921955 /* WidgetKit.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
@@ -142,6 +154,7 @@
 			children = (
 				C28C95382BCAAE9F003CB92D /* Nonlimit.app */,
 				C2BB86722DE01BF800334E97 /* AnswerBookWidgetExtension.appex */,
+				C2D716532E16B62500921955 /* calendarExtension.appex */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -228,6 +241,25 @@
 			productReference = C2BB86722DE01BF800334E97 /* AnswerBookWidgetExtension.appex */;
 			productType = "com.apple.product-type.app-extension";
 		};
+		C2D716522E16B62500921955 /* calendarExtension */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = C2D7165F2E16B62800921955 /* Build configuration list for PBXNativeTarget "calendarExtension" */;
+			buildPhases = (
+				C2D7164F2E16B62500921955 /* Sources */,
+				C2D716502E16B62500921955 /* Frameworks */,
+				C2D716512E16B62500921955 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = calendarExtension;
+			packageProductDependencies = (
+			);
+			productName = calendarExtension;
+			productReference = C2D716532E16B62500921955 /* calendarExtension.appex */;
+			productType = "com.apple.product-type.app-extension";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -242,6 +274,9 @@
 						CreatedOnToolsVersion = 15.0.1;
 					};
 					C2BB86712DE01BF800334E97 = {
+						CreatedOnToolsVersion = 16.1;
+					};
+					C2D716522E16B62500921955 = {
 						CreatedOnToolsVersion = 16.1;
 					};
 				};
@@ -264,6 +299,7 @@
 			targets = (
 				C28C95372BCAAE9F003CB92D /* Nonlimit */,
 				C2BB86712DE01BF800334E97 /* AnswerBookWidgetExtension */,
+				C2D716522E16B62500921955 /* calendarExtension */,
 			);
 		};
 /* End PBXProject section */
@@ -293,6 +329,13 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		C2D716512E16B62500921955 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
@@ -314,6 +357,13 @@
 			buildActionMask = 2147483647;
 			files = (
 				C2BB86C52DE2098F00334E97 /* LunarCalendarDataManager.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		C2D7164F2E16B62500921955 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -565,6 +615,66 @@
 			};
 			name = Release;
 		};
+		C2D7165C2E16B62800921955 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				ASSETCATALOG_COMPILER_WIDGET_BACKGROUND_COLOR_NAME = WidgetBackground;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = FC7BJ52G9K;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = calendar/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = calendar;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+					"@executable_path/../../../../Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.daisyyang.calendar;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = watchos;
+				SKIP_INSTALL = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = 4;
+				WATCHOS_DEPLOYMENT_TARGET = 11.1;
+			};
+			name = Debug;
+		};
+		C2D7165D2E16B62800921955 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				ASSETCATALOG_COMPILER_WIDGET_BACKGROUND_COLOR_NAME = WidgetBackground;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = FC7BJ52G9K;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = calendar/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = calendar;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+					"@executable_path/../../../../Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.daisyyang.calendar;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = watchos;
+				SKIP_INSTALL = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = 4;
+				WATCHOS_DEPLOYMENT_TARGET = 11.1;
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -591,6 +701,15 @@
 			buildConfigurations = (
 				C2BB86882DE01BFA00334E97 /* Debug */,
 				C2BB86892DE01BFA00334E97 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		C2D7165F2E16B62800921955 /* Build configuration list for PBXNativeTarget "calendarExtension" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				C2D7165C2E16B62800921955 /* Debug */,
+				C2D7165D2E16B62800921955 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
