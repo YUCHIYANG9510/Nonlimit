@@ -12,29 +12,69 @@ struct CardDetailView: View {
     let icon: String
     let title: String
     let cardType: CardType
-    
+
     @EnvironmentObject var appState: AppState
     @State private var animateGradient: Bool = false
+
+    var headerText: String {
+        switch cardType {
+        case .work:
+            return "工作上遇到的問題嗎？"
+        case .love:
+            return "感情中想問什麼呢？"
+        case .future:
+            return "對未來感到迷惘？"
+        case .lunch:
+            return "午餐吃什麼？"
+        }
+    }
+
+    var sublineText: String {
+        switch cardType {
+        case .work:
+            return "靜下心來，默念你的問題"
+        case .love:
+            return "把你的煩惱說給我聽"
+        case .future:
+            return "你在焦慮什麼"
+        case .lunch:
+            return "一天中最困難的問題交給我吧！"
+        }
+    }
     
+    var animationFileName: String {
+        switch cardType {
+        case .work:
+            return "mediation"
+        case .love:
+            return "mediation"
+        case .future:
+            return "mediation"
+        case .lunch:
+            return "mediation"
+        }
+    }
+
     var body: some View {
         VStack {
-            Text("深呼吸、保持冷靜...")
-                .font(.title2)
+            Text(headerText)
+                .font(.title)
                 .fontWeight(.bold)
                 .multilineTextAlignment(.center)
-                .foregroundColor(.black.opacity(0.7))
-                
-            Text("提出你想問的問題")
-                .font(.title2)
-                .fontWeight(.bold)
+                .padding(.bottom, 8)
+                .foregroundColor(.black.opacity(0.9))
+
+            Text(sublineText)
+                .font(.headline)
+                .fontWeight(.regular)
                 .multilineTextAlignment(.center)
                 .foregroundColor(.black.opacity(0.7))
-                
-            LottieView(animation: .named("mediation.json"))
+
+            LottieView(animation: .named("\(animationFileName).json"))
                 .playbackMode(.playing(.toProgress(1, loopMode: .loop)))
                 .resizable()
                 .frame(width: 350, height: 350)
-            
+
             NavigationLink(destination: ResultView(cardType: cardType)) {
                 Text("SUBMIT")
                     .font(.title)
@@ -71,7 +111,7 @@ struct CardDetailView: View {
         }
     }
 }
-    
+
 #Preview("Card Detail - Work") {
     NavigationView {
         CardDetailView(icon: "work-card-2", title: "WORK", cardType: .work)

@@ -841,7 +841,7 @@ struct HeaderView: View {
                 .foregroundColor(.accentColor)
                 .padding(.bottom, 6)
             
-            Text("開始你的每日一問")
+            Text("請選擇一個主題，開始你的每日一問")
                 .font(.title2)
                 .fontWeight(.medium)
                 .foregroundColor(.accentColor)

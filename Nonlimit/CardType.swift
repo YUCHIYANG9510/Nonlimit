@@ -46,7 +46,8 @@ enum CardType: CaseIterable {
                 "顯而易見",
                 "當然",
                 "怎麼可能",
-                "相信你的直覺"
+                "相信你的直覺",
+                "先脫貧再脫單",
             ]
         case .future:
             return [
@@ -63,7 +64,8 @@ enum CardType: CaseIterable {
                 "專注呼吸就好",
                 "放下它",
                 "接受它",
-                "多得是～～你不知道的事"
+                "多得是～～你不知道的事",
+                "速度會帶來平衡",
             ]
         case .lunch:
             return [
@@ -80,3 +82,4 @@ enum CardType: CaseIterable {
         }
     }
 }
+
