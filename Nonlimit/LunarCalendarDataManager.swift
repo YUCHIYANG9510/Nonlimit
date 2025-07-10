@@ -306,8 +306,8 @@ class LunarCalendarDataManager {
             idiomImageName: "day031"
         ),
         
-         // 二月資料
-         
+        // 二月資料
+        
         "02-01": LunarCalendarData(
             lunarTerm: "初四",
             suitableActivities: "宜祭祀、馴畜",
@@ -316,7 +316,7 @@ class LunarCalendarDataManager {
             idiomDescription: "順著水流而行。比喻人沒有確定的方向和目標，只依從環境潮流行事。",
             idiomImageName: "day032"
         ),
-
+        
         "02-02": LunarCalendarData(
             lunarTerm: "初五",
             suitableActivities: "宜修造、認養",
@@ -325,7 +325,7 @@ class LunarCalendarDataManager {
             idiomDescription: "歡樂到了極點，往往會轉生悲哀。",
             idiomImageName: "day033"
         ),
-
+        
         "02-03": LunarCalendarData(
             lunarTerm: "立春",
             suitableActivities: "宜安床、會友",
@@ -334,7 +334,7 @@ class LunarCalendarDataManager {
             idiomDescription: "聰明才智相當的人彼此敬慕、愛惜。",
             idiomImageName: "day034"
         ),
-
+        
         "02-04": LunarCalendarData(
             lunarTerm: "初七",
             suitableActivities: "宜塑繪、針灸",
@@ -343,7 +343,7 @@ class LunarCalendarDataManager {
             idiomDescription: "指像火那樣紅、像荼那樣白。形容事物的興盛或氣氛的熱烈。",
             idiomImageName: "day035"
         ),
-
+        
         "02-05": LunarCalendarData(
             lunarTerm: "初八",
             suitableActivities: "宜作灶、解除",
@@ -352,7 +352,7 @@ class LunarCalendarDataManager {
             idiomDescription: "比喻一個人名聲太大或地位太高，容易招致別人的嫉妒、批評或陷害。",
             idiomImageName: "day036"
         ),
-
+        
         "02-06": LunarCalendarData(
             lunarTerm: "天公生",
             suitableActivities: "宜解除、沐浴",
@@ -361,7 +361,7 @@ class LunarCalendarDataManager {
             idiomDescription: "來自玩具總動員的經典台詞，也說出了許多人對前進太空的未來嚮往。",
             idiomImageName: "day037"
         ),
-
+        
         "02-07": LunarCalendarData(
             lunarTerm: "初十",
             suitableActivities: "宜嫁娶、出行",
@@ -370,7 +370,7 @@ class LunarCalendarDataManager {
             idiomDescription: "形容水勢或地域廣大遼闊，沒有邊際。",
             idiomImageName: "day038"
         ),
-
+        
         "02-08": LunarCalendarData(
             lunarTerm: "十一",
             suitableActivities: "宜祭祀、掃舍",
@@ -379,7 +379,7 @@ class LunarCalendarDataManager {
             idiomDescription: "比喻人一下子成名或事業上升很快。",
             idiomImageName: "day039"
         ),
-
+        
         "02-09": LunarCalendarData(
             lunarTerm: "十二",
             suitableActivities: "宜出行、掛匾",
@@ -388,7 +388,7 @@ class LunarCalendarDataManager {
             idiomDescription: "比喻愛一個人而連帶地關心與他有關的人或物。",
             idiomImageName: "day040"
         ),
-
+        
         "02-10": LunarCalendarData(
             lunarTerm: "十三",
             suitableActivities: "宜結網、除服",
@@ -397,14 +397,14 @@ class LunarCalendarDataManager {
             idiomDescription: "貼心提醒：記得定期服用藥物，以保身體健康。",
             idiomImageName: "day041"
         ),
-
+        
         "02-11": LunarCalendarData(
             lunarTerm: "十四",
             suitableActivities: "宜移徙、雇用",
             unsuitableActivities: "忌嫁娶、安葬",
             idiom: "入不敷出",
             idiomDescription: "指收入不夠開支，形容非常貧窮。出自清代曹雪芹的《紅樓夢》第107回。",
-            idiomImageName: "day041"
+            idiomImageName: "day042"
         ),
         
         "02-12": LunarCalendarData(
@@ -413,11 +413,154 @@ class LunarCalendarDataManager {
             unsuitableActivities: "忌入宅、伐木",
             idiom: "用愛發電",
             idiomDescription: "指無償為自己喜歡的事物作貢獻。",
-            idiomImageName: "day041"
+            idiomImageName: "day043"
+        ),
+        
+        "02-13": LunarCalendarData(
+            lunarTerm: "十六",
+            suitableActivities: "宜祭祀、合帳",
+            unsuitableActivities: "忌出火、入宅",
+            idiom: "自掏腰包",
+            idiomDescription: "由自己付錢。",
+            idiomImageName: "day044"
+        ),
+        
+        "02-14": LunarCalendarData(
+            lunarTerm: "十七",
+            suitableActivities: "宜伐木、作樑",
+            unsuitableActivities: "忌納畜、牧養",
+            idiom: "若有若無",
+            idiomDescription: "指的是好像有又好像沒有，形容模糊不清、不明顯的樣子，",
+            idiomImageName: "day045"
+        ),
+        
+        "02-15": LunarCalendarData(
+            lunarTerm: "十八",
+            suitableActivities: "宜嫁娶、祭祀",
+            unsuitableActivities: "忌入宅、安香",
+            idiom: "奇奇怪怪",
+            idiomDescription: "奇異，出乎意料、不合常理。",
+            idiomImageName: "day046"
+        ),
+        
+        "02-16": LunarCalendarData(
+            lunarTerm: "十九",
+            suitableActivities: "宜會友、安床",
+            unsuitableActivities: "忌入宅、作灶",
+            idiom: "大吉大利",
+            idiomDescription: "非常吉祥、順利，一切都很好。",
+            idiomImageName: "day047"
+        ),
+        
+        "02-17": LunarCalendarData(
+            lunarTerm: "廿十",
+            suitableActivities: "無",
+            unsuitableActivities: "忌行喪、牧養",
+            idiom: "南柯一夢",
+            idiomDescription: "形容人生如夢，也形容一場空歡喜。",
+            idiomImageName: "day048"
+        ),
+        
+        "02-18": LunarCalendarData(
+            lunarTerm: "雨水",
+            suitableActivities: "宜納采、訂盟",
+            unsuitableActivities: "忌開光、蓋屋",
+            idiom: "光陰似箭",
+            idiomDescription: "形容時間消逝如飛箭般迅速。",
+            idiomImageName: "day049"
+        ),
+        
+        "02-19": LunarCalendarData(
+            lunarTerm: "廿二",
+            suitableActivities: "宜動土、嫁娶",
+            unsuitableActivities: "忌開示、入宅",
+            idiom: "飛鴿傳書",
+            idiomDescription: "古代因缺少專門的郵差，所以只有利用飛鴿來幫人們傳遞消息",
+            idiomImageName: "day050"
+        ),
+        "02-20": LunarCalendarData(
+            lunarTerm: "廿三",
+            suitableActivities: "宜求醫、破屋",
+            unsuitableActivities: "忌正四廢",
+            idiom: "湖光山色",
+            idiomDescription: "形容湖的波光和山的景色，泛指美好的自然風光。",
+            idiomImageName: "day051"
+        ),
+        
+        "02-21": LunarCalendarData(
+            lunarTerm: "廿四",
+            suitableActivities: "宜沐浴、合木",
+            unsuitableActivities: "忌正四廢",
+            idiom: "奇蹟誕生",
+            idiomDescription: "表示一件非比尋常、極為珍貴且難以想像的事情出現了。",
+            idiomImageName: "day052"
+        ),
+        
+        "02-22": LunarCalendarData(
+            lunarTerm: "廿五",
+            suitableActivities: "宜祭祀、結網",
+            unsuitableActivities: "忌受死",
+            idiom: "殺雞取卵",
+            idiomDescription: "把雞殺了，取出腹中的蛋。比喻為貪圖眼前的好處而斷絕了長遠的利益。",
+            idiomImageName: "day053"
+        ),
+        
+        "02-23": LunarCalendarData(
+            lunarTerm: "廿六",
+            suitableActivities: "宜理髮、栽種",
+            unsuitableActivities: "忌嫁娶、伐木",
+            idiom: "異星入境",
+            idiomDescription: "是一部 2016 年上映的美國科幻電影，探討人類本質與語言奧秘。",
+            idiomImageName: "day054"
+        ),
+        
+        "02-24": LunarCalendarData(
+            lunarTerm: "廿七",
+            suitableActivities: "宜嫁娶、祈福",
+            unsuitableActivities: "忌入宅、安葬",
+            idiom: "曲高和寡",
+            idiomDescription: "曲調愈高雅，跟著唱和的人就愈少。比喻無法引起大眾的共鳴。",
+            idiomImageName: "day055"
+        ),
+        
+        "02-25": LunarCalendarData(
+            lunarTerm: "廿八",
+            suitableActivities: "宜謝土、成服",
+            unsuitableActivities: "忌栽種、針灸",
+            idiom: "鬼斧神工",
+            idiomDescription: "像是鬼神製作出來的。形容技藝精巧，達到鬼神靈妙的境界。",
+            idiomImageName: "day056"
+        ),
+        
+        "02-26": LunarCalendarData(
+            lunarTerm: "廿九",
+            suitableActivities: "宜開光、解除",
+            unsuitableActivities: "忌入宅、出行",
+            idiom: "馬首是瞻",
+            idiomDescription: "指士兵依據主將的馬頭來決定前進的方向，比喻服從指揮或跟隨他人進退。",
+            idiomImageName: "day057"
+        ),
+        
+        "02-27": LunarCalendarData(
+            lunarTerm: "三十",
+            suitableActivities: "宜動土、起基",
+            unsuitableActivities: "忌移徙、出火",
+            idiom: "麵包超人",
+            idiomDescription: "臉由紅豆麵包做成，是一位又剛強又善良的正義英雄。",
+            idiomImageName: "day058"
+        ),
+        
+        "02-28": LunarCalendarData(
+            lunarTerm: "二月",
+            suitableActivities: "宜冠笄、會友",
+            unsuitableActivities: "忌嫁娶、開市",
+            idiom: "白色恐怖",
+            idiomDescription: "你是忘記了，還是害怕想起來？",
+            idiomImageName: "day059"
         ),
         
         // 五月資料
-
+        
         "05-22": LunarCalendarData(
             lunarTerm: "廿五",
             suitableActivities: "宜出行、會友",
@@ -560,6 +703,13 @@ class LunarCalendarDataManager {
             idiomDescription: "極短暫的時間，卻有著千金的價值。形容時間極其寶貴。",
             idiomImageName: "day185"
         ),
+        
+        
+        
+        /*
+         
+         
+         */
         
     ]
     
