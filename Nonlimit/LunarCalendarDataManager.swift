@@ -542,7 +542,7 @@ class LunarCalendarDataManager {
         ),
         
         "02-27": LunarCalendarData(
-            lunarTerm: "三十",
+            lunarTerm: "卅",
             suitableActivities: "宜動土、起基",
             unsuitableActivities: "忌移徙、出火",
             idiom: "麵包超人",
@@ -557,6 +557,256 @@ class LunarCalendarDataManager {
             idiom: "白色恐怖",
             idiomDescription: "你是忘記了，還是害怕想起來？",
             idiomImageName: "day059"
+        ),
+        
+        // 三月資料
+        "03-01": LunarCalendarData(
+            lunarTerm: "初二",
+            suitableActivities: "宜作灶、解除",
+            unsuitableActivities: "忌祭祀、祈福",
+            idiom: "無肉不歡",
+            idiomDescription: "每一餐都一定要吃到肉，因為得了一 種沒有吃到肉會死的病。",
+            idiomImageName: "day060"
+        ),
+        "03-02": LunarCalendarData(
+            lunarTerm: "初三",
+            suitableActivities: "宜嫁娶、置產",
+            unsuitableActivities: "忌經絡、探病",
+            idiom: "屍速列車",
+            idiomDescription: "是一部於2016年上映的韓國災難電影，探討了人性在極端情況下的表現。",
+            idiomImageName: "day061"
+        ),
+        "03-03": LunarCalendarData(
+            lunarTerm: "初四",
+            suitableActivities: "宜出行、動土",
+            unsuitableActivities: "忌開市、入宅",
+            idiom: "雞生蛋？",
+            idiomDescription: "蛋源自於母雞的卵巢深處。",
+            idiomImageName: "day062"
+        ),
+        "03-04": LunarCalendarData(
+            lunarTerm: "初五",
+            suitableActivities: "宜沐浴、理髮",
+            unsuitableActivities: "忌月破",
+            idiom: "蛋生雞？",
+            idiomDescription: "蛋又是雞的來源。指事情的發生是循環不斷，互相依賴的，沒有明確的起點或終點",
+            idiomImageName: "day063"
+        ),
+        "03-05": LunarCalendarData(
+            lunarTerm: "驚蟄",
+            suitableActivities: "宜破屋、求醫",
+            unsuitableActivities: "忌月破",
+            idiom: "不堪負荷",
+            idiomDescription: "無法承受、負擔。",
+            idiomImageName: "day064"
+        ),
+        "03-06": LunarCalendarData(
+            lunarTerm: "初七",
+            suitableActivities: "宜訂盟、納采",
+            unsuitableActivities: "忌開光、出貨",
+            idiom: "守株待兔",
+            idiomDescription: "指拘泥守成，不知變通，或妄想不勞而獲。",
+            idiomImageName: "day065"
+        ),
+        "03-07": LunarCalendarData(
+            lunarTerm: "初八",
+            suitableActivities: "宜塑繪、拆卸",
+            unsuitableActivities: "忌伐木、栽種",
+            idiom: "神奇海螺",
+            idiomDescription: "是《海綿寶寶》第42集中出現的一種玩具。當有人對某件事情感到疑惑時，可以拉動神奇海螺的繩子，它會隨機播放一段預錄好的聲音來回答問題。",
+            idiomImageName: "day066"
+        ),
+        "03-08": LunarCalendarData(
+            lunarTerm: "初九",
+            suitableActivities: "宜裁衣、納財",
+            unsuitableActivities: "忌作灶、開市",
+            idiom: "冰美式 a-a",
+            idiomDescription: "將濃縮咖啡加入冰塊和冷水調製而成，保留了咖啡的苦味和香氣，同時帶有清涼感，適合在炎熱的天氣飲用。",
+            idiomImageName: "day067"
+        ),
+        "03-09": LunarCalendarData(
+            lunarTerm: "初十",
+            suitableActivities: "宜修造、入學",
+            unsuitableActivities: "忌安葬、蓋屋",
+            idiom: "好吃懶做",
+            idiomDescription: "愛吃又懶得勞動。",
+            idiomImageName: "day068"
+        ),
+        "03-10": LunarCalendarData(
+            lunarTerm: "十一",
+            suitableActivities: "宜訂盟、納采",
+            unsuitableActivities: "忌入宅、安香",
+            idiom: "瑪利歐",
+            idiomDescription: "是一位義大利裔美國人，職業是水管工，性格外向、自信且富有正義感。",
+            idiomImageName: "day069"
+        ),
+        "03-11": LunarCalendarData(
+            lunarTerm: "十二",
+            suitableActivities: "宜出行、安床",
+            unsuitableActivities: "忌動土、入宅",
+            idiom: "沒齒難忘",
+            idiomDescription: "指永遠難以忘記。",
+            idiomImageName: "day070"
+        ),
+        "03-12": LunarCalendarData(
+            lunarTerm: "十三",
+            suitableActivities: "宜塞穴",
+            unsuitableActivities: "忌受死",
+            idiom: "歸心似箭",
+            idiomDescription: "形容想回家的心情非常急切，就像射出的箭一樣快",
+            idiomImageName: "day071"
+        ),
+        "03-13": LunarCalendarData(
+            lunarTerm: "十四",
+            suitableActivities: "宜開光、合帳",
+            unsuitableActivities: "忌嫁娶、入宅",
+            idiom: "小心慢行",
+            idiomDescription: "用以警告車輛駕駛人前面路況變遷，應減速慢行。",
+            idiomImageName: "day072"
+        ),
+        "03-14": LunarCalendarData(
+            lunarTerm: "十五",
+            suitableActivities: "宜祭祀、安葬",
+            unsuitableActivities: "忌真滅沒",
+            idiom: "冷若冰霜",
+            idiomDescription: "形容態度極為冷淡。",
+            idiomImageName: "day073"
+        ),
+        "03-15": LunarCalendarData(
+            lunarTerm: "十六",
+            suitableActivities: "宜會友、放水",
+            unsuitableActivities: "忌伐木、作樑",
+            idiom: "阿里山茶",
+            idiomDescription: "在台灣嘉義縣阿里山茶區所產的茶葉，以其獨特的清香、甘醇的滋味和豐富的香氣而聞名，是台灣頂級高山茶的代表之一。",
+            idiomImageName: "day074"
+        ),
+        "03-16": LunarCalendarData(
+            lunarTerm: "十七",
+            suitableActivities: "宜入學、赴任",
+            unsuitableActivities: "忌入宅、安門",
+            idiom: "情非得已",
+            idiomDescription: "指在當時的情況下，不得不如此做。",
+            idiomImageName: "day075"
+        ),
+        "03-17": LunarCalendarData(
+            lunarTerm: "十八",
+            suitableActivities: "宜祭祀、破屋",
+            unsuitableActivities: "忌月破",
+            idiom: "風和日麗",
+            idiomDescription: "微風和煦，陽光明媚，形容天氣晴朗，適合戶外活動。",
+            idiomImageName: "day076"
+        ),
+        "03-18": LunarCalendarData(
+            lunarTerm: "十九",
+            suitableActivities: "宜交易、認養",
+            unsuitableActivities: "忌開光、安葬",
+            idiom: "安心豚",
+            idiomDescription: "台糖旗下的一個豬肉品牌，以其嚴格的品質控管和產銷履歷著稱。",
+            idiomImageName: "day077"
+        ),
+        "03-19": LunarCalendarData(
+            lunarTerm: "二十",
+            suitableActivities: "宜開市、掛匾",
+            unsuitableActivities: "忌四離",
+            idiom: "十年樹木",
+            idiomDescription: "栽植樹木需要十年。",
+            idiomImageName: "day078"
+        ),
+        "03-20": LunarCalendarData(
+            lunarTerm: "春分",
+            suitableActivities: "宜理髮、冠笄",
+            unsuitableActivities: "忌置產、伐木",
+            idiom: "百年樹人",
+            idiomDescription: "培養人才需要百年。比喻培養人才非常不易或培育人才是長久之計。",
+            idiomImageName: "day079"
+        ),
+        "03-21": LunarCalendarData(
+            lunarTerm: "廿二",
+            suitableActivities: "宜求嗣、移徙",
+            unsuitableActivities: "忌合帳、開市",
+            idiom: "順手牽羊",
+            idiomDescription: "趁機會就下手拿東西。喻偷竊的行為。",
+            idiomImageName: "day080"
+        ),
+        "03-22": LunarCalendarData(
+            lunarTerm: "廿三",
+            suitableActivities: "宜安床、伐木",
+            unsuitableActivities: "忌嫁娶、開光",
+            idiom: "苟且偷生",
+            idiomDescription: "得過且過，勉強地活下去，形容不顧一切只求暫時活命，缺乏長遠規劃和擔當。",
+            idiomImageName: "day081"
+        ),
+        "03-23": LunarCalendarData(
+            lunarTerm: "廿四",
+            suitableActivities: "宜祭祀、出行",
+            unsuitableActivities: "忌祈福、動土",
+            idiom: "天使下凡",
+            idiomDescription: "比喻某人或某事物的出現帶來了希望、美好或改變，如同天使帶來光明。",
+            idiomImageName: "day082"
+        ),
+        "03-24": LunarCalendarData(
+            lunarTerm: "廿五",
+            suitableActivities: "宜塞穴、捕捉",
+            unsuitableActivities: "忌受死",
+            idiom: "即刻救援",
+            idiomDescription: "2008年的法國動作驚悚電影，講述一位前特種部隊探員的女兒在巴黎遭綁架，他必須在極短時間內靠著自己的情報技能將其救出的故事。",
+            idiomImageName: "day083"
+        ),
+        "03-25": LunarCalendarData(
+            lunarTerm: "廿六",
+            suitableActivities: "宜納財、蓋屋",
+            unsuitableActivities: "忌動土、破土",
+            idiom: "非禮勿言",
+            idiomDescription: "不符合禮儀規範的話，就不要說。",
+            idiomImageName: "day084"
+        ),
+        "03-26": LunarCalendarData(
+            lunarTerm: "廿七",
+            suitableActivities: "宜祭祀、祈福",
+            unsuitableActivities: "忌開倉、出貨",
+            idiom: "機密文件",
+            idiomDescription: "指的是重要且必須保密的公文、書信等。",
+            idiomImageName: "day085"
+        ),
+        "03-27": LunarCalendarData(
+            lunarTerm: "廿八",
+            suitableActivities: "宜嫁娶、祭祀",
+            unsuitableActivities: "忌動土、伐木",
+            idiom: "普天同慶",
+            idiomDescription: "指全天下的人共同慶祝。",
+            idiomImageName: "day086"
+        ),
+        "03-28": LunarCalendarData(
+            lunarTerm: "廿九",
+            suitableActivities: "宜出行、解除",
+            unsuitableActivities: "忌真滅沒",
+            idiom: "三色糰子",
+            idiomDescription: "是日本的一種傳統和菓子，通常由粉色、白色和綠色三種顏色的糰子組成。",
+            idiomImageName: "day087"
+        ),
+        "03-29": LunarCalendarData(
+            lunarTerm: "三月",
+            suitableActivities: "宜破屋、求醫",
+            unsuitableActivities: "忌月破",
+            idiom: "樂不思蜀",
+            idiomDescription: "快樂到一點也不想回去蜀國。比喻人因留戀異地而不想返回故鄉，或形容快樂得忘了歸去。",
+            idiomImageName: "day088"
+        ),
+        "03-30": LunarCalendarData(
+            lunarTerm: "初二",
+            suitableActivities: "宜納采、交易",
+            unsuitableActivities: "忌嫁娶、開光",
+            idiom: "一文不值",
+            idiomDescription: "形容事物或人毫無用處、價值。",
+            idiomImageName: "day089"
+        ),
+        "03-31": LunarCalendarData(
+            lunarTerm: "初三",
+            suitableActivities: "宜沐浴、理髮",
+            unsuitableActivities: "忌定磉、合木",
+            idiom: "阿婆鐵蛋",
+            idiomDescription: "因為過於忙碌無意間將蛋滷得太久，沒想到硬硬的滷蛋讓許多客人吃了之後都讚不絕口…",
+            idiomImageName: "day090"
         ),
         
         // 五月資料
