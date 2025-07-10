@@ -13,7 +13,7 @@ struct CardListView: View {
     @EnvironmentObject var appState: AppState
     @State private var selectedTab = 0
     @State private var showSettings = false
-    @State private var displayName = ""
+    @State private var displayName = UserDefaults.standard.string(forKey: "displayName") ?? "🐦"
     @State private var dragOffset: CGFloat = 0
     
     var body: some View {
@@ -186,14 +186,22 @@ struct SettingsView: View {
                             
                             Spacer()
                             
-                            TextField("Name", text: $tempDisplayName)
-                                .font(.system(size: 18))
-                                .foregroundColor(.accentColor.opacity(0.7))
-                                .multilineTextAlignment(.trailing)
-                                .onSubmit {
-                                    // 當用戶完成輸入時更新 displayName
-                                    displayName = tempDisplayName
+                            ZStack(alignment: .trailing) {
+                                if tempDisplayName.isEmpty {
+                                    Text("輸入你的名字")
+                                        .font(.system(size: 18))
+                                        .foregroundColor(.accentColor.opacity(0.4))
+                                        .padding(.trailing, 4)
                                 }
+                                TextField("", text: $tempDisplayName)
+                                    .font(.system(size: 18))
+                                    .foregroundColor(.accentColor.opacity(0.7))
+                                    .multilineTextAlignment(.trailing)
+                                    .onSubmit {
+                                        displayName = tempDisplayName
+                                        UserDefaults.standard.set(displayName, forKey: "displayName")
+                                    }
+                            }
                         }
                         .padding(.horizontal, 30)
                         
@@ -228,11 +236,12 @@ struct SettingsView: View {
             }
         }
         .onAppear {
-            tempDisplayName = displayName
+            tempDisplayName = UserDefaults.standard.string(forKey: "displayName") ?? displayName
         }
         .onDisappear {
-                    // 當設定頁面關閉時也要更新 displayName
+                    // 當設定頁面關閉時也要更新 displayName 並存入 UserDefaults
                     displayName = tempDisplayName
+                    UserDefaults.standard.set(displayName, forKey: "displayName")
                 }
         .sheet(isPresented: $showIconPicker) {
             IconPickerView()
