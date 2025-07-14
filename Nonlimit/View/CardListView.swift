@@ -112,6 +112,7 @@ struct SettingsView: View {
     @Environment(\.dismiss) var dismiss
     @State private var tempDisplayName: String = ""
     @State private var showIconPicker = false
+    @State private var showUpgradeSheet = false // 恢復 sheet 狀態
     
     var body: some View {
         NavigationView {
@@ -156,10 +157,8 @@ struct SettingsView: View {
                                                 .font(.system(size: 14))
                                                 .foregroundColor(.accentColor.opacity(0.7))
                                         }
-                                        
-                                        
                                         Button(action: {
-                                            // Handle upgrade action
+                                            showUpgradeSheet = true // 彈出升級頁
                                         }) {
                                             Text("升級")
                                                 .font(.system(size: 18, weight: .bold))
@@ -248,6 +247,12 @@ struct SettingsView: View {
                 .presentationDetents([.fraction(0.7)])
             .presentationCornerRadius(40)
         }
+        .sheet(isPresented: $showUpgradeSheet) {
+            UpgradeView()
+                .presentationDetents([.large])
+                .presentationCornerRadius(40)
+        }
+        // 移除 navigationDestination
     }
 }
 
@@ -862,7 +867,7 @@ struct HeaderView: View {
 
 struct CardButtonsView: View {
     var body: some View {
-        VStack(spacing: 28) {
+        VStack(spacing: 26) {
             ForEach(cardData, id: \.id) { card in
                 StableCardSelectionButton(card: card)
             }
@@ -1125,9 +1130,9 @@ struct StableCardSelectionButton: View {
                     .font(.system(size: 24, weight: .bold, design: .monospaced))
                     .foregroundColor(.white)
             }
-            .padding(.leading, 32)
-            .padding(.trailing, 40)
-            .padding(.vertical, 14)
+            .padding(.leading, 28)
+            .padding(.trailing, 36)
+            .padding(.vertical, 10)
             .background(
                 RoundedRectangle(cornerRadius: 100)
                     .fill(card.color)
