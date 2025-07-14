@@ -119,7 +119,7 @@ struct SettingsView: View {
                 
                 VStack(spacing: 0) {
                     // Header
-                    Text("Setting")
+                    Text("設定")
                     .font(.title2)
                     .fontWeight(.medium)
                     .foregroundColor(.accentColor)
@@ -141,36 +141,36 @@ struct SettingsView: View {
                                     )
                             .frame(height: 100)
                             .overlay(
-                                HStack(spacing: 16) {
+                                HStack(spacing: 12) {
                                     // Pro icon
                                     Image("pro-icon")
                                             .resizable()
                                             .frame(width: 40, height: 40)
-                                    
-                                    VStack(alignment: .leading, spacing: 4) {
-                                        Text("Join Pro")
-                                            .font(.system(size: 18, weight: .semibold))
-                                            .foregroundColor(.accentColor)
+                                    HStack(spacing: 24) {
+                                        VStack(alignment: .leading, spacing: 4) {
+                                            Text("加入會員")
+                                                .font(.system(size: 18, weight: .semibold))
+                                                .foregroundColor(.accentColor)
+                                            
+                                            Text("訂閱解鎖更多功能")
+                                                .font(.system(size: 14))
+                                                .foregroundColor(.accentColor.opacity(0.7))
+                                        }
                                         
-                                        Text("Subscription or one-time purchase")
-                                            .font(.system(size: 12))
-                                            .foregroundColor(.accentColor.opacity(0.7))
-                                    }
-                                    
-                                    
-                                    Button(action: {
-                                        // Handle upgrade action
-                                    }) {
-                                        Text("Upgrade")
-                                        .font(.system(size: 16, weight: .medium))
-                                        .foregroundColor(.white)
-                                        .padding(.horizontal, 20)
-                                        .padding(.vertical, 10)
-                                        .background(Color(red: 141/255, green: 125/255, blue: 220/255))
-                                        .clipShape(Capsule())
+                                        
+                                        Button(action: {
+                                            // Handle upgrade action
+                                        }) {
+                                            Text("升級")
+                                                .font(.system(size: 16, weight: .bold))
+                                                .foregroundColor(.white)
+                                                .padding(.horizontal, 28)
+                                                .padding(.vertical, 10)
+                                                .background(Color(red: 141/255, green: 125/255, blue: 220/255))
+                                                .clipShape(Capsule())
+                                        }
                                     }
                                 }
-                                .padding(.horizontal, 20)
                             )
                             .padding(.horizontal, 30)
                     }
@@ -180,7 +180,7 @@ struct SettingsView: View {
                     VStack(spacing: 20) {
                         // Display Name Setting
                         HStack {
-                            Text("Display Name")
+                            Text("顯示名稱")
                                 .font(.system(size: 18))
                                 .foregroundColor(.accentColor)
                             
@@ -216,7 +216,7 @@ struct SettingsView: View {
                             showIconPicker = true
                         }) {
                             HStack {
-                                Text("Change icon")
+                                Text("更換圖示")
                                     .font(.system(size: 18))
                                     .foregroundColor(.accentColor)
                                 
@@ -855,14 +855,14 @@ struct HeaderView: View {
                 .foregroundColor(.accentColor.opacity(0.7))
                 
         }
-        .padding(.bottom, 16)
-        .padding(.top, 150)
+        .padding(.bottom, 12)
+        .padding(.top, 140)
     }
 }
 
 struct CardButtonsView: View {
     var body: some View {
-        VStack(spacing: 24) {
+        VStack(spacing: 28) {
             ForEach(cardData, id: \.id) { card in
                 StableCardSelectionButton(card: card)
             }
@@ -874,28 +874,28 @@ struct CardButtonsView: View {
         [
             CardSelectionInfo(
                 imageName: "icon_work",
-                title: "Work.",
+                title: "工作",
                 color: Color(red: 141/255, green: 125/255, blue: 220/255),
                 cardType: .work,
                 detailIcon: "work-card-2"
             ),
             CardSelectionInfo(
                 imageName: "icon_love",
-                title: "Love.",
+                title: "愛情",
                 color: Color(red: 236/255, green: 116/255, blue: 236/255),
                 cardType: .love,
                 detailIcon: "love-card-2"
             ),
             CardSelectionInfo(
                 imageName: "icon_future",
-                title: "Future.",
+                title: "未來",
                 color: Color(red: 36/255, green: 212/255, blue: 148/255),
                 cardType: .future,
                 detailIcon: "future-card-2"
             ),
             CardSelectionInfo(
                 imageName: "icon_lunch",
-                title: "Lunch.",
+                title: "午餐",
                 color: Color(red: 255/255, green: 151/255, blue: 77/255),
                 cardType: .lunch,
                 detailIcon: "lunch-card-2"
@@ -1125,12 +1125,15 @@ struct StableCardSelectionButton: View {
                     .font(.system(size: 24, weight: .bold, design: .monospaced))
                     .foregroundColor(.white)
             }
-            .padding(.horizontal, 20)
-            .padding(.vertical, 10)
+            .padding(.leading, 32)
+            .padding(.trailing, 40)
+            .padding(.vertical, 14)
             .background(
                 RoundedRectangle(cornerRadius: 100)
                     .fill(card.color)
-            )
+                    .stroke(Color.white.opacity(0.2), lineWidth: 6)
+                                          )
+            
         }
         .buttonStyle(PlainButtonStyle())
     }
