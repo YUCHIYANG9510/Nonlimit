@@ -12,64 +12,67 @@ import UIKit
 // Mesh Gradient 背景元件
 struct MeshGradientBackground: View {
     @State private var animate = false
+
     var body: some View {
         GeometryReader { geo in
             ZStack {
-                // 紫色
+                // 背景底色（淡灰白）
+                Color(red: 245/255, green: 245/255, blue: 250/255)
+                    .ignoresSafeArea()
+
+                // 紫色區塊（左上）
                 Circle()
                     .fill(
-                        RadialGradient(gradient: Gradient(colors: [Color(red: 160/255, green: 120/255, blue: 255/255), Color(red: 200/255, green: 170/255, blue: 255/255)]), center: .center, startRadius: 0, endRadius: max(geo.size.width, geo.size.height) * 0.6)
+                        RadialGradient(
+                            gradient: Gradient(colors: [Color(red: 190/255, green: 160/255, blue: 255/255), .clear]),
+                            center: .center,
+                            startRadius: 0,
+                            endRadius: max(geo.size.width, geo.size.height) * 0.7
+                        )
                     )
-                    .frame(width: geo.size.width * 1.2, height: geo.size.height * 1.2)
-                    .offset(x: animate ? -geo.size.width * 0.18 : geo.size.width * 0.12, y: animate ? geo.size.height * 0.12 : -geo.size.height * 0.12)
-                    .blur(radius: 60)
-                // 藍色
+                    .frame(width: geo.size.width * 1.8, height: geo.size.width * 1.8)
+                    .offset(x: animate ? -geo.size.width * 0.3 : geo.size.width * 0.1,
+                            y: animate ? -geo.size.height * 0.4 : -geo.size.height * 0.2)
+                    .blur(radius: 120)
+
+                // 粉紅色區塊（右上到中）
                 Circle()
                     .fill(
-                        RadialGradient(gradient: Gradient(colors: [Color(red: 100/255, green: 170/255, blue: 255/255), Color(red: 180/255, green: 220/255, blue: 255/255)]), center: .center, startRadius: 0, endRadius: max(geo.size.width, geo.size.height) * 0.5)
+                        RadialGradient(
+                            gradient: Gradient(colors: [Color(red: 230/255, green: 180/255, blue: 220/255), .clear]),
+                            center: .center,
+                            startRadius: 0,
+                            endRadius: max(geo.size.width, geo.size.height) * 0.6
+                        )
                     )
-                    .frame(width: geo.size.width * 1.1, height: geo.size.height * 1.1)
-                    .offset(x: animate ? geo.size.width * 0.22 : -geo.size.width * 0.12, y: animate ? -geo.size.height * 0.18 : geo.size.height * 0.18)
-                    .blur(radius: 50)
-                // 天藍
+                    .frame(width: geo.size.width * 1.6, height: geo.size.width * 1.6)
+                    .offset(x: animate ? geo.size.width * 0.2 : geo.size.width * 0.3,
+                            y: animate ? -geo.size.height * 0.2 : geo.size.height * 0.0)
+                    .blur(radius: 100)
+
+                // 淡藍色區塊（左下）
                 Circle()
                     .fill(
-                        RadialGradient(gradient: Gradient(colors: [Color(red: 120/255, green: 210/255, blue: 255/255), Color(red: 200/255, green: 240/255, blue: 255/255)]), center: .center, startRadius: 0, endRadius: max(geo.size.width, geo.size.height) * 0.4)
+                        RadialGradient(
+                            gradient: Gradient(colors: [Color(red: 180/255, green: 225/255, blue: 245/255), .clear]),
+                            center: .center,
+                            startRadius: 0,
+                            endRadius: max(geo.size.width, geo.size.height) * 0.6
+                        )
                     )
-                    .frame(width: geo.size.width * 0.9, height: geo.size.height * 0.9)
-                    .offset(x: animate ? geo.size.width * 0.18 : -geo.size.width * 0.22, y: animate ? geo.size.height * 0.22 : -geo.size.height * 0.18)
-                    .blur(radius: 40)
-                // 粉紫
-                Circle()
-                    .fill(
-                        RadialGradient(gradient: Gradient(colors: [Color(red: 220/255, green: 180/255, blue: 255/255), Color(red: 240/255, green: 220/255, blue: 255/255)]), center: .center, startRadius: 0, endRadius: max(geo.size.width, geo.size.height) * 0.5)
-                    )
-                    .frame(width: geo.size.width * 1.0, height: geo.size.height * 1.0)
-                    .offset(x: animate ? -geo.size.width * 0.22 : geo.size.width * 0.22, y: animate ? -geo.size.height * 0.22 : geo.size.height * 0.22)
-                    .blur(radius: 50)
-                // 淡青
-                Circle()
-                    .fill(
-                        RadialGradient(gradient: Gradient(colors: [Color(red: 180/255, green: 255/255, blue: 250/255), Color(red: 220/255, green: 255/255, blue: 250/255)]), center: .center, startRadius: 0, endRadius: max(geo.size.width, geo.size.height) * 0.5)
-                    )
-                    .frame(width: geo.size.width * 1.1, height: geo.size.height * 1.1)
-                    .offset(x: animate ? geo.size.width * 0.25 : -geo.size.width * 0.18, y: animate ? geo.size.height * 0.35 : geo.size.height * 0.18)
-                    .blur(radius: 60)
-                // 淡粉
-                Circle()
-                    .fill(
-                        RadialGradient(gradient: Gradient(colors: [Color(red: 255/255, green: 210/255, blue: 240/255), Color(red: 255/255, green: 235/255, blue: 250/255)]), center: .center, startRadius: 0, endRadius: max(geo.size.width, geo.size.height) * 0.5)
-                    )
-                    .frame(width: geo.size.width * 1.0, height: geo.size.height * 1.0)
-                    .offset(x: animate ? -geo.size.width * 0.25 : geo.size.width * 0.18, y: animate ? geo.size.height * 0.45 : geo.size.height * 0.22)
-                    .blur(radius: 60)
+                    .frame(width: geo.size.width * 1.5, height: geo.size.width * 1.5)
+                    .offset(x: animate ? -geo.size.width * 0.25 : geo.size.width * 0.1,
+                            y: animate ? geo.size.height * 0.3 : geo.size.height * 0.4)
+                    .blur(radius: 100)
             }
-            .animation(Animation.easeInOut(duration: 3).repeatForever(autoreverses: true), value: animate)
+            .animation(.easeInOut(duration: 8).repeatForever(autoreverses: true), value: animate)
             .onAppear { animate = true }
         }
         .ignoresSafeArea()
     }
 }
+
+
 
 struct CardDetailView: View {
     let icon: String
@@ -79,36 +82,28 @@ struct CardDetailView: View {
     @EnvironmentObject var appState: AppState
     @State private var animateGradient: Bool = false
     @State private var isLoading = false
-    @State private var navigateToResult = false
+    @State private var showResult = false
     @State private var loadingGradientAngle: Double = 0
     @State private var hapticTimer: Timer? = nil
 
     var headerText: String {
         switch cardType {
-        case .work:
-            return "工作上遇到的問題嗎？"
-        case .love:
-            return "感情中想問什麼呢？"
-        case .future:
-            return "對未來感到迷惘？"
-        case .lunch:
-            return "午餐吃什麼？"
+        case .work: return "工作上遇到的問題嗎？"
+        case .love: return "感情中想問什麼呢？"
+        case .future: return "對未來感到迷惘？"
+        case .lunch: return "午餐吃什麼？"
         }
     }
 
     var sublineText: String {
         switch cardType {
-        case .work:
-            return "靜下心來，默念你的問題"
-        case .love:
-            return "把你的煩惱說給我聽"
-        case .future:
-            return "你在焦慮什麼"
-        case .lunch:
-            return "一天中最困難的問題交給我吧！"
+        case .work: return "靜下心來，默念你的問題"
+        case .love: return "把你的煩惱說給我聽"
+        case .future: return "說說你在焦慮什麼"
+        case .lunch: return "一天中最困難的問題交給我吧！"
         }
     }
-    
+
     var animationFileName: String {
         switch cardType {
         case .work:
@@ -146,21 +141,21 @@ struct CardDetailView: View {
                 Button(action: {
                     let generator = UINotificationFeedbackGenerator()
                     generator.notificationOccurred(.success)
+
                     isLoading = true
-                    withAnimation(Animation.linear(duration: 2).repeatForever(autoreverses: false)) {
-                        loadingGradientAngle = 360
-                    }
-                    // 啟動心跳 haptic timer
+                    loadingGradientAngle = 360
+
                     hapticTimer = Timer.scheduledTimer(withTimeInterval: 0.7, repeats: true) { _ in
                         let impact = UIImpactFeedbackGenerator(style: .medium)
                         impact.impactOccurred()
                     }
+
                     DispatchQueue.main.asyncAfter(deadline: .now() + 5.0) {
                         isLoading = false
                         loadingGradientAngle = 0
                         hapticTimer?.invalidate()
                         hapticTimer = nil
-                        navigateToResult = true
+                        showResult = true // ✅ 直接顯示，無動畫
                     }
                 }) {
                     Text("SUBMIT")
@@ -179,22 +174,24 @@ struct CardDetailView: View {
                 .disabled(isLoading)
             }
             .blur(radius: isLoading ? 8 : 0)
-            NavigationLink(destination: ResultView(cardType: cardType), isActive: $navigateToResult) {
-                EmptyView()
-            }
+
             // Loading overlay
             if isLoading {
                 ZStack {
                     MeshGradientBackground()
                     VStack {
-                        Text("正在為你占卜...")
-                            .font(.headline)
-                            .foregroundColor(.white)
+                        Text("來自宇宙的訊息...")
+                            .font(.title2)
+                            .foregroundColor(.accentColor.opacity(0.6))
                             .padding(.top, 16)
-                            .shadow(radius: 10)
                     }
                 }
-                .transition(.opacity)
+            }
+
+            // ResultView 直接顯示（無動畫）
+            if showResult {
+                ResultView(cardType: cardType)
+                    .zIndex(1)
             }
         }
         .navigationBarBackButtonHidden(true)
@@ -218,6 +215,7 @@ struct CardDetailView: View {
         }
     }
 }
+
 
 #Preview("Card Detail - Work") {
     NavigationView {

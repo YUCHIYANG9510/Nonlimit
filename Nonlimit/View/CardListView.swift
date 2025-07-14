@@ -145,10 +145,10 @@ struct SettingsView: View {
                                     // Pro icon
                                     Image("pro-icon")
                                             .resizable()
-                                            .frame(width: 40, height: 40)
+                                            .frame(width: 44, height: 44)
                                     HStack(spacing: 24) {
                                         VStack(alignment: .leading, spacing: 4) {
-                                            Text("加入會員")
+                                            Text("加入專屬會員")
                                                 .font(.system(size: 18, weight: .semibold))
                                                 .foregroundColor(.accentColor)
                                             
@@ -162,7 +162,7 @@ struct SettingsView: View {
                                             // Handle upgrade action
                                         }) {
                                             Text("升級")
-                                                .font(.system(size: 16, weight: .bold))
+                                                .font(.system(size: 18, weight: .bold))
                                                 .foregroundColor(.white)
                                                 .padding(.horizontal, 28)
                                                 .padding(.vertical, 10)
