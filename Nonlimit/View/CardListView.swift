@@ -85,10 +85,10 @@ struct CardListView: View {
                     }) {
                         Image("setting-icon")
                             .resizable()
-                            .frame(width: 36, height: 36)
+                            .frame(width: 44, height: 44)
                     }
-                    .padding(.leading, 32)
-                    .padding(.bottom, 5)
+                    .padding(.leading, 36)
+                    .padding(.bottom, 6)
                     
                     Spacer()
                 }
@@ -855,7 +855,7 @@ struct HeaderView: View {
                 .foregroundColor(.accentColor.opacity(0.7))
                 
         }
-        .padding(.bottom, 12)
+        .padding(.bottom, 4)
         .padding(.top, 140)
     }
 }

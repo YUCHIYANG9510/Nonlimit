@@ -13,18 +13,20 @@ import UIKit
 struct MeshGradientBackground: View {
     @State private var animate = false
 
+    var topLeftColor: Color
+    var topRightColor: Color
+    var bottomLeftColor: Color
+
     var body: some View {
         GeometryReader { geo in
             ZStack {
-                // 背景底色（淡灰白）
                 Color(red: 245/255, green: 245/255, blue: 250/255)
                     .ignoresSafeArea()
 
-                // 紫色區塊（左上）
                 Circle()
                     .fill(
                         RadialGradient(
-                            gradient: Gradient(colors: [Color(red: 190/255, green: 160/255, blue: 255/255), .clear]),
+                            gradient: Gradient(colors: [topLeftColor, .clear]),
                             center: .center,
                             startRadius: 0,
                             endRadius: max(geo.size.width, geo.size.height) * 0.7
@@ -35,11 +37,10 @@ struct MeshGradientBackground: View {
                             y: animate ? -geo.size.height * 0.4 : -geo.size.height * 0.2)
                     .blur(radius: 120)
 
-                // 粉紅色區塊（右上到中）
                 Circle()
                     .fill(
                         RadialGradient(
-                            gradient: Gradient(colors: [Color(red: 230/255, green: 180/255, blue: 220/255), .clear]),
+                            gradient: Gradient(colors: [topRightColor, .clear]),
                             center: .center,
                             startRadius: 0,
                             endRadius: max(geo.size.width, geo.size.height) * 0.6
@@ -50,11 +51,10 @@ struct MeshGradientBackground: View {
                             y: animate ? -geo.size.height * 0.2 : geo.size.height * 0.0)
                     .blur(radius: 100)
 
-                // 淡藍色區塊（左下）
                 Circle()
                     .fill(
                         RadialGradient(
-                            gradient: Gradient(colors: [Color(red: 180/255, green: 225/255, blue: 245/255), .clear]),
+                            gradient: Gradient(colors: [bottomLeftColor, .clear]),
                             center: .center,
                             startRadius: 0,
                             endRadius: max(geo.size.width, geo.size.height) * 0.6
@@ -117,6 +117,35 @@ struct CardDetailView: View {
         }
     }
 
+    var loadingBackgroundColors: (Color, Color, Color) {
+        switch cardType {
+        case .work:
+            return (
+                Color(red: 160/255, green: 140/255, blue: 255/255), // 紫藍
+                Color(red: 200/255, green: 180/255, blue: 255/255), // 粉紫
+                Color(red: 180/255, green: 220/255, blue: 255/255)  // 淡藍
+            )
+        case .love:
+            return (
+                Color(red: 255/255, green: 180/255, blue: 220/255), // 粉紅
+                Color(red: 255/255, green: 200/255, blue: 240/255), // 淡粉
+                Color(red: 255/255, green: 220/255, blue: 230/255)  // 溫柔粉
+            )
+        case .future:
+            return (
+                Color(red: 180/255, green: 255/255, blue: 255/255), // 藍綠
+                Color(red: 160/255, green: 210/255, blue: 255/255), // 天藍
+                Color(red: 200/255, green: 240/255, blue: 255/255)  // 淺藍
+            )
+        case .lunch:
+            return (
+                Color(red: 255/255, green: 220/255, blue: 150/255), // 鮮黃
+                Color(red: 255/255, green: 180/255, blue: 120/255), // 橘黃
+                Color(red: 255/255, green: 240/255, blue: 200/255)  // 奶油
+            )
+        }
+    }
+
     var body: some View {
         ZStack {
             VStack {
@@ -150,12 +179,12 @@ struct CardDetailView: View {
                         impact.impactOccurred()
                     }
 
-                    DispatchQueue.main.asyncAfter(deadline: .now() + 5.0) {
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 5) {
                         isLoading = false
                         loadingGradientAngle = 0
                         hapticTimer?.invalidate()
                         hapticTimer = nil
-                        showResult = true // ✅ 直接顯示，無動畫
+                        showResult = true
                     }
                 }) {
                     Text("SUBMIT")
@@ -178,7 +207,11 @@ struct CardDetailView: View {
             // Loading overlay
             if isLoading {
                 ZStack {
-                    MeshGradientBackground()
+                    MeshGradientBackground(
+                        topLeftColor: loadingBackgroundColors.0,
+                        topRightColor: loadingBackgroundColors.1,
+                        bottomLeftColor: loadingBackgroundColors.2
+                    )
                     VStack {
                         Text("來自宇宙的訊息...")
                             .font(.title2)
@@ -187,6 +220,7 @@ struct CardDetailView: View {
                     }
                 }
             }
+
 
             // ResultView 直接顯示（無動畫）
             if showResult {
