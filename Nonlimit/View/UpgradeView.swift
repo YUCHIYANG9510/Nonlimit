@@ -6,9 +6,16 @@
 //
 
 import SwiftUI
+import StoreKit
+
+enum UpgradeOption {
+    case monthly
+    case lifetime
+}
 
 struct UpgradeView: View {
     @Environment(\.dismiss) var dismiss
+    @State private var selectedOption: UpgradeOption = .lifetime
     
     var body: some View {
         ZStack {
@@ -35,7 +42,7 @@ struct UpgradeView: View {
                 .padding(.top, 12)
                 .padding(.trailing, 12)
                 .safeAreaInset(edge: .top) {
-                    Color.clear.frame(height: 20) // 增加安全區補充距離
+                    Color.clear.frame(height: 20)
                 }
                 
                 Spacer(minLength: 0)
@@ -92,55 +99,76 @@ struct UpgradeView: View {
                 .padding(.bottom, 24)
                 
                 VStack(spacing: 18) {
-                    VStack(alignment: .leading, spacing: 6) {
-                        Text("每個月 $30.00")
-                            .font(.system(size: 22, weight: .bold))
-                            .foregroundColor(.white)
-                        Text("可隨時取消訂閱")
-                            .font(.system(size: 16))
-                            .foregroundColor(.white.opacity(0.7))
-                    }
-                    .frame(maxWidth: .infinity, alignment: .leading)
-                    .padding(.horizontal, 32)
-                    .padding(.vertical, 20)
-                    .background(Color.white.opacity(0.08))
-                    .cornerRadius(20)
                     
-                    VStack(alignment: .leading, spacing: 6) {
-                        HStack {
-                            Text("永久使用 $490.00")
+                    // 每月訂閱按鈕（Unselected 預設）
+                    Button(action: {
+                        selectedOption = .monthly
+                    }) {
+                        VStack(alignment: .leading, spacing: 6) {
+                            Text("每個月 $30.00")
                                 .font(.system(size: 22, weight: .bold))
                                 .foregroundColor(.white)
-                            Spacer()
-                            Text("限時優惠")
-                                .font(.system(size: 16, weight: .bold))
-                                .foregroundColor(.white)
-                                .padding(.horizontal, 10)
-                                .padding(.vertical, 4)
-                                .background(Color(red: 236/255, green: 116/255, blue: 236/255))
-                                .cornerRadius(6)
+                            Text("可隨時取消訂閱")
+                                .font(.system(size: 16))
+                                .foregroundColor(.white.opacity(0.7))
                         }
-                        Text("前七天免費")
-                            .font(.system(size: 16))
-                            .foregroundColor(.white.opacity(0.7))
+                        .frame(maxWidth: .infinity, alignment: .leading)
+                        .padding(.horizontal, 32)
+                        .padding(.vertical, 20)
+                        .background(selectedOption == .monthly ? Color(red: 80/255, green: 60/255, blue: 180/255) : Color.white.opacity(0.08))
+                        .cornerRadius(20)
+                        .overlay(
+                            RoundedRectangle(cornerRadius: 20)
+                                .stroke(selectedOption == .monthly ? Color.white.opacity(0.5) : Color.clear, lineWidth: 2)
+                        )
                     }
-                    .frame(maxWidth: .infinity, alignment: .leading)
-                    .padding(.horizontal, 32)
-                    .padding(.vertical, 20)
-                    .background(Color(red: 80/255, green: 60/255, blue: 180/255))
-                    .cornerRadius(20)
-                    .overlay(
-                        RoundedRectangle(cornerRadius: 24)
-                            .stroke(Color.white.opacity(0.5), lineWidth: 2)
-                    )
+                    .buttonStyle(PlainButtonStyle())
+                    
+                    // 永久使用按鈕（Selected 預設）
+                    Button(action: {
+                        selectedOption = .lifetime
+                    }) {
+                        VStack(alignment: .leading, spacing: 6) {
+                            HStack {
+                                Text("永久使用 $490.00")
+                                    .font(.system(size: 22, weight: .bold))
+                                    .foregroundColor(.white)
+                                Spacer()
+                                Text("限時優惠")
+                                    .font(.system(size: 16, weight: .bold))
+                                    .foregroundColor(.white)
+                                    .padding(.horizontal, 10)
+                                    .padding(.vertical, 4)
+                                    .background(Color(red: 236/255, green: 116/255, blue: 236/255))
+                                    .cornerRadius(6)
+                            }
+                            Text("前七天免費")
+                                .font(.system(size: 16))
+                                .foregroundColor(.white.opacity(0.7))
+                        }
+                        .frame(maxWidth: .infinity, alignment: .leading)
+                        .padding(.horizontal, 32)
+                        .padding(.vertical, 20)
+                        .background(selectedOption == .lifetime ? Color(red: 80/255, green: 60/255, blue: 180/255) : Color.white.opacity(0.08))
+                        .cornerRadius(20)
+                        .overlay(
+                            RoundedRectangle(cornerRadius: 24)
+                                .stroke(selectedOption == .lifetime ? Color.white.opacity(0.5) : Color.clear, lineWidth: 2)
+                        )
+                    }
+                    .buttonStyle(PlainButtonStyle())
                 }
                 .padding(.horizontal, 24)
                 .padding(.bottom, 36)
                 
                 Button(action: {
-                    // 付費邏輯
+                    if selectedOption == .monthly {
+                        purchaseMonthly()
+                    } else {
+                        purchaseLifetime()
+                    }
                 }) {
-                    Text("免費試用")
+                    Text(selectedOption == .monthly ? "我要升級" : "免費試用")
                         .font(.system(size: 20, weight: .bold))
                         .foregroundColor(Color(red: 60/255, green: 60/255, blue: 60/255))
                         .frame(maxWidth: .infinity)
@@ -151,17 +179,63 @@ struct UpgradeView: View {
                 }
                 .padding(.bottom, 40)
                 
-                
                 HStack(spacing: 16) {
-                    Text("服務條款")
+                    Button(action: {
+                        if let url = URL(string: "https://www.notion.so/2313fc7b7fd780bea796fea0540e9b86?source=copy_link") {
+                            UIApplication.shared.open(url)
+                        }
+                    }) {
+                        Text("服務條款")
+                    }
+                    .buttonStyle(PlainButtonStyle())
+
                     Text("|")
-                    Text("隱私權")
+
+                    Button(action: {
+                        if let url = URL(string: "https://www.notion.so/2313fc7b7fd78096b154d8a249f98d22?source=copy_link") {
+                            UIApplication.shared.open(url)
+                        }
+                    }) {
+                        Text("隱私權")
+                    }
+                    .buttonStyle(PlainButtonStyle())
+
                     Text("|")
-                    Text("回覆購買")
+
+                    Button(action: {
+                        restorePurchases()
+                    }) {
+                        Text("回覆購買")
+                    }
+                    .buttonStyle(PlainButtonStyle())
                 }
                 .font(.system(size: 16, weight: .medium))
                 .foregroundColor(.white.opacity(0.8))
                 .padding(.bottom, 24)
+
+
+            }
+        }
+    }
+    
+    // MARK: - 購買邏輯
+    func purchaseMonthly() {
+        print("👉 開始每月訂閱流程")
+        // TODO: StoreKit 購買每月方案
+    }
+
+    func purchaseLifetime() {
+        print("👉 開始永久購買流程")
+        // TODO: StoreKit 購買永久方案
+    }
+    
+    func restorePurchases() {
+        Task {
+            do {
+                try await AppStore.sync()
+                print("✅ 回覆購買已觸發")
+            } catch {
+                print("❌ 回覆購買失敗：\(error)")
             }
         }
     }
@@ -170,3 +244,4 @@ struct UpgradeView: View {
 #Preview {
     UpgradeView()
 }
+
