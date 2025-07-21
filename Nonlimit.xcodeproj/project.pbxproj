@@ -97,6 +97,9 @@
 /* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
+		C2A084452E2E083600B1924B /* Utilities */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = Utilities; sourceTree = "<group>"; };
+		C2A084462E2E084B00B1924B /* Models */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = Models; sourceTree = "<group>"; };
+		C2A0845B2E2E0D2C00B1924B /* Styles */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = Styles; sourceTree = "<group>"; };
 		C2BB86782DE01BF800334E97 /* AnswerBookWidget */ = {isa = PBXFileSystemSynchronizedRootGroup; exceptions = (C2BB86C82DE20A8200334E97 /* PBXFileSystemSynchronizedBuildFileExceptionSet */, C2BB868A2DE01BFA00334E97 /* PBXFileSystemSynchronizedBuildFileExceptionSet */, ); explicitFileTypes = {}; explicitFolders = (); path = AnswerBookWidget; sourceTree = "<group>"; };
 		C2BB86C22DE18F3700334E97 /* View */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = View; sourceTree = "<group>"; };
 /* End PBXFileSystemSynchronizedRootGroup section */
@@ -162,13 +165,16 @@
 		C28C953A2BCAAE9F003CB92D /* Nonlimit */ = {
 			isa = PBXGroup;
 			children = (
+				C2BB86C22DE18F3700334E97 /* View */,
+				C2A0845B2E2E0D2C00B1924B /* Styles */,
+				C2A084462E2E084B00B1924B /* Models */,
+				C2A084452E2E083600B1924B /* Utilities */,
 				C2D7161D2DE462D900921955 /* Helpers.swift */,
 				C2BB86C32DE1D74C00334E97 /* LunarCalendarDataManager.swift */,
 				C2BA46232DDDCB28004387FF /* AppState.swift */,
 				C21C49B82DC7B42400583000 /* MainView.swift */,
 				C28C953B2BCAAE9F003CB92D /* NonlimitApp.swift */,
 				C2BB86AA2DE1790500334E97 /* CardType.swift */,
-				C2BB86C22DE18F3700334E97 /* View */,
 				C28C95412BCAAEA1003CB92D /* Preview Content */,
 			);
 			path = Nonlimit;
@@ -209,6 +215,9 @@
 				C2BB86852DE01BFA00334E97 /* PBXTargetDependency */,
 			);
 			fileSystemSynchronizedGroups = (
+				C2A084452E2E083600B1924B /* Utilities */,
+				C2A084462E2E084B00B1924B /* Models */,
+				C2A0845B2E2E0D2C00B1924B /* Styles */,
 				C2BB86C22DE18F3700334E97 /* View */,
 			);
 			name = Nonlimit;
