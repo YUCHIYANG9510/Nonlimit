@@ -7,10 +7,12 @@
 
 import SwiftUI
 
+
 // MARK: - Calendar View
 struct CalendarView: View {
     @State private var currentDate = Date()
     @State private var animateGradient = false
+    @State private var showAddCalendarSheet = false
     
     private var currentLunarData: LunarCalendarData {
         LunarCalendarDataManager.shared.getData(for: currentDate)
@@ -77,11 +79,11 @@ struct CalendarView: View {
                 .padding(.top, 100)
                 .padding(.horizontal, 30)
                 
-                // 成語卡片
-                VStack {
+                // 成語卡片 + 加到主畫面按鈕
+                VStack(spacing: 12) {
                     RoundedRectangle(cornerRadius: 24)
                         .fill(Color.white.opacity(0.5))
-                        .frame(height: 400)
+                        .frame(height: 380)
                         .overlay(
                             VStack(spacing: 20) {
                                 Image(currentLunarData.idiomImageName)
@@ -103,15 +105,35 @@ struct CalendarView: View {
                                 }
                             }
                         )
+                    
+                    // 新增按鈕
+                    Button {
+                        showAddCalendarSheet = true
+                    } label: {
+                        Label("將日曆加到主畫面", systemImage: "plus")
+                            .font(.system(size: 16, weight: .medium))
+                            .foregroundColor(.accentColor)
+                            .padding(.horizontal, 20)
+                            .padding(.vertical, 12)
+                            .background(.white.opacity(0.3))
+                            .clipShape(Capsule())
+                    }
+                
                 }
                 .padding(.horizontal, 30)
-                
+
                 Spacer()
             }
         }
+        .sheet(isPresented: $showAddCalendarSheet) {
+            AddCalendarInstructionView()
+                .presentationDetents([.medium])
+                .presentationCornerRadius(40)
+
+        }
+
     }
 }
-
 
 // MARK: - Calendar View Extensions
 extension CalendarView {
@@ -135,19 +157,9 @@ extension CalendarView {
         let day = Calendar.current.component(.day, from: currentDate)
         return String(day)
     }
-    
-    private var lunarDate: String {
-        // TODO: 實際實現農曆轉換
-        return "小滿"
-    }
-    
-    private var suitableActivities: String {
-        // TODO: 從真實農曆資料獲取
-        return "宜出行、會友"
-    }
-    
-    private var unsuitableActivities: String {
-        // TODO: 從真實農曆資料獲取
-        return "忌造廟、掘井"
-    }
+}
+
+
+#Preview {
+    CalendarView()
 }
