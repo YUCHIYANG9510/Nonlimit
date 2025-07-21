@@ -50,11 +50,23 @@ struct YearOverviewView: View {
                     Spacer()
                         .frame(height: 80)
                     
-                    Text("\(daysRemaining) days left")
-                        .font(.system(size: 16, weight: .regular, design: .monospaced))
-                        .fontWeight(.medium)
-                        .foregroundColor(.accentColor)
-                        .padding(.bottom, 16)
+                    HStack() {
+                        Text("2025")
+                            .font(.system(size: 16, weight: .regular, design: .monospaced))
+                            .fontWeight(.medium)
+                            .foregroundColor(.accentColor)
+                        
+                        Text("・")
+                            .font(.system(size: 8, weight: .regular, design: .monospaced))
+                            .fontWeight(.medium)
+                            .foregroundColor(.accentColor)
+                        
+                        Text("\(daysRemaining) days left")
+                            .font(.system(size: 16, weight: .regular, design: .monospaced))
+                            .fontWeight(.medium)
+                            .foregroundColor(.accentColor)
+                    }
+                    .padding(.bottom, 16)
                 }
                 .zIndex(2)
                 
@@ -329,4 +341,9 @@ struct DailyIdiomDialog: View {
         }
         .presentationDetents([.medium])
     }
+}
+
+
+#Preview {
+    YearOverviewView()
 }
