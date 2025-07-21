@@ -13,9 +13,11 @@ import UIKit
 struct MeshGradientBackground: View {
     @State private var animate = false
 
-    var topLeftColor: Color
-    var topRightColor: Color
-    var bottomLeftColor: Color
+    var color1: Color
+    var color2: Color
+    var color3: Color
+    var color4: Color
+    var color5: Color
 
     var body: some View {
         GeometryReader { geo in
@@ -23,10 +25,11 @@ struct MeshGradientBackground: View {
                 Color(red: 245/255, green: 245/255, blue: 250/255)
                     .ignoresSafeArea()
 
+                // 第一個圓圈 - 左上
                 Circle()
                     .fill(
                         RadialGradient(
-                            gradient: Gradient(colors: [topLeftColor, .clear]),
+                            gradient: Gradient(colors: [color1, .clear]),
                             center: .center,
                             startRadius: 0,
                             endRadius: max(geo.size.width, geo.size.height) * 0.7
@@ -37,24 +40,26 @@ struct MeshGradientBackground: View {
                             y: animate ? -geo.size.height * 0.4 : -geo.size.height * 0.2)
                     .blur(radius: 120)
 
+                // 第二個圓圈 - 右上
                 Circle()
                     .fill(
                         RadialGradient(
-                            gradient: Gradient(colors: [topRightColor, .clear]),
+                            gradient: Gradient(colors: [color2, .clear]),
                             center: .center,
                             startRadius: 0,
                             endRadius: max(geo.size.width, geo.size.height) * 0.6
                         )
                     )
                     .frame(width: geo.size.width * 1.6, height: geo.size.width * 1.6)
-                    .offset(x: animate ? geo.size.width * 0.2 : geo.size.width * 0.3,
-                            y: animate ? -geo.size.height * 0.2 : geo.size.height * 0.0)
+                    .offset(x: animate ? geo.size.width * 0.4 : geo.size.width * 0.3,
+                            y: animate ? -geo.size.height * 0.3 : geo.size.height * 0.0)
                     .blur(radius: 100)
 
+                // 第三個圓圈 - 左下
                 Circle()
                     .fill(
                         RadialGradient(
-                            gradient: Gradient(colors: [bottomLeftColor, .clear]),
+                            gradient: Gradient(colors: [color3, .clear]),
                             center: .center,
                             startRadius: 0,
                             endRadius: max(geo.size.width, geo.size.height) * 0.6
@@ -64,6 +69,36 @@ struct MeshGradientBackground: View {
                     .offset(x: animate ? -geo.size.width * 0.25 : geo.size.width * 0.1,
                             y: animate ? geo.size.height * 0.3 : geo.size.height * 0.4)
                     .blur(radius: 100)
+
+                // 第四個圓圈 - 中央
+                Circle()
+                    .fill(
+                        RadialGradient(
+                            gradient: Gradient(colors: [color4, .clear]),
+                            center: .center,
+                            startRadius: 0,
+                            endRadius: max(geo.size.width, geo.size.height) * 0.5
+                        )
+                    )
+                    .frame(width: geo.size.width * 1.3, height: geo.size.width * 1.3)
+                    .offset(x: animate ? geo.size.width * 0.1 : -geo.size.width * 0.1,
+                            y: animate ? geo.size.height * 0.1 : -geo.size.height * 0.1)
+                    .blur(radius: 90)
+
+                // 第五個圓圈 - 右下
+                Circle()
+                    .fill(
+                        RadialGradient(
+                            gradient: Gradient(colors: [color5, .clear]),
+                            center: .center,
+                            startRadius: 0,
+                            endRadius: max(geo.size.width, geo.size.height) * 0.55
+                        )
+                    )
+                    .frame(width: geo.size.width * 1.4, height: geo.size.width * 1.4)
+                    .offset(x: animate ? geo.size.width * 0.3 : geo.size.width * 0.2,
+                            y: animate ? geo.size.height * 0.4 : geo.size.height * 0.3)
+                    .blur(radius: 110)
             }
             .animation(.easeInOut(duration: 8).repeatForever(autoreverses: true), value: animate)
             .onAppear { animate = true }
@@ -71,7 +106,6 @@ struct MeshGradientBackground: View {
         .ignoresSafeArea()
     }
 }
-
 
 
 struct CardDetailView: View {
@@ -85,7 +119,12 @@ struct CardDetailView: View {
     @State private var showResult = false
     @State private var loadingGradientAngle: Double = 0
     @State private var hapticTimer: Timer? = nil
-
+    @State private var currentMessageIndex = 0
+    @State private var dotScales = [1.0, 1.0, 1.0]
+    @State private var mysticalRotation = 0.0
+    @State private var glowRotation = 0.0
+    @State private var starScales = Array(repeating: 1.0, count: 8)
+    
     var headerText: String {
         switch cardType {
         case .work: return "工作上遇到的問題嗎？"
@@ -117,35 +156,183 @@ struct CardDetailView: View {
         }
     }
 
-    var loadingBackgroundColors: (Color, Color, Color) {
+    var loadingBackgroundColors: (Color, Color, Color, Color, Color) {
         switch cardType {
         case .work:
             return (
-                Color(red: 160/255, green: 140/255, blue: 255/255), // 紫藍
-                Color(red: 200/255, green: 180/255, blue: 255/255), // 粉紫
-                Color(red: 180/255, green: 220/255, blue: 255/255)  // 淡藍
+                Color(red: 120/255, green: 80/255, blue: 255/255),   // 深紫藍
+                Color(red: 180/255, green: 120/255, blue: 255/255),  // 中紫
+                Color(red: 80/255, green: 140/255, blue: 255/255),   // 藍紫
+                Color(red: 160/255, green: 100/255, blue: 220/255),  // 深紫
+                Color(red: 100/255, green: 160/255, blue: 255/255)   // 亮藍
             )
         case .love:
             return (
-                Color(red: 255/255, green: 180/255, blue: 220/255), // 粉紅
-                Color(red: 255/255, green: 200/255, blue: 240/255), // 淡粉
-                Color(red: 255/255, green: 220/255, blue: 230/255)  // 溫柔粉
+                Color(red: 255/255, green: 100/255, blue: 180/255),  // 深粉紅
+                Color(red: 255/255, green: 140/255, blue: 200/255),  // 玫瑰粉
+                Color(red: 220/255, green: 120/255, blue: 255/255),  // 粉紫
+                Color(red: 255/255, green: 120/255, blue: 160/255),  // 珊瑚粉
+                Color(red: 240/255, green: 160/255, blue: 255/255)   // 淡紫粉
             )
         case .future:
             return (
-                Color(red: 180/255, green: 255/255, blue: 255/255), // 藍綠
-                Color(red: 160/255, green: 210/255, blue: 255/255), // 天藍
-                Color(red: 200/255, green: 240/255, blue: 255/255)  // 淺藍
+                Color(red: 100/255, green: 200/255, blue: 255/255),  // 深天藍
+                Color(red: 120/255, green: 180/255, blue: 255/255),  // 中藍
+                Color(red: 180/255, green: 220/255, blue: 255/255),  // 淺藍
+                Color(red: 80/255, green: 180/255, blue: 240/255),   // 青藍
+                Color(red: 140/255, green: 240/255, blue: 255/255)   // 亮青
             )
         case .lunch:
             return (
-                Color(red: 255/255, green: 220/255, blue: 150/255), // 鮮黃
-                Color(red: 255/255, green: 180/255, blue: 120/255), // 橘黃
-                Color(red: 255/255, green: 240/255, blue: 200/255)  // 奶油
+                Color(red: 255/255, green: 180/255, blue: 80/255),   // 深橘黃
+                Color(red: 255/255, green: 140/255, blue: 60/255),   // 橘紅
+                Color(red: 255/255, green: 200/255, blue: 120/255),  // 暖黃
+                Color(red: 255/255, green: 160/255, blue: 100/255),  // 橘橙
+                Color(red: 255/255, green: 220/255, blue: 140/255)   // 金黃
             )
         }
     }
 
+    // Loading 訊息組
+    var loadingMessages: [String] {
+        switch cardType {
+        case .work:
+            return [
+                "來自宇宙的訊息...",
+                "正在連接智慧能量...",
+                "解讀工作運勢中...",
+                "即將揭曉答案..."
+            ]
+        case .love:
+            return [
+                "來自宇宙的訊息...",
+                "感受愛的頻率...",
+                "解讀情感密碼中...",
+                "愛情指引即將到來..."
+            ]
+        case .future:
+            return [
+                "來自宇宙的訊息...",
+                "穿越時空隧道...",
+                "探索未來可能性...",
+                "命運軌跡正在顯現..."
+            ]
+        case .lunch:
+            return [
+                "來自宇宙的訊息...",
+                "搜尋美食靈感...",
+                "味蕾雷達啟動中...",
+                "完美午餐即將揭曉..."
+            ]
+        }
+    }
+    
+    func startLoadingAnimations() {
+        // 文字切換動畫
+        Timer.scheduledTimer(withTimeInterval: 1.2, repeats: true) { timer in
+            if !isLoading {
+                timer.invalidate()
+                return
+            }
+            withAnimation(.easeInOut(duration: 0.5)) {
+                currentMessageIndex = (currentMessageIndex + 1) % loadingMessages.count
+            }
+        }
+        
+        // 點點點動畫
+        withAnimation(.easeInOut(duration: 0.6).repeatForever(autoreverses: true)) {
+            dotScales = [1.3, 1.0, 1.0]
+        }
+        
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
+            withAnimation(.easeInOut(duration: 0.6).repeatForever(autoreverses: true)) {
+                dotScales = [1.0, 1.3, 1.0]
+            }
+        }
+        
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.4) {
+            withAnimation(.easeInOut(duration: 0.6).repeatForever(autoreverses: true)) {
+                dotScales = [1.0, 1.0, 1.3]
+            }
+        }
+        
+        // 神秘符號旋轉
+        withAnimation(.linear(duration: 4).repeatForever(autoreverses: false)) {
+            mysticalRotation = 360
+        }
+        
+        // 邊緣光暈
+        withAnimation(.linear(duration: 3).repeatForever(autoreverses: false)) {
+            glowRotation = 360
+        }
+        
+        // 星星閃爍
+        for i in 0..<8 {
+            DispatchQueue.main.asyncAfter(deadline: .now() + Double(i) * 0.1) {
+                withAnimation(.easeInOut(duration: 1.0).repeatForever(autoreverses: true)) {
+                    starScales[i] = Double.random(in: 0.5...1.2)
+                }
+            }
+        }
+    }
+
+
+    // 粒子系統（簡化版）
+    struct ParticleSystemView: View {
+        @State private var particles: [Particle] = []
+        
+        var body: some View {
+            ZStack {
+                ForEach(particles, id: \.id) { particle in
+                    Circle()
+                        .fill(Color.white.opacity(particle.opacity))
+                        .frame(width: particle.size, height: particle.size)
+                        .position(particle.position)
+                        .blur(radius: particle.blur)
+                }
+            }
+            .onAppear {
+                generateParticles()
+            }
+        }
+        
+        func generateParticles() {
+            let screenWidth = UIScreen.main.bounds.width
+            let screenHeight = UIScreen.main.bounds.height
+            
+            for _ in 0..<20 {
+                let particle = Particle(
+                    id: UUID(),
+                    position: CGPoint(
+                        x: CGFloat.random(in: 0...screenWidth),
+                        y: CGFloat.random(in: 0...screenHeight)
+                    ),
+                    size: CGFloat.random(in: 2...6),
+                    opacity: Double.random(in: 0.1...0.4),
+                    blur: CGFloat.random(in: 0...2)
+                )
+                particles.append(particle)
+            }
+            
+            // 粒子飄動動畫
+            withAnimation(.linear(duration: 10).repeatForever(autoreverses: false)) {
+                for i in 0..<particles.count {
+                    particles[i].position.y -= screenHeight + 100
+                    particles[i].position.x += CGFloat.random(in: -50...50)
+                }
+            }
+        }
+    }
+
+    struct Particle {
+        let id: UUID
+        var position: CGPoint
+        let size: CGFloat
+        let opacity: Double
+        let blur: CGFloat
+    }
+
+    
     var body: some View {
         ZStack {
             VStack {
@@ -205,22 +392,104 @@ struct CardDetailView: View {
             .blur(radius: isLoading ? 8 : 0)
 
             // Loading overlay
+            // 增強版的 Loading 體驗
             if isLoading {
                 ZStack {
                     MeshGradientBackground(
-                        topLeftColor: loadingBackgroundColors.0,
-                        topRightColor: loadingBackgroundColors.1,
-                        bottomLeftColor: loadingBackgroundColors.2
+                        color1: loadingBackgroundColors.0,
+                        color2: loadingBackgroundColors.1,
+                        color3: loadingBackgroundColors.2,
+                        color4: loadingBackgroundColors.3,
+                        color5: loadingBackgroundColors.4
                     )
-                    VStack {
-                        Text("來自宇宙的訊息...")
-                            .font(.title2)
-                            .foregroundColor(.accentColor.opacity(0.6))
-                            .padding(.top, 16)
+                    
+                    // 添加粒子效果背景
+                    ParticleSystemView()
+                    
+                    VStack(spacing: 30) {
+                        // 動態文字序列
+                        VStack(spacing: 12) {
+                            Text(loadingMessages[currentMessageIndex])
+                                .font(.title2)
+                                .fontWeight(.medium)
+                                .foregroundColor(.white.opacity(0.9))
+                                .multilineTextAlignment(.center)
+                                .animation(.easeInOut(duration: 0.5), value: currentMessageIndex)
+                            
+                            // 動態點點點效果
+                            HStack(spacing: 4) {
+                                ForEach(0..<3) { index in
+                                    Circle()
+                                        .fill(Color.white.opacity(0.7))
+                                        .frame(width: 8, height: 8)
+                                        .scaleEffect(dotScales[index])
+                                        .animation(
+                                            .easeInOut(duration: 0.6)
+                                            .repeatForever(autoreverses: true)
+                                            .delay(Double(index) * 0.2),
+                                            value: dotScales[index]
+                                        )
+                                }
+                            }
+                        }
+                        
+                        // 旋轉的神秘符號
+                        ZStack {
+                            // 外圈
+                            Circle()
+                                .stroke(Color.white.opacity(0.3), lineWidth: 2)
+                                .frame(width: 120, height: 120)
+                                .rotationEffect(.degrees(mysticalRotation))
+                            
+                            // 內圈符號
+                            Image(systemName: "sparkles")
+                                .font(.system(size: 40))
+                                .foregroundColor(.white.opacity(0.8))
+                                .rotationEffect(.degrees(-mysticalRotation * 0.7))
+                            
+                            // 環繞的小星星
+                            ForEach(0..<8) { index in
+                                Image(systemName: "star.fill")
+                                    .font(.system(size: 12))
+                                    .foregroundColor(.white.opacity(0.6))
+                                    .offset(y: -50)
+                                    .rotationEffect(.degrees(mysticalRotation + Double(index * 45)))
+                                    .scaleEffect(starScales[index])
+                            }
+                        }
+                        .animation(.linear(duration: 4).repeatForever(autoreverses: false), value: mysticalRotation)
+                        
+                        // 進度指示器
+                        ProgressView()
+                            .progressViewStyle(CircularProgressViewStyle(tint: .white.opacity(0.8)))
+                            .scaleEffect(1.2)
                     }
+                    .padding(.horizontal, 40)
+                    
+                    // 邊緣光暈效果
+                    RoundedRectangle(cornerRadius: 0)
+                        .stroke(
+                            LinearGradient(
+                                colors: [.clear, .white.opacity(0.3), .clear],
+                                startPoint: .leading,
+                                endPoint: .trailing
+                            ),
+                            lineWidth: 2
+                        )
+                        .frame(maxWidth: .infinity, maxHeight: .infinity)
+                        .rotationEffect(.degrees(glowRotation))
+                        .animation(.linear(duration: 3).repeatForever(autoreverses: false), value: glowRotation)
+                }
+                .onAppear {
+                    startLoadingAnimations()
                 }
             }
 
+           
+
+            
+
+          
 
             // ResultView 直接顯示（無動畫）
             if showResult {
