@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-// MARK: - Card Selection View
+// MARK: - Card Selection View (更新版本)
 struct OptimizedCardSelectionView: View {
     @EnvironmentObject var appState: AppState
     let displayName: String
@@ -62,6 +62,9 @@ struct OptimizedCardSelectionView: View {
                 // 標題區域
                 HeaderView(greetingText: greetingText, displayName: displayName)
                 
+                // 使用狀態顯示區域
+                UsageStatusView()
+                
                 // 卡片區域 - 直接使用統一的資料
                 CardButtonsView(cardData: Self.cardData)
                 
@@ -70,6 +73,15 @@ struct OptimizedCardSelectionView: View {
         }
         .onAppear {
             greetingText = calculateGreeting()
+        }
+        .alert("升級進階會員", isPresented: $appState.showUpgradeDialog) {
+            Button("暫不升級", role: .cancel) { }
+            Button("立即升級") {
+                // 這裡可以導向付費頁面或處理付費邏輯
+                handleUpgrade()
+            }
+        } message: {
+            Text("今天的免費提問次數已用完！\n升級進階會員即可享受無限制提問。")
         }
     }
     
@@ -82,6 +94,52 @@ struct OptimizedCardSelectionView: View {
             return "午安"
         default:
             return "晚安"
+        }
+    }
+    
+    private func handleUpgrade() {
+        // 這裡實作升級邏輯，例如：
+        // - 導向 App Store 內購
+        // - 顯示付費選項
+        // - 暫時直接升級（測試用）
+        appState.upgradeToPremium()
+    }
+}
+
+// MARK: - Usage Status View
+struct UsageStatusView: View {
+    @EnvironmentObject var appState: AppState
+    
+    var body: some View {
+        if appState.isPremiumUser {
+            HStack {
+                Image(systemName: "crown.fill")
+                    .foregroundColor(.yellow)
+                Text("進階會員 - 無限制提問")
+                    .font(.system(size: 14, weight: .medium))
+                    .foregroundColor(.accentColor.opacity(0.8))
+            }
+            .padding(.horizontal, 16)
+            .padding(.vertical, 8)
+            .background(
+                RoundedRectangle(cornerRadius: 20)
+                    .fill(Color.white.opacity(0.3))
+            )
+        } else {
+            let remaining = appState.getRemainingFreeQuestions()
+            HStack {
+                Image(systemName: "questionmark.circle.fill")
+                    .foregroundColor(.blue)
+                Text("今日剩餘免費提問: \(remaining) 次")
+                    .font(.system(size: 14, weight: .medium))
+                    .foregroundColor(.accentColor.opacity(0.8))
+            }
+            .padding(.horizontal, 16)
+            .padding(.vertical, 8)
+            .background(
+                RoundedRectangle(cornerRadius: 20)
+                    .fill(Color.white.opacity(0.3))
+            )
         }
     }
 }
@@ -121,18 +179,19 @@ struct CardButtonsView: View {
     }
 }
 
-// MARK: - Card Selection Button (統一版本)
+// MARK: - Card Selection Button (更新版本with限制)
 struct CardSelectionButton: View {
     let card: CardSelectionInfo
+    @EnvironmentObject var appState: AppState
+    @State private var showDetailView = false
     
     var body: some View {
-        NavigationLink(
-            destination: CardDetailView(
-                icon: card.detailIcon,
-                title: card.title.uppercased(),
-                cardType: card.cardType
-            )
-        ) {
+        Button(action: {
+            if appState.useQuestionAttempt() {
+                showDetailView = true
+            }
+            // 如果 useQuestionAttempt() 回傳 false，會自動顯示升級對話框
+        }) {
             HStack(spacing: 4) {
                 Image(card.imageName)
                     .resizable()
@@ -153,5 +212,12 @@ struct CardSelectionButton: View {
             )
         }
         .buttonStyle(PlainButtonStyle())
+        .navigationDestination(isPresented: $showDetailView) {
+            CardDetailView(
+                icon: card.detailIcon,
+                title: card.title.uppercased(),
+                cardType: card.cardType
+            )
+        }
     }
 }
