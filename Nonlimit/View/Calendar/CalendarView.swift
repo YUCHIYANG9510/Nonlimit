@@ -37,7 +37,7 @@ struct CalendarView: View {
                 }
             }
 
-            VStack(spacing: 30) {
+            VStack(spacing: 26) {
                 // 日期資訊區塊
                 VStack(spacing: 24) {
                     HStack(alignment: .top) {
@@ -80,12 +80,12 @@ struct CalendarView: View {
                 .padding(.horizontal, 30)
                 
                 // 成語卡片 + 加到主畫面按鈕
-                VStack(spacing: 12) {
+                VStack(spacing: 14) {
                     RoundedRectangle(cornerRadius: 24)
                         .fill(Color.white.opacity(0.5))
-                        .frame(height: 380)
+                        .frame(height: 365)
                         .overlay(
-                            VStack(spacing: 20) {
+                            VStack(spacing: 16) {
                                 Image(currentLunarData.idiomImageName)
                                     .resizable()
                                     .scaledToFit()
