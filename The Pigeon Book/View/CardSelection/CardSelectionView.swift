@@ -44,6 +44,7 @@ struct OptimizedCardSelectionView: View {
     ]
     
     @State private var greetingText: String = ""
+    @State private var showUpgradeView = false
     
     var body: some View {
         ZStack {
@@ -77,11 +78,14 @@ struct OptimizedCardSelectionView: View {
         .alert("升級進階會員", isPresented: $appState.showUpgradeDialog) {
             Button("暫不升級", role: .cancel) { }
             Button("立即升級") {
-                // 這裡可以導向付費頁面或處理付費邏輯
                 handleUpgrade()
             }
         } message: {
             Text("今天的免費提問次數已用完！\n升級進階會員即可享受無限制提問。")
+        }
+        .sheet(isPresented: $showUpgradeView) {
+            UpgradeView()
+                .environmentObject(appState)
         }
     }
     
@@ -98,11 +102,7 @@ struct OptimizedCardSelectionView: View {
     }
     
     private func handleUpgrade() {
-        // 這裡實作升級邏輯，例如：
-        // - 導向 App Store 內購
-        // - 顯示付費選項
-        // - 暫時直接升級（測試用）
-        appState.upgradeToPremium()
+        showUpgradeView = true
     }
 }
 

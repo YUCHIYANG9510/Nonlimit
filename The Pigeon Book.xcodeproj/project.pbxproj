@@ -15,6 +15,7 @@
 		C28C953C2BCAAE9F003CB92D /* NonlimitApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = C28C953B2BCAAE9F003CB92D /* NonlimitApp.swift */; };
 		C28C95402BCAAEA1003CB92D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C28C953F2BCAAEA1003CB92D /* Assets.xcassets */; };
 		C28C95432BCAAEA1003CB92D /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C28C95422BCAAEA1003CB92D /* Preview Assets.xcassets */; };
+		C2944B9C2E2F7BF8008AA495 /* InAppPurchaseManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2944B9B2E2F7BF6008AA495 /* InAppPurchaseManager.swift */; };
 		C2BA45F32DD36B7D004387FF /* mediation.json in Resources */ = {isa = PBXBuildFile; fileRef = C2BA45F22DD36B7D004387FF /* mediation.json */; };
 		C2BA46242DDDCB29004387FF /* AppState.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2BA46232DDDCB28004387FF /* AppState.swift */; };
 		C2BB86752DE01BF800334E97 /* WidgetKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C2BB86742DE01BF800334E97 /* WidgetKit.framework */; };
@@ -66,6 +67,7 @@
 		C28C953B2BCAAE9F003CB92D /* NonlimitApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NonlimitApp.swift; sourceTree = "<group>"; };
 		C28C953F2BCAAEA1003CB92D /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		C28C95422BCAAEA1003CB92D /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
+		C2944B9B2E2F7BF6008AA495 /* InAppPurchaseManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InAppPurchaseManager.swift; sourceTree = "<group>"; };
 		C2BA45F22DD36B7D004387FF /* mediation.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = mediation.json; sourceTree = "<group>"; };
 		C2BA46232DDDCB28004387FF /* AppState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppState.swift; sourceTree = "<group>"; };
 		C2BB86722DE01BF800334E97 /* AnswerBookWidgetExtension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = AnswerBookWidgetExtension.appex; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -165,6 +167,7 @@
 		C28C953A2BCAAE9F003CB92D /* The Pigeon Book */ = {
 			isa = PBXGroup;
 			children = (
+				C2944B9B2E2F7BF6008AA495 /* InAppPurchaseManager.swift */,
 				C2BB86C22DE18F3700334E97 /* View */,
 				C2A0845B2E2E0D2C00B1924B /* Styles */,
 				C2A084462E2E084B00B1924B /* Models */,
@@ -356,6 +359,7 @@
 				C28C953C2BCAAE9F003CB92D /* NonlimitApp.swift in Sources */,
 				C21C49B92DC7B42500583000 /* MainView.swift in Sources */,
 				C2D7161E2DE462DA00921955 /* Helpers.swift in Sources */,
+				C2944B9C2E2F7BF8008AA495 /* InAppPurchaseManager.swift in Sources */,
 				C2BA46242DDDCB29004387FF /* AppState.swift in Sources */,
 				C2BB86AB2DE1790700334E97 /* CardType.swift in Sources */,
 			);
@@ -518,6 +522,8 @@
 				DEVELOPMENT_TEAM = FC7BJ52G9K;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_CFBundleDisplayName = "鴿子之書";
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.lifestyle";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -549,6 +555,8 @@
 				DEVELOPMENT_TEAM = FC7BJ52G9K;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_CFBundleDisplayName = "鴿子之書";
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.lifestyle";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;

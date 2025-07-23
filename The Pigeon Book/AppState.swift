@@ -14,6 +14,7 @@ class AppState: ObservableObject {
     @Published var isPremiumUser: Bool = false
     @Published var dailyQuestionCount: Int = 0
     @Published var showUpgradeDialog: Bool = false
+    @Published var isLoading: Bool = false
     
     private let maxFreeQuestions = 3
     private let dailyCountKey = "dailyQuestionCount"
