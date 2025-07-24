@@ -74,7 +74,6 @@ struct UpgradeView: View {
                 }
                 .foregroundColor(.white)
                 .font(.system(size: 16, weight: .medium))
-                .labelStyle(.titleOnly)
                 .padding(.horizontal, 80)
                 .padding(.bottom, 24)
 
@@ -88,7 +87,7 @@ struct UpgradeView: View {
                     }
 
                     UpgradeButton(
-                        title: "永久使用 $490",
+                        title: "永久使用 $320",
                         subtitle: "前七天免費",
                         badge: "限時優惠",
                         isSelected: selectedOption == .lifetime

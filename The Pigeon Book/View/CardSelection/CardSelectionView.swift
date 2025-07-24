@@ -122,21 +122,7 @@ struct UsageStatusView: View {
     @EnvironmentObject var appState: AppState
     
     var body: some View {
-        if appState.isPremiumUser {
-            HStack {
-                Image(systemName: "crown.fill")
-                    .foregroundColor(.yellow)
-                Text("進階會員 - 無限制提問")
-                    .font(.system(size: 14, weight: .medium))
-                    .foregroundColor(.accentColor.opacity(0.8))
-            }
-            .padding(.horizontal, 16)
-            .padding(.vertical, 8)
-            .background(
-                RoundedRectangle(cornerRadius: 20)
-                    .fill(Color.white.opacity(0.3))
-            )
-        } else {
+        if !appState.isPremiumUser {
             let remaining = appState.getRemainingFreeQuestions()
             HStack {
                 Image(systemName: "questionmark.circle.fill")
@@ -152,6 +138,7 @@ struct UsageStatusView: View {
                     .fill(Color.white.opacity(0.3))
             )
         }
+
     }
 }
 
