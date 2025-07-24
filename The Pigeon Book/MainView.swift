@@ -18,6 +18,20 @@ struct MainView: View {
             NavigationStack {
                 CardListView()
             }
+            // 恢復 UpgradeView 的處理
+            .fullScreenCover(isPresented: $appState.showUpgradeView) {
+                UpgradeView()
+                    .environmentObject(appState)
+                    .onAppear {
+                        print("🔍 MainView - UpgradeView 正在顯示")
+                    }
+            }
+            .onChange(of: appState.showUpgradeView) { oldValue, newValue in
+                print("🔍 MainView - showUpgradeView 改變: \(oldValue) -> \(newValue)")
+            }
+            .onAppear {
+                print("🔍 MainView onAppear - showUpgradeView: \(appState.showUpgradeView)")
+            }
         }
     }
 }
@@ -47,4 +61,15 @@ struct MainView: View {
     // 預設狀態
     MainView()
         .environmentObject(AppState())
+}
+
+#Preview("Main View - Upgrade View") {
+    // 新增：顯示升級頁面的 Preview
+    MainView()
+        .environmentObject({
+            let appState = AppState()
+            appState.hasSeenSplash = true
+            appState.showUpgradeView = true
+            return appState
+        }())
 }

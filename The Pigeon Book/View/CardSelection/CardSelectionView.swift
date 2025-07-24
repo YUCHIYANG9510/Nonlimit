@@ -11,7 +11,6 @@ import SwiftUI
 struct OptimizedCardSelectionView: View {
     @EnvironmentObject var appState: AppState
     @State private var greetingText: String = ""
-    @State private var showUpgradeView = false
     @State private var showLocalUpgradeDialog = false
     
     let displayName: String
@@ -47,8 +46,6 @@ struct OptimizedCardSelectionView: View {
         )
     ]
     
-
-    
     var body: some View {
         ZStack {
             // 背景漸層
@@ -78,30 +75,33 @@ struct OptimizedCardSelectionView: View {
         .onAppear {
             greetingText = calculateGreeting()
         }
-        
-        .onChange(of: appState.showUpgradeDialog) {
-            if appState.showUpgradeDialog {
+        .onChange(of: appState.showUpgradeDialog) { oldValue, newValue in
+            if newValue {
                 showLocalUpgradeDialog = true
-                appState.showUpgradeDialog = false
+                appState.showUpgradeDialog = false // 重置狀態
             }
         }
-        
         .alert("升級進階會員", isPresented: $showLocalUpgradeDialog) {
-            Button("暫不升級", role: .cancel) { }
+            Button("暫不升級", role: .cancel) {
+                print("🔍 用戶選擇暫不升級")
+            }
             Button("立即升級") {
+                print("🔍 用戶點擊立即升級")
                 handleUpgrade()
             }
         } message: {
             Text("今天的免費提問次數已用完！\n升級進階會員即可享受無限制提問。")
         }
-        .sheet(isPresented: $showUpgradeView) {
-            UpgradeView()
-                .environmentObject(appState)
-        }
     }
     
     func handleUpgrade() {
-        showUpgradeView = true
+        print("🔍 handleUpgrade 被呼叫")
+        print("🔍 設定前 showUpgradeView: \(appState.showUpgradeView)")
+        appState.showUpgradeView = true
+        print("🔍 設定後 showUpgradeView: \(appState.showUpgradeView)")
+        
+        // 同時關閉本地的 dialog 狀態
+        showLocalUpgradeDialog = false
     }
     
     private func calculateGreeting() -> String {
@@ -115,8 +115,6 @@ struct OptimizedCardSelectionView: View {
             return "晚安"
         }
     }
-    
-
 }
 
 // MARK: - Usage Status View
@@ -200,10 +198,21 @@ struct CardSelectionButton: View {
     
     var body: some View {
         Button(action: {
-            if appState.useQuestionAttempt() {
+            print("🔍 點擊卡片: \(card.title)")
+            print("🔍 當前 dailyQuestionCount: \(appState.dailyQuestionCount)")
+            print("🔍 isPremiumUser: \(appState.isPremiumUser)")
+            print("🔍 canAskQuestion: \(appState.canAskQuestion())")
+            
+            let success = appState.useQuestionAttempt()
+            print("🔍 useQuestionAttempt 結果: \(success)")
+            print("🔍 showUpgradeView: \(appState.showUpgradeView)")
+            print("🔍 showUpgradeDialog: \(appState.showUpgradeDialog)")
+            
+            if success {
                 showDetailView = true
             }
-            // 如果 useQuestionAttempt() 回傳 false，會自動顯示升級對話框
+            // 如果 useQuestionAttempt() 回傳 false，會自動設定 showUpgradeDialog = true
+            // OptimizedCardSelectionView 會偵測到並顯示 alert
         }) {
             HStack(spacing: 4) {
                 Image(card.imageName)

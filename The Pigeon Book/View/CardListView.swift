@@ -98,11 +98,16 @@ struct CardListView: View {
             CustomTabBar(selectedTab: $selectedTab)
         }
         .navigationBarBackButtonHidden(true)
+        .onChange(of: appState.showUpgradeView) { oldValue, newValue in
+            print("🔍 CardListView - showUpgradeView 改變: \(oldValue) -> \(newValue)")
+        }
         .sheet(isPresented: $showSettings) {
             SettingsView(displayName: $displayName)
+                .environmentObject(appState)
                 .presentationDetents([.fraction(0.5)])
                 .presentationCornerRadius(40)
         }
+        // 移除 CardListView 中的 UpgradeView 處理，交由 MainView 統一管理
     }
 }
 
@@ -114,9 +119,6 @@ extension LunarCalendarData: Identifiable {
         return "\(lunarTerm)-\(idiom)-\(idiomImageName)"
     }
 }
-
-
-
 
 
 // MARK: - Preview

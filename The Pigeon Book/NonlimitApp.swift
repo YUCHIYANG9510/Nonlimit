@@ -20,10 +20,8 @@ struct NonlimitApp: App {
     
     var body: some Scene {
         WindowGroup {
-            NavigationStack {
-                CardListView()
-            }
-            .environmentObject(appState)
+            MainView()  // 改用 MainView 而不是直接用 CardListView
+                .environmentObject(appState)
         }
     }
 }

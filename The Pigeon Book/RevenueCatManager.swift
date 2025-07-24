@@ -5,10 +5,6 @@
 //  Created by Designer on 2025/7/24.
 //
 
-//
-//  RevenueCatManager.swift
-//
-
 import Foundation
 import RevenueCat
 
@@ -23,6 +19,9 @@ class RevenueCatManager: ObservableObject {
     // 這兩個 ID 必須與 RevenueCat / App Store 的產品 ID 一致
     let monthlyID = "com.nonlimit.monthly"
     let lifetimeID = "com.nonlimit.lifetime"
+    
+    // 追蹤是否是初始化檢查
+    private var isInitialCheck = true
 
     init() {
         Task {
@@ -35,10 +34,18 @@ class RevenueCatManager: ObservableObject {
         do {
             let customerInfo = try await Purchases.shared.customerInfo()
             let isActive = customerInfo.entitlements["Premium"]?.isActive == true
+            
+            // 🔥 修正：先保存舊狀態，再更新新狀態
+            let wasNotPremium = !isPremiumUser
             isPremiumUser = isActive
-            if isActive {
+            
+            // 只有在非初始檢查且從非付費變為付費時才發送通知
+            if !isInitialCheck && isActive && wasNotPremium {
                 NotificationCenter.default.post(name: .purchaseCompleted, object: nil)
+                print("🎉 狀態改變：已升級為付費用戶，發送通知")
             }
+            
+            isInitialCheck = false
             print("🔍 Premium Status: \(isActive)")
         } catch {
             errorMessage = "無法獲取用戶訂閱狀態"
@@ -70,14 +77,21 @@ class RevenueCatManager: ObservableObject {
             let result = try await Purchases.shared.purchase(package: package)
 
             if result.customerInfo.entitlements["Premium"]?.isActive == true {
-                if isPremiumUser == false {
-                    isPremiumUser = true
+                // 🔥 修正：先保存舊狀態
+                let wasNotPremium = !isPremiumUser
+                isPremiumUser = true
+                
+                // 只有從非付費變為付費時才發送通知
+                if wasNotPremium {
                     NotificationCenter.default.post(name: .purchaseCompleted, object: nil)
+                    print("🎉 購買成功，發送升級通知")
                 }
+                
                 errorMessage = nil
                 print("🎉 購買成功：\(productID)")
             } else {
                 errorMessage = "購買未成功"
+                await checkSubscriptionStatus()
             }
 
         } catch {
@@ -93,10 +107,16 @@ class RevenueCatManager: ObservableObject {
         do {
             let info = try await Purchases.shared.restorePurchases()
             if info.entitlements["Premium"]?.isActive == true {
-                if isPremiumUser == false {
-                    isPremiumUser = true
+                // 🔥 修正：先保存舊狀態
+                let wasNotPremium = !isPremiumUser
+                isPremiumUser = true
+                
+                // 只有從非付費變為付費時才發送通知
+                if wasNotPremium {
                     NotificationCenter.default.post(name: .purchaseCompleted, object: nil)
+                    print("🎉 恢復購買成功，發送升級通知")
                 }
+                
                 errorMessage = nil
                 print("✅ 成功恢復購買")
             } else {
@@ -112,4 +132,3 @@ class RevenueCatManager: ObservableObject {
 extension Notification.Name {
     static let purchaseCompleted = Notification.Name("PurchaseCompleted")
 }
-
