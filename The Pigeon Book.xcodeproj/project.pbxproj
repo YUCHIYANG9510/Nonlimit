@@ -15,10 +15,11 @@
 		C25D8D152E30D3C400B5DCF6 /* IAP.storekit in Resources */ = {isa = PBXBuildFile; fileRef = C25D8D142E30D3C400B5DCF6 /* IAP.storekit */; };
 		C25D8D182E30DAA600B5DCF6 /* RevenueCat in Frameworks */ = {isa = PBXBuildFile; productRef = C25D8D172E30DAA600B5DCF6 /* RevenueCat */; };
 		C25D8D1A2E30DAA600B5DCF6 /* RevenueCatUI in Frameworks */ = {isa = PBXBuildFile; productRef = C25D8D192E30DAA600B5DCF6 /* RevenueCatUI */; };
+		C25D8D1C2E31E0F500B5DCF6 /* RevenueCatManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = C25D8D1B2E31E0F300B5DCF6 /* RevenueCatManager.swift */; };
+		C25D8D1E2E31E39000B5DCF6 /* UpgradeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C25D8D1D2E31E38F00B5DCF6 /* UpgradeView.swift */; };
 		C28C953C2BCAAE9F003CB92D /* NonlimitApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = C28C953B2BCAAE9F003CB92D /* NonlimitApp.swift */; };
 		C28C95402BCAAEA1003CB92D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C28C953F2BCAAEA1003CB92D /* Assets.xcassets */; };
 		C28C95432BCAAEA1003CB92D /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C28C95422BCAAEA1003CB92D /* Preview Assets.xcassets */; };
-		C2944B9C2E2F7BF8008AA495 /* InAppPurchaseManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2944B9B2E2F7BF6008AA495 /* InAppPurchaseManager.swift */; };
 		C2BA45F32DD36B7D004387FF /* mediation.json in Resources */ = {isa = PBXBuildFile; fileRef = C2BA45F22DD36B7D004387FF /* mediation.json */; };
 		C2BA46242DDDCB29004387FF /* AppState.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2BA46232DDDCB28004387FF /* AppState.swift */; };
 		C2BB86752DE01BF800334E97 /* WidgetKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C2BB86742DE01BF800334E97 /* WidgetKit.framework */; };
@@ -67,11 +68,12 @@
 		C21C4A5C2DCA634900583000 /* love-result.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = "love-result.json"; sourceTree = "<group>"; };
 		C21C4A5E2DCE5A5900583000 /* future-result.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = "future-result.json"; sourceTree = "<group>"; };
 		C25D8D142E30D3C400B5DCF6 /* IAP.storekit */ = {isa = PBXFileReference; lastKnownFileType = text; path = IAP.storekit; sourceTree = "<group>"; };
+		C25D8D1B2E31E0F300B5DCF6 /* RevenueCatManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RevenueCatManager.swift; sourceTree = "<group>"; };
+		C25D8D1D2E31E38F00B5DCF6 /* UpgradeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpgradeView.swift; sourceTree = "<group>"; };
 		C28C95382BCAAE9F003CB92D /* The Pigeon Book.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "The Pigeon Book.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		C28C953B2BCAAE9F003CB92D /* NonlimitApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NonlimitApp.swift; sourceTree = "<group>"; };
 		C28C953F2BCAAEA1003CB92D /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		C28C95422BCAAEA1003CB92D /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
-		C2944B9B2E2F7BF6008AA495 /* InAppPurchaseManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InAppPurchaseManager.swift; sourceTree = "<group>"; };
 		C2BA45F22DD36B7D004387FF /* mediation.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = mediation.json; sourceTree = "<group>"; };
 		C2BA46232DDDCB28004387FF /* AppState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppState.swift; sourceTree = "<group>"; };
 		C2BB86722DE01BF800334E97 /* AnswerBookWidgetExtension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = AnswerBookWidgetExtension.appex; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -173,8 +175,9 @@
 		C28C953A2BCAAE9F003CB92D /* The Pigeon Book */ = {
 			isa = PBXGroup;
 			children = (
+				C25D8D1D2E31E38F00B5DCF6 /* UpgradeView.swift */,
+				C25D8D1B2E31E0F300B5DCF6 /* RevenueCatManager.swift */,
 				C25D8D142E30D3C400B5DCF6 /* IAP.storekit */,
-				C2944B9B2E2F7BF6008AA495 /* InAppPurchaseManager.swift */,
 				C2BB86C22DE18F3700334E97 /* View */,
 				C2A0845B2E2E0D2C00B1924B /* Styles */,
 				C2A084462E2E084B00B1924B /* Models */,
@@ -367,12 +370,13 @@
 			buildActionMask = 2147483647;
 			files = (
 				C2BB86C42DE1D74D00334E97 /* LunarCalendarDataManager.swift in Sources */,
+				C25D8D1E2E31E39000B5DCF6 /* UpgradeView.swift in Sources */,
 				C28C953C2BCAAE9F003CB92D /* NonlimitApp.swift in Sources */,
 				C21C49B92DC7B42500583000 /* MainView.swift in Sources */,
 				C2D7161E2DE462DA00921955 /* Helpers.swift in Sources */,
-				C2944B9C2E2F7BF8008AA495 /* InAppPurchaseManager.swift in Sources */,
 				C2BA46242DDDCB29004387FF /* AppState.swift in Sources */,
 				C2BB86AB2DE1790700334E97 /* CardType.swift in Sources */,
+				C25D8D1C2E31E0F500B5DCF6 /* RevenueCatManager.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -10,6 +10,10 @@ import SwiftUI
 // MARK: - Card Selection View (更新版本)
 struct OptimizedCardSelectionView: View {
     @EnvironmentObject var appState: AppState
+    @State private var greetingText: String = ""
+    @State private var showUpgradeView = false
+    @State private var showLocalUpgradeDialog = false
+    
     let displayName: String
     
     private static let cardData: [CardSelectionInfo] = [
@@ -43,8 +47,7 @@ struct OptimizedCardSelectionView: View {
         )
     ]
     
-    @State private var greetingText: String = ""
-    @State private var showUpgradeView = false
+
     
     var body: some View {
         ZStack {
@@ -75,7 +78,15 @@ struct OptimizedCardSelectionView: View {
         .onAppear {
             greetingText = calculateGreeting()
         }
-        .alert("升級進階會員", isPresented: $appState.showUpgradeDialog) {
+        
+        .onChange(of: appState.showUpgradeDialog) {
+            if appState.showUpgradeDialog {
+                showLocalUpgradeDialog = true
+                appState.showUpgradeDialog = false
+            }
+        }
+        
+        .alert("升級進階會員", isPresented: $showLocalUpgradeDialog) {
             Button("暫不升級", role: .cancel) { }
             Button("立即升級") {
                 handleUpgrade()
@@ -87,6 +98,10 @@ struct OptimizedCardSelectionView: View {
             UpgradeView()
                 .environmentObject(appState)
         }
+    }
+    
+    func handleUpgrade() {
+        showUpgradeView = true
     }
     
     private func calculateGreeting() -> String {
@@ -101,9 +116,7 @@ struct OptimizedCardSelectionView: View {
         }
     }
     
-    private func handleUpgrade() {
-        showUpgradeView = true
-    }
+
 }
 
 // MARK: - Usage Status View

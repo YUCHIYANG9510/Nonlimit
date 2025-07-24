@@ -6,7 +6,7 @@
 //
 
 import SwiftUI
-import StoreKit
+import RevenueCat
 
 // MARK: - 內購管理器
 @MainActor
@@ -141,7 +141,8 @@ struct UpgradeView: View {
     @EnvironmentObject var appState: AppState
     @StateObject private var purchaseManager = InAppPurchaseManager()
     @State private var selectedOption: UpgradeOption = .lifetime
-    
+    @StateObject private var revenueCat = RevenueCatManager.shared
+
     var body: some View {
         ZStack {
             LinearGradient(
@@ -410,33 +411,33 @@ struct UpgradeView: View {
     // MARK: - 購買邏輯
     func purchaseMonthly() {
         print("👉 開始每月訂閱流程")
-        guard let product = purchaseManager.getProduct(for: "com.nonlimit.premium_monthly") else {
+        guard let product = purchaseManager.getProduct(for: "com.nonlimit.monthly") else {
             print("❌ 找不到月付產品")
             return
         }
         
         Task {
-            await purchaseManager.purchase(product)
-        }
+                await RevenueCatManager.shared.purchase(productID: "com.nonlimit.monthly")
+            }
     }
 
     func purchaseLifetime() {
         print("👉 開始永久購買流程")
-        guard let product = purchaseManager.getProduct(for: "com.nonlimit.premium_lifetime") else {
+        guard let product = purchaseManager.getProduct(for: "com.nonlimit.lifetime") else {
             print("❌ 找不到永久產品")
             return
         }
         
         Task {
-            await purchaseManager.purchase(product)
-        }
+                await RevenueCatManager.shared.purchase(productID: "com.nonlimit.lifetime")
+            }
     }
     
     func restorePurchases() {
         print("👉 開始恢復購買")
         Task {
-            await purchaseManager.restorePurchases()
-        }
+                await RevenueCatManager.shared.restore()
+            }
     }
 }
 

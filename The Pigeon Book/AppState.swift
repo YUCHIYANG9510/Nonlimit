@@ -22,6 +22,8 @@ class AppState: ObservableObject {
     private let premiumUserKey = "isPremiumUser"
     
     init() {
+        // Debug 強制免費（測試用）
+        UserDefaults.standard.set(false, forKey: premiumUserKey)
         // Check if splash has been shown before
         self.hasSeenSplash = UserDefaults.standard.bool(forKey: "hasSeenSplash")
         
@@ -33,6 +35,15 @@ class AppState: ObservableObject {
         
         // Load daily question count
         self.dailyQuestionCount = UserDefaults.standard.integer(forKey: dailyCountKey)
+        
+        // ✅ 收到 RevenueCat 的通知就升級
+            NotificationCenter.default.addObserver(
+                forName: .purchaseCompleted,
+                object: nil,
+                queue: .main
+            ) { [weak self] _ in
+                self?.upgradeToPremium()
+            }
     }
     
     func markSplashAsShown() {
@@ -50,17 +61,20 @@ class AppState: ObservableObject {
         if isPremiumUser {
             return true // 付費用戶無限制
         }
-        
+
         if dailyQuestionCount < maxFreeQuestions {
             dailyQuestionCount += 1
             UserDefaults.standard.set(dailyQuestionCount, forKey: dailyCountKey)
             return true
         } else {
-            showUpgradeDialog = true
+            // ✅ 安全地在下一個 UI loop 中改變 @Published 狀態
+            DispatchQueue.main.async {
+                self.showUpgradeDialog = true
+            }
             return false
         }
     }
-    
+
     // 獲取剩餘免費次數
     func getRemainingFreeQuestions() -> Int {
         return isPremiumUser ? -1 : max(0, maxFreeQuestions - dailyQuestionCount)
@@ -90,4 +104,7 @@ class AppState: ObservableObject {
             UserDefaults.standard.set(0, forKey: dailyCountKey)
         }
     }
+    
+
 }
+
