@@ -44,6 +44,10 @@ struct CustomTabBar: View {
     
     private func tabButton(index: Int, selectedImage: String, unselectedImage: String) -> some View {
         Button(action: {
+            
+            let generator = UIImpactFeedbackGenerator(style: .light)
+               generator.impactOccurred()
+            
             withAnimation(.spring(response: 0.6, dampingFraction: 0.8)) {
                 selectedTab = index
             }

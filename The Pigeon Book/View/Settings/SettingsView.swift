@@ -14,7 +14,9 @@ struct SettingsView: View {
     @State private var tempDisplayName: String = ""
     @State private var showIconPicker = false
     @State private var showUpgradeSheet = false // 恢復 sheet 狀態
-    
+    @EnvironmentObject var appState: AppState
+    @State private var showSubscriptionStatus = false
+
     var body: some View {
         NavigationView {
             ZStack {
@@ -32,39 +34,59 @@ struct SettingsView: View {
                     VStack(spacing: 16) {
                         RoundedRectangle(cornerRadius: 24)
                             .fill(
-                                        LinearGradient(
-                                            gradient: Gradient(colors: [
-                                                Color(red: 237/255, green: 220/255, blue: 244/255),
-                                                Color(red: 255/255, green: 229/255, blue: 255/255)
-                                            ]),
-                                            startPoint: .topLeading,
-                                            endPoint: .bottomTrailing
-                                        )
-                                    )
+                                LinearGradient(
+                                    gradient: Gradient(colors: [
+                                        Color(red: 237/255, green: 220/255, blue: 244/255),
+                                        Color(red: 255/255, green: 229/255, blue: 255/255)
+                                    ]),
+                                    startPoint: .topLeading,
+                                    endPoint: .bottomTrailing
+                                )
+                            )
                             .frame(height: 100)
                             .overlay(
                                 HStack(spacing: 12) {
-                                    // Pro icon
-                                    Image("pro-icon")
-                                            .resizable()
-                                            .frame(width: 44, height: 44)
+                                    Image(appState.isPremiumUser ? "premium" : "pro-icon")
+                                        .resizable()
+                                        .frame(width: 44, height: 44)
+
+                                    
                                     HStack(spacing: 24) {
                                         VStack(alignment: .leading, spacing: 4) {
-                                            Text("加入專屬會員")
-                                                .font(.system(size: 18, weight: .semibold))
-                                                .foregroundColor(.accentColor)
-                                            
-                                            Text("訂閱解鎖更多功能")
-                                                .font(.system(size: 14))
-                                                .foregroundColor(.accentColor.opacity(0.7))
+                                            if appState.isPremiumUser {
+                                                Text("您是 PRO 會員")
+                                                    .font(.system(size: 18, weight: .bold))
+                                                    .foregroundColor(.accentColor)
+
+                                                Text("感謝您的支持！")
+                                                    .font(.system(size: 14))
+                                                    .foregroundColor(.accentColor.opacity(0.7))
+                                            } else {
+                                                Text("加入專屬會員")
+                                                    .font(.system(size: 18, weight: .semibold))
+                                                    .foregroundColor(.accentColor)
+
+                                                Text("訂閱解鎖更多功能")
+                                                    .font(.system(size: 14))
+                                                    .foregroundColor(.accentColor.opacity(0.7))
+                                            }
                                         }
+
                                         Button(action: {
-                                            showUpgradeSheet = true // 彈出升級頁
+                                            
+                                            let generator = UIImpactFeedbackGenerator(style: .light)
+                                                generator.impactOccurred()
+                                            
+                                            if appState.isPremiumUser {
+                                                showSubscriptionStatus = true
+                                            } else {
+                                                showUpgradeSheet = true
+                                            }
                                         }) {
-                                            Text("升級")
-                                                .font(.system(size: 18, weight: .bold))
+                                            Text(appState.isPremiumUser ? "查看" : "升級")
+                                                .font(.system(size: 16, weight: .bold))
                                                 .foregroundColor(.white)
-                                                .padding(.horizontal, 28)
+                                                .padding(.horizontal, 24)
                                                 .padding(.vertical, 10)
                                                 .background(Color(red: 141/255, green: 125/255, blue: 220/255))
                                                 .clipShape(Capsule())
@@ -113,6 +135,10 @@ struct SettingsView: View {
                         
                         // Change Icon Setting
                         Button(action: {
+                            
+                            let generator = UIImpactFeedbackGenerator(style: .light)
+                                generator.impactOccurred()
+                            
                             showIconPicker = true
                         }) {
                             HStack {
@@ -153,7 +179,12 @@ struct SettingsView: View {
                 .presentationDetents([.large])
                 .presentationCornerRadius(40)
         }
-        // 移除 navigationDestination
+        .sheet(isPresented: $showSubscriptionStatus) {
+            SubscriptionStatusView()
+                .presentationDetents([.large])
+                .presentationCornerRadius(40)
+        }
+
     }
 }
 
@@ -182,6 +213,10 @@ struct IconPickerView: View {
 
                     ForEach(AppIcon.allCases, id: \.rawValue) { icon in
                         Button(action: {
+                            
+                            let generator = UIImpactFeedbackGenerator(style: .light)
+                            generator.impactOccurred()
+                            
                             pendingIcon = icon
                             UIApplication.shared.setAlternateIconName(icon.iconValue) { error in
                                 if error == nil {

@@ -15,7 +15,7 @@ struct SplashView: View {
             Image(.splash)
                 .resizable()
                 .frame(width: 150, height: 150)
-            Text("QUESTION & ANSWER")
+            Text("The Pigeon Book")
                 .font(.title)
                 .fontWeight(.black)
                 .foregroundColor(Color(red: 254/255, green: 129/255, blue: 248/255))

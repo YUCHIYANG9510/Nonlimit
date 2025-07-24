@@ -81,6 +81,10 @@ struct CardListView: View {
                 Spacer()
                 HStack {
                     Button(action: {
+                        
+                        let generator = UIImpactFeedbackGenerator(style: .light)
+                            generator.impactOccurred()
+                        
                         showSettings = true
                     }) {
                         Image("setting-icon")

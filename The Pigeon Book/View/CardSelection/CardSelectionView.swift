@@ -185,6 +185,10 @@ struct CardSelectionButton: View {
     
     var body: some View {
         Button(action: {
+            
+            let generator = UIImpactFeedbackGenerator(style: .heavy)
+                generator.impactOccurred()
+            
             print("🔍 點擊卡片: \(card.title)")
             print("🔍 當前 dailyQuestionCount: \(appState.dailyQuestionCount)")
             print("🔍 isPremiumUser: \(appState.isPremiumUser)")

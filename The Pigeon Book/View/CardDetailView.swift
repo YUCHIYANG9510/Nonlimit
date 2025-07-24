@@ -124,6 +124,8 @@ struct CardDetailView: View {
     @State private var mysticalRotation = 0.0
     @State private var glowRotation = 0.0
     @State private var starScales = Array(repeating: 1.0, count: 8)
+    @Environment(\.dismiss) var dismiss
+
     
     var headerText: String {
         switch cardType {
@@ -206,7 +208,7 @@ struct CardDetailView: View {
         case .love:
             return [
                 "來自宇宙的訊息...",
-                "感受愛的頻率...",
+                "接通愛的頻率...",
                 "解讀情感密碼中...",
                 "愛情指引即將到來..."
             ]
@@ -335,6 +337,25 @@ struct CardDetailView: View {
     
     var body: some View {
         ZStack {
+            
+            if !isLoading && !showResult {
+                Button(action: {
+                    let generator = UIImpactFeedbackGenerator(style: .light)
+                    generator.impactOccurred()
+                    
+                    dismiss()
+                }) {
+                    Image(systemName: "xmark.circle.fill")
+                        .font(.system(size: 32))
+                        .foregroundColor(.accentColor.opacity(0.4))
+                        .padding(.top, 100)
+                        .padding(.leading, 32)
+                }
+                .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topLeading)
+                .ignoresSafeArea(.all, edges: .top)
+                .zIndex(2)
+            }
+            
             VStack {
                 Text(headerText)
                     .font(.title)
