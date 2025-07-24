@@ -14,7 +14,7 @@ class AppState: ObservableObject {
     @Published var isPremiumUser: Bool = false
     @Published var dailyQuestionCount: Int = 0
     @Published var showUpgradeDialog: Bool = false
-    @Published var showUpgradeView: Bool = false  // 新增：控制 UpgradeView 的顯示
+    @Published var showUpgradeView: Bool = false
     @Published var isLoading: Bool = false
     
     private let maxFreeQuestions = 3
@@ -23,30 +23,75 @@ class AppState: ObservableObject {
     private let premiumUserKey = "isPremiumUser"
     
     init() {
-        
-        
-        // Check if splash has been shown before
-        self.hasSeenSplash = UserDefaults.standard.bool(forKey: "hasSeenSplash")
-        
-        // Load premium status
-        self.isPremiumUser = UserDefaults.standard.bool(forKey: premiumUserKey)
-        
-        // Check if we need to reset daily count
-        checkAndResetDailyCount()
-        
-        // Load daily question count
-        self.dailyQuestionCount = UserDefaults.standard.integer(forKey: dailyCountKey)
-        
-        // ✅ 收到 RevenueCat 的通知就升級
-        NotificationCenter.default.addObserver(
-            forName: .purchaseCompleted,
-            object: nil,
-            queue: .main
-        ) { [weak self] _ in
-            print("🔍 AppState 收到購買完成通知")
-            self?.upgradeToPremium()
-        }
-    }
+           // Check if splash has been shown before
+           self.hasSeenSplash = UserDefaults.standard.bool(forKey: "hasSeenSplash")
+           
+           // 修改：初始化時默認為免費用戶，等待 RevenueCat 檢查後再更新
+           self.isPremiumUser = false
+           
+           // Check if we need to reset daily count
+           checkAndResetDailyCount()
+           
+           // Load daily question count
+           self.dailyQuestionCount = UserDefaults.standard.integer(forKey: dailyCountKey)
+           
+           // 新增：監聽 RevenueCat 狀態變化
+           setupRevenueCatObserver()
+           
+           // ✅ 收到 RevenueCat 的通知就升級
+           NotificationCenter.default.addObserver(
+               forName: .purchaseCompleted,
+               object: nil,
+               queue: .main
+           ) { [weak self] _ in
+               print("🔍 AppState 收到購買完成通知")
+               Task { @MainActor in
+                   await self?.syncWithRevenueCat()
+               }
+           }
+       }
+    
+    // 🔥 新增：設置 RevenueCat 觀察者
+       private func setupRevenueCatObserver() {
+           // 初始同步
+           Task { @MainActor in
+               await syncWithRevenueCat()
+           }
+           
+           // 定期檢查（可選，作為備份機制）
+           Timer.scheduledTimer(withTimeInterval: 30.0, repeats: true) { [weak self] _ in
+               Task { @MainActor in
+                   await self?.syncWithRevenueCat()
+               }
+           }
+       }
+    
+    // 🔥 修改：與 RevenueCat 同步狀態
+       @MainActor
+       private func syncWithRevenueCat() async {
+           print("🔍 開始同步 RevenueCat 狀態...")
+           let revenueCat = RevenueCatManager.shared
+           await revenueCat.checkSubscriptionStatus()
+           
+           let newPremiumStatus = revenueCat.isPremiumUser
+           
+           print("🔍 RevenueCat 狀態檢查結果: \(newPremiumStatus)")
+           
+           if isPremiumUser != newPremiumStatus {
+               print("🔍 AppState 同步 RevenueCat 狀態: \(isPremiumUser) -> \(newPremiumStatus)")
+               isPremiumUser = newPremiumStatus
+               UserDefaults.standard.set(newPremiumStatus, forKey: premiumUserKey)
+               
+               // 如果升級成功，關閉升級相關 UI
+               if newPremiumStatus {
+                   showUpgradeView = false
+                   showUpgradeDialog = false
+                   print("🔍 已升級為付費用戶，關閉升級 UI")
+               }
+           } else {
+               print("🔍 狀態無變化，維持當前狀態: \(isPremiumUser)")
+           }
+       }
     
     func markSplashAsShown() {
         hasSeenSplash = true
@@ -66,7 +111,7 @@ class AppState: ObservableObject {
         
         if isPremiumUser {
             print("🔍 付費用戶，允許提問")
-            return true // 付費用戶無限制
+            return true
         }
 
         if dailyQuestionCount < maxFreeQuestions {
@@ -76,9 +121,12 @@ class AppState: ObservableObject {
             return true
         } else {
             print("🔍 免費用戶提問次數用完，顯示升級對話框")
-            // ✅ 先顯示 alert dialog
-            DispatchQueue.main.async {
-                self.showUpgradeDialog = true
+            // 🔥 修改：在顯示升級對話框前先檢查一次狀態
+            Task { @MainActor in
+                await syncWithRevenueCat()
+                if !isPremiumUser {
+                    showUpgradeDialog = true
+                }
             }
             return false
         }
@@ -89,7 +137,7 @@ class AppState: ObservableObject {
         return isPremiumUser ? -1 : max(0, maxFreeQuestions - dailyQuestionCount)
     }
     
-    // 升級為付費用戶
+    // 升級為付費用戶 - 保留但主要用於手動觸發
     func upgradeToPremium() {
         print("🔍 AppState upgradeToPremium 被調用")
         print("🔍 升級前狀態: isPremium=\(isPremiumUser)")
@@ -105,6 +153,27 @@ class AppState: ObservableObject {
         
         print("🔍 UI 狀態已重置: showUpgradeView=\(showUpgradeView), showUpgradeDialog=\(showUpgradeDialog)")
     }
+    
+    // 🔥 新增：重置所有狀態（用於測試或清除數據）
+       func resetAllStates() {
+           print("🔍 重置所有應用狀態")
+           isPremiumUser = false
+           dailyQuestionCount = 0
+           showUpgradeDialog = false
+           showUpgradeView = false
+           
+           // 清除 UserDefaults
+           UserDefaults.standard.removeObject(forKey: premiumUserKey)
+           UserDefaults.standard.set(0, forKey: dailyCountKey)
+           UserDefaults.standard.set(Date(), forKey: lastResetDateKey)
+           
+           // 重新同步 RevenueCat 狀態
+           Task { @MainActor in
+               await syncWithRevenueCat()
+           }
+       }
+    
+    
     
     // 檢查並重置每日計數
     private func checkAndResetDailyCount() {

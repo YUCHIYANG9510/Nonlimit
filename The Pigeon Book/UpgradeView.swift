@@ -155,8 +155,21 @@ struct UpgradeView: View {
             Text(revenueCat.errorMessage ?? "")
         }
         .onReceive(NotificationCenter.default.publisher(for: .purchaseCompleted)) { _ in
-            appState.upgradeToPremium()
-            dismiss()
+            print("🔍 UpgradeView 收到購買完成通知")
+            
+            // 🔥 修改：確保 AppState 狀態同步
+            Task { @MainActor in
+                // 等待一小段時間讓 RevenueCat 完全更新
+                try? await Task.sleep(nanoseconds: 500_000_000) // 0.5秒
+                
+                // 強制同步 AppState 與 RevenueCat 的狀態
+                if revenueCat.isPremiumUser {
+                    appState.upgradeToPremium()
+                    print("🔍 UpgradeView 已同步 AppState 狀態")
+                }
+                
+                dismiss()
+            }
         }
     }
 }
