@@ -13,8 +13,7 @@ struct YearOverviewView: View {
     @State private var selectedDayInfo: DayInfo?
     @State private var scrollOffset: CGFloat = 0
     @State private var isShowingUpgrade = false
-    @AppStorage("isPremiumUser") private var isPremiumUser: Bool = false
-
+    @StateObject private var revenueCat = RevenueCatManager.shared // 改用 RevenueCatManager
     
     private var daysRemaining: Int {
         let now = Date()
@@ -44,6 +43,11 @@ struct YearOverviewView: View {
             .onAppear {
                 withAnimation(.easeInOut(duration: 3).repeatForever(autoreverses: true)) {
                     animateGradient.toggle()
+                }
+                
+                // 頁面出現時刷新狀態
+                Task {
+                    await revenueCat.refreshStatus()
                 }
             }
             
@@ -183,18 +187,31 @@ struct YearOverviewView: View {
                 .presentationDetents([.large])
                 .presentationCornerRadius(48)
         }
-
+        // 監聽購買完成通知，更新本地狀態
+        .onReceive(NotificationCenter.default.publisher(for: .purchaseCompleted)) { _ in
+            // 購買完成後關閉升級頁面
+            isShowingUpgrade = false
+        }
     }
     
     // 處理日期點擊的函數
     private func handleDayTap(dayIndex: Int) {
-        let date = dateForDayOfYear(dayIndex)
-        let dayData = LunarCalendarDataManager.shared.getData(for: date)
-        
-        if isPremiumUser {
-            selectedDayInfo = DayInfo(date: date, lunarData: dayData)
-        } else {
-            isShowingUpgrade = true
+        // 先刷新狀態，確保獲取最新的付費狀態
+        Task {
+            await revenueCat.refreshStatus()
+            
+            // 使用最新狀態判斷
+            let date = dateForDayOfYear(dayIndex)
+            let dayData = LunarCalendarDataManager.shared.getData(for: date)
+            
+            print("🔍 handleDayTap - isPremiumUser: \(revenueCat.isPremiumUser)")
+            print("🔍 handleDayTap - isTrialUser: \(revenueCat.isTrialUser)")
+            
+            if revenueCat.isPremiumUser {
+                selectedDayInfo = DayInfo(date: date, lunarData: dayData)
+            } else {
+                isShowingUpgrade = true
+            }
         }
     }
     
@@ -251,7 +268,6 @@ struct DayImageView: View {
         .frame(width: 24, height: 24)
     }
 }
-
 
 
 // MARK: - Daily Idiom Dialog

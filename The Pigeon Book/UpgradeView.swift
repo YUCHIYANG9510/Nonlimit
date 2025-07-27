@@ -33,7 +33,19 @@ struct UpgradeView: View {
         }
         .onAppear {
             Task {
+                // 強制刷新狀態，確保獲取最新的付費狀態
                 await revenueCat.refreshStatus()
+                
+                // 添加詳細的 debug 輸出
+                print("=== UpgradeView Debug Info ===")
+                print("📊 isPremiumUser: \(revenueCat.isPremiumUser)")
+                print("📊 isTrialUser: \(revenueCat.isTrialUser)")
+                print("📊 hasTriedBefore: \(revenueCat.hasTriedBefore)")
+                print("📊 trialDaysLeft: \(revenueCat.trialDaysLeft)")
+                print("📊 canStartTrial: \(revenueCat.canStartTrial)")
+                print("📊 Button text will be: \(selectedOption == .monthly ? "我要升級" : (revenueCat.canStartTrial ? "免費試用" : "終生購買"))")
+                print("===============================")
+                
                 isReady = true
             }
         }
@@ -133,16 +145,22 @@ struct UpgradeView: View {
                 .padding(.bottom, 36)
 
                 Button(action: {
+                    print("🔘 Button clicked - selectedOption: \(selectedOption)")
+                    print("🔘 canStartTrial: \(revenueCat.canStartTrial)")
+                    
                     let generator = UIImpactFeedbackGenerator(style: .light)
                     generator.impactOccurred()
 
                     Task {
                         if selectedOption == .monthly {
+                            print("🔘 Purchasing monthly")
                             await revenueCat.purchaseMonthly()
                         } else {
-                            if revenueCat.isTrialUser {
+                            if revenueCat.canStartTrial {
+                                print("🔘 Purchasing lifetime trial")
                                 await revenueCat.purchaseLifetimeTrial()
                             } else {
+                                print("🔘 Purchasing lifetime")
                                 await revenueCat.purchaseLifetime()
                             }
                         }
@@ -158,7 +176,7 @@ struct UpgradeView: View {
                             Text(
                                 selectedOption == .monthly
                                 ? "我要升級"
-                                : (revenueCat.isTrialUser ? "免費試用" : "終生購買")
+                                : (revenueCat.canStartTrial ? "免費試用" : "終生購買")
                             )
                         }
                     }
