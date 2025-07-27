@@ -379,20 +379,34 @@ struct CardDetailView: View {
                     let generator = UINotificationFeedbackGenerator()
                     generator.notificationOccurred(.success)
 
-                    isLoading = true
-                    loadingGradientAngle = 360
+                    // ✅ 在這裡執行提問次數檢查與扣除
+                    let success = appState.useQuestionAttempt()
+                    print("🔍 點擊 SUBMIT")
+                    print("🔍 isPremiumUser: \(appState.isPremiumUser)")
+                    print("🔍 dailyQuestionCount: \(appState.dailyQuestionCount)")
+                    print("🔍 canAskQuestion: \(appState.canAskQuestion())")
+                    print("🔍 useQuestionAttempt 結果: \(success)")
 
-                    hapticTimer = Timer.scheduledTimer(withTimeInterval: 0.7, repeats: true) { _ in
-                        let impact = UIImpactFeedbackGenerator(style: .medium)
-                        impact.impactOccurred()
-                    }
+                    if success {
+                        isLoading = true
+                        loadingGradientAngle = 360
 
-                    DispatchQueue.main.asyncAfter(deadline: .now() + 5) {
-                        isLoading = false
-                        loadingGradientAngle = 0
-                        hapticTimer?.invalidate()
-                        hapticTimer = nil
-                        showResult = true
+                        hapticTimer = Timer.scheduledTimer(withTimeInterval: 0.7, repeats: true) { _ in
+                            let impact = UIImpactFeedbackGenerator(style: .medium)
+                            impact.impactOccurred()
+                        }
+
+                        DispatchQueue.main.asyncAfter(deadline: .now() + 5) {
+                            isLoading = false
+                            loadingGradientAngle = 0
+                            hapticTimer?.invalidate()
+                            hapticTimer = nil
+                            showResult = true
+                        }
+                    } else {
+                        // ✅ 如果失敗（次數用完），顯示升級提示
+                        appState.showUpgradeDialog = true
+                        print("🔍 今日免費次數已用完，觸發升級提示")
                     }
                 }) {
                     Text("SUBMIT")
@@ -409,6 +423,7 @@ struct CardDetailView: View {
                         .foregroundColor(Color.black.opacity(0.8))
                 }
                 .disabled(isLoading)
+
             }
             .blur(radius: isLoading ? 8 : 0)
 

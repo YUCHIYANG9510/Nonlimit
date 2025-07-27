@@ -126,7 +126,7 @@ struct UsageStatusView: View {
             let remaining = appState.getRemainingFreeQuestions()
             HStack {
                 Image(systemName: "questionmark.circle.fill")
-                    .foregroundColor(.blue)
+                    .foregroundColor(.accentColor)
                 Text("今日剩餘免費提問: \(remaining) 次")
                     .font(.system(size: 14, weight: .medium))
                     .foregroundColor(.accentColor.opacity(0.8))
@@ -185,25 +185,22 @@ struct CardSelectionButton: View {
     
     var body: some View {
         Button(action: {
-            
             let generator = UIImpactFeedbackGenerator(style: .heavy)
-                generator.impactOccurred()
+            generator.impactOccurred()
             
             print("🔍 點擊卡片: \(card.title)")
             print("🔍 當前 dailyQuestionCount: \(appState.dailyQuestionCount)")
             print("🔍 isPremiumUser: \(appState.isPremiumUser)")
             print("🔍 canAskQuestion: \(appState.canAskQuestion())")
-            
-            let success = appState.useQuestionAttempt()
-            print("🔍 useQuestionAttempt 結果: \(success)")
-            print("🔍 showUpgradeView: \(appState.showUpgradeView)")
-            print("🔍 showUpgradeDialog: \(appState.showUpgradeDialog)")
-            
-            if success {
+
+            if appState.canAskQuestion() {
+                // ✅ 允許進入 DetailView，但不扣次數
                 showDetailView = true
+            } else {
+                // ❌ 免費次數已用完，跳出升級提示
+                appState.showUpgradeDialog = true
+                print("🔍 次數已用完，阻止進入 CardDetailView，顯示升級 alert")
             }
-            // 如果 useQuestionAttempt() 回傳 false，會自動設定 showUpgradeDialog = true
-            // OptimizedCardSelectionView 會偵測到並顯示 alert
         }) {
             HStack(spacing: 4) {
                 Image(card.imageName)
@@ -232,5 +229,6 @@ struct CardSelectionButton: View {
                 cardType: card.cardType
             )
         }
+
     }
 }
