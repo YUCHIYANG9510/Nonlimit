@@ -12,6 +12,9 @@ struct YearOverviewView: View {
     @State private var animateGradient = false
     @State private var selectedDayInfo: DayInfo?
     @State private var scrollOffset: CGFloat = 0
+    @State private var isShowingUpgrade = false
+    @AppStorage("isPremiumUser") private var isPremiumUser: Bool = false
+
     
     private var daysRemaining: Int {
         let now = Date()
@@ -159,8 +162,7 @@ struct YearOverviewView: View {
                 }
             }
         }
-        // 使用 sheet(item:) 顯示日期和成語信息
-        
+        // 顯示 DailyIdiomDialog（付費用戶）
         .sheet(item: $selectedDayInfo) { dayInfo in
             DailyIdiomDialog(
                 date: dayInfo.date,
@@ -175,17 +177,13 @@ struct YearOverviewView: View {
             .presentationCornerRadius(48)
         }
 
-        
-      /*  .sheet(item: $selectedDayInfo) { dayInfo in
-            DailyIdiomDialog(
-                date: dayInfo.date,
-                lunarData: dayInfo.lunarData,
-                isPresented: .constant(false)
-            )
-            .presentationDetents([.fraction(0.6)])
-            .presentationCornerRadius(48)
+        // 顯示 UpgradeView（免費用戶）
+        .sheet(isPresented: $isShowingUpgrade) {
+            UpgradeView()
+                .presentationDetents([.large])
+                .presentationCornerRadius(48)
         }
-       */
+
     }
     
     // 處理日期點擊的函數
@@ -193,8 +191,11 @@ struct YearOverviewView: View {
         let date = dateForDayOfYear(dayIndex)
         let dayData = LunarCalendarDataManager.shared.getData(for: date)
         
-        // 創建包含日期和農曆數據的信息
-        selectedDayInfo = DayInfo(date: date, lunarData: dayData)
+        if isPremiumUser {
+            selectedDayInfo = DayInfo(date: date, lunarData: dayData)
+        } else {
+            isShowingUpgrade = true
+        }
     }
     
     // 根據一年中的第幾天計算實際日期
