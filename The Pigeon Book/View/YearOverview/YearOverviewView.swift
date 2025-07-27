@@ -160,7 +160,23 @@ struct YearOverviewView: View {
             }
         }
         // 使用 sheet(item:) 顯示日期和成語信息
+        
         .sheet(item: $selectedDayInfo) { dayInfo in
+            DailyIdiomDialog(
+                date: dayInfo.date,
+                lunarData: dayInfo.lunarData,
+                isPresented: .constant(true),
+                onDateSelected: { selectedDate in
+                    let newDayData = LunarCalendarDataManager.shared.getData(for: selectedDate)
+                    selectedDayInfo = DayInfo(date: selectedDate, lunarData: newDayData)
+                }
+            )
+            .presentationDetents([.fraction(0.6)])
+            .presentationCornerRadius(48)
+        }
+
+        
+      /*  .sheet(item: $selectedDayInfo) { dayInfo in
             DailyIdiomDialog(
                 date: dayInfo.date,
                 lunarData: dayInfo.lunarData,
@@ -169,6 +185,7 @@ struct YearOverviewView: View {
             .presentationDetents([.fraction(0.6)])
             .presentationCornerRadius(48)
         }
+       */
     }
     
     // 處理日期點擊的函數
@@ -211,6 +228,9 @@ struct DayImageView: View {
             if isCompleted {
                 // 顯示成語圖片（縮小版）
                 Button(action: {
+                    let generator = UIImpactFeedbackGenerator(style: .light)
+                      generator.impactOccurred()
+                    
                     onTap?()
                 }) {
                     Image(getImageForDay(dayIndex))
@@ -232,47 +252,16 @@ struct DayImageView: View {
 }
 
 
-// MARK: - Day Image View
-struct ClickableDayImageView: View {
-    let dayIndex: Int
-    let isCompleted: Bool
-    
-    private func getImageForDay(_ day: Int) -> String {
-        // 根據日期獲取對應的成語圖片
-        // 這裡你需要根據實際的 LunarCalendarDataManager 來獲取對應日期的圖片
-        let calendar = Calendar.current
-        let year = calendar.component(.year, from: Date())
-        let date = calendar.date(from: DateComponents(year: year, day: day)) ?? Date()
-        let lunarData = LunarCalendarDataManager.shared.getData(for: date)
-        return lunarData.idiomImageName
-    }
-    
-    var body: some View {
-        ZStack {
-            if isCompleted {
-                // 顯示成語圖片（縮小版）
-                Image(getImageForDay(dayIndex))
-                    .resizable()
-                    .aspectRatio(contentMode: .fit)
-                    .frame(width: 24, height: 24)
-                    .clipShape(Circle())
-            } else {
-                // 顯示圓點
-                Circle()
-                    .fill(Color.accentColor.opacity(0.2))
-                    .frame(width: 4, height: 4)
-            }
-        }
-        .frame(width: 30, height: 30)
-    }
-}
-
 
 // MARK: - Daily Idiom Dialog
 struct DailyIdiomDialog: View {
     let date: Date
     let lunarData: LunarCalendarData
     @Binding var isPresented: Bool
+    var onDateSelected: (Date) -> Void  // ✅ 新增 callback 傳出選擇的日期
+    
+    @State private var isDatePickerPresented = false
+    @State private var selectedDate = Date()
     
     // 日期格式化器
     private var dateFormatter: DateFormatter {
@@ -286,19 +275,23 @@ struct DailyIdiomDialog: View {
         formatter.dateFormat = "EEEE"
         return formatter
     }
-    
+
+    private var today: Date {
+        Calendar.current.startOfDay(for: Date())
+    }
+
     var body: some View {
         NavigationView {
-            ZStack {
+            ZStack(alignment: .bottomTrailing) {
                 // 背景漸層
                 RoundedRectangle(cornerRadius: 48)
-                        .fill(.ultraThinMaterial)
-                        .ignoresSafeArea()
+                    .fill(.ultraThinMaterial)
+                    .ignoresSafeArea()
                 
                 VStack(spacing: 30) {
                     
                     // 日期顯示區域
-                    HStack() {
+                    HStack {
                         Text(dateFormatter.string(from: date))
                             .font(.system(size: 14, weight: .regular, design: .monospaced))
                             .foregroundColor(.accentColor)
@@ -335,6 +328,48 @@ struct DailyIdiomDialog: View {
                     .padding(.horizontal, 30)
                     
                     Spacer()
+                }
+                
+                // 右下角日曆按鈕
+                Button(action: {
+                    
+                    let generator =
+                    UIImpactFeedbackGenerator(style: .light)
+                    generator.impactOccurred()
+                    
+                    selectedDate = date
+                    isDatePickerPresented = true
+                }) {
+                    Image(systemName: "calendar")
+                        .font(.system(size: 20))
+                        .foregroundColor(.accentColor)
+                        .padding(20)
+                        .background(.ultraThinMaterial)
+                        .clipShape(Circle())
+                        .padding(.bottom, 12)
+                        .padding(.trailing, 20)
+                }
+                .sheet(isPresented: $isDatePickerPresented) {
+                    VStack {
+                        DatePicker(
+                            "Select a date",
+                            selection: $selectedDate,
+                            in: ...today,
+                            displayedComponents: [.date]
+                        )
+                        .datePickerStyle(.graphical)
+                        .padding()
+
+                        Button("確認") {
+                            isDatePickerPresented = false
+                            isPresented = false // 關閉當前 dialog
+                            onDateSelected(selectedDate) // 呼叫回傳
+                        }
+                        .padding()
+                        .disabled(selectedDate > today)
+                    }
+                    .presentationDetents([.fraction(0.6)])
+                    .presentationCornerRadius(48)
                 }
             }
             .navigationBarTitleDisplayMode(.inline)
