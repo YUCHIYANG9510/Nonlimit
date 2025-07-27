@@ -28,6 +28,21 @@
       "productID" : "com.nonlimit.lifetime",
       "referenceName" : "Lifetime",
       "type" : "NonConsumable"
+    },
+    {
+      "displayPrice" : "0",
+      "familyShareable" : false,
+      "internalID" : "8A92E2C9",
+      "localizations" : [
+        {
+          "description" : "Free Trial",
+          "displayName" : "7-Day Free Trial",
+          "locale" : "en_US"
+        }
+      ],
+      "productID" : "com.nonlimit.lifetime_trial",
+      "referenceName" : "7-Day Free Trial",
+      "type" : "NonConsumable"
     }
   ],
   "settings" : {

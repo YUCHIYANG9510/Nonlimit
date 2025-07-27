@@ -13,40 +13,69 @@ class RevenueCatManager: ObservableObject {
     static let shared = RevenueCatManager()
 
     @Published var isPremiumUser: Bool = false
+    @Published var isTrialUser: Bool = false
+    @Published var trialDaysLeft: Int = 0
     @Published var isLoading: Bool = false
     @Published var errorMessage: String?
 
-    // 這兩個 ID 必須與 RevenueCat / App Store 的產品 ID 一致
     let monthlyID = "com.nonlimit.monthly"
     let lifetimeID = "com.nonlimit.lifetime"
-    
-    // 追蹤是否是初始化檢查
+    let lifetimeTrialID = "com.nonlimit.lifetime_trial"
+
     private var isInitialCheck = true
 
     init() {
         Task {
-            await checkSubscriptionStatus()
+            await refreshStatus()
         }
     }
 
-    /// 檢查目前用戶是否擁有 premium 訂閱（對應 RevenueCat 後台的 entitlement ID）
+    /// 外部可呼叫的狀態刷新（用於畫面開啟時更新）
+    func refreshStatus() async {
+        await checkSubscriptionStatus()
+    }
+
+    /// 檢查用戶是否為 Premium、是否在試用期中
     func checkSubscriptionStatus() async {
         do {
             let customerInfo = try await Purchases.shared.customerInfo()
-            let isActive = customerInfo.entitlements["Premium"]?.isActive == true
-            
-            // 🔥 修正：先保存舊狀態，再更新新狀態
+            let entitlement = customerInfo.entitlements["Premium"]
+            let isActive = entitlement?.isActive == true
+
+            if let productID = entitlement?.productIdentifier,
+               productID == lifetimeTrialID,
+               let purchaseDate = entitlement?.latestPurchaseDate {
+
+                let daysSince = Calendar.current.dateComponents([.day], from: purchaseDate, to: Date()).day ?? 0
+
+                if daysSince < 7 {
+                    // 試用中
+                    isTrialUser = true
+                    trialDaysLeft = 7 - daysSince
+                    isPremiumUser = true
+                } else {
+                    // 試用過期
+                    isTrialUser = false
+                    trialDaysLeft = 0
+                    isPremiumUser = false
+                }
+
+            } else {
+                // 不是 lifetime_trial，用一般邏輯判斷
+                isTrialUser = false
+                trialDaysLeft = 0
+                isPremiumUser = isActive
+            }
+
             let wasNotPremium = !isPremiumUser
-            isPremiumUser = isActive
-            
-            // 只有在非初始檢查且從非付費變為付費時才發送通知
-            if !isInitialCheck && isActive && wasNotPremium {
+            if !isInitialCheck && isPremiumUser && wasNotPremium {
                 NotificationCenter.default.post(name: .purchaseCompleted, object: nil)
                 print("🎉 狀態改變：已升級為付費用戶，發送通知")
             }
-            
+
             isInitialCheck = false
-            print("🔍 Premium Status: \(isActive)")
+            print("🔍 Premium Status: \(isPremiumUser), Trial: \(isTrialUser), Days Left: \(trialDaysLeft)")
+
         } catch {
             errorMessage = "無法獲取用戶訂閱狀態"
             print("❌ Error fetching subscription info: \(error)")
@@ -61,12 +90,22 @@ class RevenueCatManager: ObservableObject {
         await purchase(productID: lifetimeID)
     }
 
+    func purchaseLifetimeTrial() async {
+        await purchase(productID: lifetimeTrialID)
+    }
+
     private func purchase(productID: String) async {
         isLoading = true
         defer { isLoading = false }
 
         do {
             let offerings = try await Purchases.shared.offerings()
+
+            print("📦 [DEBUG] 目前 Offering 中的可用商品：")
+            for pkg in offerings.current?.availablePackages ?? [] {
+                print("🛒 \(pkg.storeProduct.productIdentifier)")
+            }
+
             guard let package = offerings.current?.availablePackages.first(where: {
                 $0.storeProduct.productIdentifier == productID
             }) else {
@@ -77,17 +116,15 @@ class RevenueCatManager: ObservableObject {
             let result = try await Purchases.shared.purchase(package: package)
 
             if result.customerInfo.entitlements["Premium"]?.isActive == true {
-                // 🔥 修正：先保存舊狀態
                 let wasNotPremium = !isPremiumUser
                 isPremiumUser = true
-                
-                // 只有從非付費變為付費時才發送通知
+                errorMessage = nil
+
                 if wasNotPremium {
                     NotificationCenter.default.post(name: .purchaseCompleted, object: nil)
                     print("🎉 購買成功，發送升級通知")
                 }
-                
-                errorMessage = nil
+
                 print("🎉 購買成功：\(productID)")
             } else {
                 errorMessage = "購買未成功"
@@ -107,17 +144,15 @@ class RevenueCatManager: ObservableObject {
         do {
             let info = try await Purchases.shared.restorePurchases()
             if info.entitlements["Premium"]?.isActive == true {
-                // 🔥 修正：先保存舊狀態
                 let wasNotPremium = !isPremiumUser
                 isPremiumUser = true
-                
-                // 只有從非付費變為付費時才發送通知
+                errorMessage = nil
+
                 if wasNotPremium {
                     NotificationCenter.default.post(name: .purchaseCompleted, object: nil)
                     print("🎉 恢復購買成功，發送升級通知")
                 }
-                
-                errorMessage = nil
+
                 print("✅ 成功恢復購買")
             } else {
                 errorMessage = "沒有找到有效的訂閱"

@@ -17,9 +17,43 @@ struct UpgradeView: View {
     @Environment(\.dismiss) var dismiss
     @EnvironmentObject var appState: AppState
     @State private var selectedOption: UpgradeOption = .lifetime
+    @State private var isReady = false
     @StateObject private var revenueCat = RevenueCatManager.shared
 
     var body: some View {
+        Group {
+            if !isReady {
+                ProgressView("載入中…")
+                    .foregroundColor(.white)
+                    .frame(maxWidth: .infinity, maxHeight: .infinity)
+                    .background(Color.black.opacity(0.4).ignoresSafeArea())
+            } else {
+                contentView
+            }
+        }
+        .onAppear {
+            Task {
+                await revenueCat.refreshStatus()
+                isReady = true
+            }
+        }
+        .alert("錯誤", isPresented: .constant(revenueCat.errorMessage != nil)) {
+            Button("確定") { revenueCat.errorMessage = nil }
+        } message: {
+            Text(revenueCat.errorMessage ?? "")
+        }
+        .onReceive(NotificationCenter.default.publisher(for: .purchaseCompleted)) { _ in
+            Task { @MainActor in
+                try? await Task.sleep(nanoseconds: 500_000_000)
+                if revenueCat.isPremiumUser {
+                    appState.upgradeToPremium()
+                }
+                dismiss()
+            }
+        }
+    }
+
+    var contentView: some View {
         ZStack {
             LinearGradient(
                 gradient: Gradient(colors: [
@@ -99,10 +133,19 @@ struct UpgradeView: View {
                 .padding(.bottom, 36)
 
                 Button(action: {
-                    if selectedOption == .monthly {
-                        Task { await revenueCat.purchaseMonthly() }
-                    } else {
-                        Task { await revenueCat.purchaseLifetime() }
+                    let generator = UIImpactFeedbackGenerator(style: .light)
+                    generator.impactOccurred()
+
+                    Task {
+                        if selectedOption == .monthly {
+                            await revenueCat.purchaseMonthly()
+                        } else {
+                            if revenueCat.isTrialUser {
+                                await revenueCat.purchaseLifetimeTrial()
+                            } else {
+                                await revenueCat.purchaseLifetime()
+                            }
+                        }
                     }
                 }) {
                     HStack {
@@ -112,7 +155,11 @@ struct UpgradeView: View {
                                 .tint(.black)
                             Text("處理中...")
                         } else {
-                            Text(selectedOption == .monthly ? "我要升級" : "免費試用")
+                            Text(
+                                selectedOption == .monthly
+                                ? "我要升級"
+                                : (revenueCat.isTrialUser ? "免費試用" : "終生購買")
+                            )
                         }
                     }
                     .font(.system(size: 20, weight: .bold))
@@ -146,32 +193,9 @@ struct UpgradeView: View {
                     .onTapGesture {}
             }
         }
-        .alert("錯誤", isPresented: .constant(revenueCat.errorMessage != nil)) {
-            Button("確定") {
-                revenueCat.errorMessage = nil
-            }
-        } message: {
-            Text(revenueCat.errorMessage ?? "")
-        }
-        .onReceive(NotificationCenter.default.publisher(for: .purchaseCompleted)) { _ in
-            print("🔍 UpgradeView 收到購買完成通知")
-            
-            // 🔥 修改：確保 AppState 狀態同步
-            Task { @MainActor in
-                // 等待一小段時間讓 RevenueCat 完全更新
-                try? await Task.sleep(nanoseconds: 500_000_000) // 0.5秒
-                
-                // 強制同步 AppState 與 RevenueCat 的狀態
-                if revenueCat.isPremiumUser {
-                    appState.upgradeToPremium()
-                    print("🔍 UpgradeView 已同步 AppState 狀態")
-                }
-                
-                dismiss()
-            }
-        }
     }
 }
+
 
 struct UpgradeButton: View {
     let title: String
