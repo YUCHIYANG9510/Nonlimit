@@ -288,13 +288,13 @@ enum AppIcon: String, CaseIterable {
         case .default:
             return "icon_default"
         case .pink:
-            return "icon_pink"
+            return "Pink"
         case .lightpink:
-            return "icon_lightpink"
+            return "Light-Pink"
         case .simpleblack:
-            return "icon_simple-black"
+            return "Simple-Black"
         case .deadblack:
-            return "icon_dead-black"
+            return "Dead-Black"
         }
     }
 }
