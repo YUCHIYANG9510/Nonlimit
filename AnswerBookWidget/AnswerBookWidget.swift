@@ -8,6 +8,48 @@
 import WidgetKit
 import SwiftUI
 
+extension Color {
+    /// Widget 專用背景色（淺色為粉紫、深色為霧灰）
+    static var widgetBackground: Color {
+        Color(UIColor { trait in
+            if trait.userInterfaceStyle == .dark {
+                // 深色模式：霧面灰、接近系統原生小工具風格
+                return UIColor.secondarySystemGroupedBackground
+            } else {
+                // 淺色模式：你指定的粉紫底
+                return UIColor(red: 0xED/255, green: 0xDC/255, blue: 0xF4/255, alpha: 1)
+            }
+        })
+    }
+}
+
+extension LinearGradient {
+    /// Widget 專用動態背景（淺色：粉紫漸層，深色：霧灰）
+    static var widgetBackground: LinearGradient {
+        LinearGradient(
+            colors: [
+                Color(UIColor { trait in
+                    if trait.userInterfaceStyle == .dark {
+                        return UIColor.secondarySystemGroupedBackground // 深色
+                    } else {
+                        return UIColor(red: 0xED/255, green: 0xDC/255, blue: 0xF4/255, alpha: 1) // #EDDCF4
+                    }
+                }),
+                Color(UIColor { trait in
+                    if trait.userInterfaceStyle == .dark {
+                        return UIColor.secondarySystemGroupedBackground // 深色
+                    } else {
+                        return UIColor(red: 0xFF/255, green: 0xE5/255, blue: 0xFF/255, alpha: 1) // #FFE5FF
+                    }
+                })
+            ],
+            startPoint: .topLeading,
+            endPoint: .bottomTrailing
+        )
+    }
+}
+
+
 // MARK: - 資料模型
 struct FortuneEntry: TimelineEntry {
     let date: Date
@@ -103,12 +145,12 @@ struct FortuneWidgetEntryView: View {
                 HStack {
                     Text(entry.idiom)
                         .font(.system(size: 12, weight: .regular))
-                        .foregroundColor(.accent)
+                        .foregroundColor(.primary)
                         .lineLimit(1)
                     Spacer()
                     Text("#\(entry.dayOfYear)")
                         .font(.system(size: 12, weight: .regular, design: .monospaced))
-                        .foregroundColor(.accent)
+                        .foregroundColor(.primary)
                 }
 
                 Image(entry.imageName)
@@ -119,16 +161,21 @@ struct FortuneWidgetEntryView: View {
                 HStack {
                     Text(entry.date.weekdayString)
                         .font(.system(size: 12, weight: .regular, design: .monospaced))
-                        .foregroundColor(.accent)
+                        .foregroundColor(.primary)
                     Spacer()
                     Text(entry.date.formattedMMdd())
                         .font(.system(size: 12, weight: .regular, design: .monospaced))
-                        .foregroundColor(.accent.opacity(0.8))
+                        .foregroundColor(.primary.opacity(0.8))
                 }
             }
             .padding(4)
         }
-        .containerBackground(Color(.systemPink).opacity(0.1), for: .widget)
+        .containerBackground(
+            LinearGradient.widgetBackground,
+            for: .widget
+        )
+
+
         .frame(maxWidth: .infinity, maxHeight: .infinity)
         .widgetURL(URL(string: "yourapp://open-today"))
        }
@@ -145,28 +192,32 @@ struct FortuneWidgetEntryView: View {
                     Text(entry.idiom)
                             .font(.system(size: 16, weight: .regular))
                             .fontWeight(.semibold)
-                            .foregroundColor(.accent)
+                            .foregroundColor(.primary)
                         
                     VStack(alignment: .leading, spacing: 4) {
                         
                         HStack {
                             Text(entry.date.weekdayString)
                                 .font(.system(size: 13, weight: .regular, design: .monospaced))
-                                .foregroundColor(.accent)
+                                .foregroundColor(.primary)
                             Text(entry.date.formattedMMdd())
                                 .font(.system(size: 13, weight: .regular, design: .monospaced))
-                                .foregroundColor(.accent.opacity(0.8))
+                                .foregroundColor(.primary.opacity(0.8))
                         }
                         Text("#\(entry.dayOfYear)")
                             .font(.system(size: 13, weight: .regular, design: .monospaced))
-                            .foregroundColor(.accent.opacity(0.6))
+                            .foregroundColor(.primary.opacity(0.6))
                     }
                 }
 
                 Spacer()
             }
             .padding(8)
-            .containerBackground(Color(.systemPink).opacity(0.1), for: .widget)
+            .containerBackground(
+                LinearGradient.widgetBackground, // ← 換成這個
+                for: .widget
+            )
+
         }
     
     private var largeView: some View {
@@ -175,12 +226,12 @@ struct FortuneWidgetEntryView: View {
                     VStack(alignment: .leading, spacing: 2) {
                         Text(entry.idiom)
                             .font(.system(size: 18, weight: .regular))
-                            .foregroundColor(.accent)
+                            .foregroundColor(.primary)
                     }
                     Spacer()
                     Text("#\(entry.dayOfYear)")
                         .font(.system(size: 18, weight: .regular, design: .monospaced))
-                        .foregroundColor(.accent)
+                        .foregroundColor(.primary)
                 }
                 
 
@@ -188,32 +239,31 @@ struct FortuneWidgetEntryView: View {
                     .resizable()
                     .scaledToFit()
                     .frame(height: 180)
-            
 
-                
                 // 宜忌資訊
                 VStack(spacing: 28) {
                     Text("\(entry.suitableActivities) | \(entry.unsuitableActivities)")
                         .font(.system(size: 14, weight: .regular, design: .monospaced))
-                        .foregroundColor(.accent.opacity(0.6))
+                        .foregroundColor(.primary.opacity(0.8))
                         .lineLimit(2)
                         .multilineTextAlignment(.center)
                     
                     HStack {
                         Text(entry.date.weekdayString)
                             .font(.system(size: 18, weight: .regular, design: .monospaced))
-                            .foregroundColor(.accent)
+                            .foregroundColor(.primary)
                         Spacer()
                         Text(entry.date.formattedMMdd())
                             .font(.system(size: 18, weight: .regular, design: .monospaced))
-                            .foregroundColor(.accent.opacity(0.8))
+                            .foregroundColor(.primary.opacity(0.8))
                     }
-                    .font(.headline)
-                    .foregroundColor(.accent.opacity(0.8))
                 }
             }
             .padding()
-            .containerBackground(Color(.systemPink).opacity(0.1), for: .widget)
+            .containerBackground(
+                LinearGradient.widgetBackground, // ← 換成這個
+                for: .widget
+            )
         }
     }
 
