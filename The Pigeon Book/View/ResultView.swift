@@ -24,6 +24,8 @@ struct ResultView: View {
                 .overlay(MessageOverlay(cardType: cardType, messageIndex: randomMessageIndex))
             
             VStack {
+                Spacer()
+                
                 NavigationLink(destination: CardListView().environmentObject(appState)) {
                     Text("BACK")
                         .font(.title)
@@ -38,10 +40,9 @@ struct ResultView: View {
                         )
                         .shadow(radius: 100)
                 }
-                .padding(.top, 650)
-                .padding(.horizontal, 300)
-                Spacer()
+                .padding(.bottom, 60) // 距離底部的固定距離
             }
+            .frame(maxWidth: .infinity)
             .navigationBarBackButtonHidden(true)
         }
         .onAppear {
@@ -81,7 +82,6 @@ struct MessageOverlay: View {
         }
     }
 }
-
 #Preview("Result - Work") {
     NavigationView {
         ResultView(cardType: .work)
