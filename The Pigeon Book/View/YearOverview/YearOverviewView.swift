@@ -7,6 +7,7 @@
 
 import SwiftUI
 
+
 // MARK: - Year Overview View
 struct YearOverviewView: View {
     @State private var animateGradient = false
@@ -14,6 +15,11 @@ struct YearOverviewView: View {
     @State private var scrollOffset: CGFloat = 0
     @State private var isShowingUpgrade = false
     @StateObject private var revenueCat = RevenueCatManager.shared // 改用 RevenueCatManager
+    @Environment(\.horizontalSizeClass) var horizontalSizeClass // ← 新增
+    // 判斷是否為 iPad
+    private var isiPad: Bool {
+        horizontalSizeClass == .regular
+    }
     
     private var daysRemaining: Int {
         let now = Date()
@@ -177,7 +183,7 @@ struct YearOverviewView: View {
                     selectedDayInfo = DayInfo(date: selectedDate, lunarData: newDayData)
                 }
             )
-            .presentationDetents([.fraction(0.6)])
+            .presentationDetents([.fraction(isiPad ? 0.9 : 0.6)])
             .presentationCornerRadius(48)
         }
 
@@ -280,6 +286,13 @@ struct DailyIdiomDialog: View {
     @State private var isDatePickerPresented = false
     @State private var selectedDate = Date()
     
+    
+    @Environment(\.horizontalSizeClass) var horizontalSizeClass // ← 新增
+    // 判斷是否為 iPad
+       private var isiPad: Bool {
+           horizontalSizeClass == .regular
+       }
+    
     // 日期格式化器
     private var dateFormatter: DateFormatter {
         let formatter = DateFormatter()
@@ -297,6 +310,35 @@ struct DailyIdiomDialog: View {
         Calendar.current.startOfDay(for: Date())
     }
 
+    
+    @ViewBuilder
+    private func datePickerContent() -> some View {
+        VStack {
+            DatePicker(
+                "Select a date",
+                selection: $selectedDate,
+                in: ...today,
+                displayedComponents: [.date]
+            )
+            .datePickerStyle(.graphical)
+            .padding()
+
+            Button {
+                isDatePickerPresented = false
+                isPresented = false
+                onDateSelected(selectedDate)
+            } label: {
+                Text("確認")
+                    .font(.system(size: 17, weight: .semibold))
+                    .foregroundStyle(.primary)
+            }
+            .buttonStyle(.plain)
+            .padding()
+            .disabled(selectedDate > today)
+            .opacity(selectedDate > today ? 0.5 : 1)
+        }
+    }
+    
     var body: some View {
         NavigationView {
             ZStack(alignment: .bottomTrailing) {
@@ -367,37 +409,13 @@ struct DailyIdiomDialog: View {
                         .padding(.trailing, 20)
                 }
                 .sheet(isPresented: $isDatePickerPresented) {
-                    VStack {
-                        DatePicker(
-                            "Select a date",
-                            selection: $selectedDate,
-                            in: ...today,
-                            displayedComponents: [.date]
-                        )
-                        .datePickerStyle(.graphical)
-                        .padding()
+                        datePickerContent()
+                            .presentationCornerRadius(48)
 
-                        Button {
-                                    isDatePickerPresented = false
-                                    isPresented = false
-                                    onDateSelected(selectedDate)
-                                } label: {
-                                    Text("確認")
-                                        .font(.system(size: 17, weight: .semibold))
-                                        .foregroundStyle(.primary)
-                                }
-                                .buttonStyle(.plain)
-                                .padding()
-                                .disabled(selectedDate > today)
-                                .opacity(selectedDate > today ? 0.5 : 1) // 視覺上也淡一點
-                    }
-                    .presentationDetents([.fraction(0.6)])
-                    .presentationCornerRadius(48)
-                }
-            }
+
+                }            }
             .navigationBarTitleDisplayMode(.inline)
         }
-        .presentationDetents([.medium])
     }
 }
 
