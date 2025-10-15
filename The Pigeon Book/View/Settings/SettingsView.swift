@@ -26,7 +26,7 @@ struct SettingsView: View {
                     Text("設定")
                     .font(.title2)
                     .fontWeight(.medium)
-                    .foregroundColor(.accentColor)
+                    .foregroundColor(.primary)
                     .padding(.top, 24)
                     .padding(.bottom, 24)
                     
@@ -104,7 +104,7 @@ struct SettingsView: View {
                         HStack {
                             Text("顯示名稱")
                                 .font(.system(size: 18))
-                                .foregroundColor(.accentColor)
+                                .foregroundColor(.primary)
                             
                             Spacer()
                             
@@ -112,12 +112,12 @@ struct SettingsView: View {
                                 if tempDisplayName.isEmpty {
                                     Text("輸入你的名字")
                                         .font(.system(size: 18))
-                                        .foregroundColor(.accentColor.opacity(0.4))
+                                        .foregroundColor(.secondary)
                                         .padding(.trailing, 4)
                                 }
                                 TextField("", text: $tempDisplayName)
                                     .font(.system(size: 18))
-                                    .foregroundColor(.accentColor.opacity(0.7))
+                                    .foregroundColor(.primary)
                                     .multilineTextAlignment(.trailing)
                                     .onSubmit {
                                         displayName = tempDisplayName
@@ -129,7 +129,7 @@ struct SettingsView: View {
                         
                         // Divider
                         Rectangle()
-                            .fill(Color.accentColor.opacity(0.2))
+                            .fill(Color.appDivider)
                             .frame(height: 1)
                             .padding(.horizontal, 30)
                         
@@ -144,13 +144,13 @@ struct SettingsView: View {
                             HStack {
                                 Text("更換圖示")
                                     .font(.system(size: 18))
-                                    .foregroundColor(.accentColor)
+                                    .foregroundColor(.primary)
                                 
                                 Spacer()
                                 
                                 Image(systemName: "chevron.right")
                                     .font(.system(size: 16))
-                                    .foregroundColor(.accentColor.opacity(0.5))
+                                    .foregroundColor(.secondary)
                             }
                             .padding(.horizontal, 30)
                         }
@@ -242,17 +242,17 @@ struct IconPickerView: View {
 
                                 if currentIcon == icon {
                                     Image(systemName: "checkmark.circle.fill")
-                                        .foregroundColor(.accentColor)
+                                        .foregroundColor(.primary)
                                         .font(.system(size: 24))
                                 } else {
                                     Image(systemName: "circle")
-                                        .foregroundColor(.black.opacity(0.3))
+                                        .foregroundColor(.secondary)
                                         .font(.system(size: 24))
                                 }
                             }
                             .padding(.vertical, 24)
                             .padding(.horizontal, 24)
-                            .background(Color(red: 247/255, green: 247/255, blue: 247/255))
+                            .background(Color.appCardBackground)
                             .cornerRadius(24)
                         }
                         .buttonStyle(PlainButtonStyle())

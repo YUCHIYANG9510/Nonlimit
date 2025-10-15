@@ -311,13 +311,13 @@ struct DailyIdiomDialog: View {
                     HStack {
                         Text(dateFormatter.string(from: date))
                             .font(.system(size: 14, weight: .regular, design: .monospaced))
-                            .foregroundColor(.accentColor)
+                            .foregroundColor(.primary)
                         
                         Spacer()
                         
                         Text(weekdayFormatter.string(from: date))
                             .font(.system(size: 14, weight: .regular, design: .monospaced))
-                            .foregroundColor(.accentColor.opacity(0.7))
+                            .foregroundColor(.secondary)
                     }
                     .padding(.horizontal, 40)
                     .padding(.top, 40)
@@ -333,11 +333,11 @@ struct DailyIdiomDialog: View {
                             Text(lunarData.idiom)
                                 .font(.title)
                                 .fontWeight(.bold)
-                                .foregroundColor(.accentColor)
+                                .foregroundColor(.primary)
                             
                             Text(lunarData.idiomDescription)
                                 .font(.system(size: 14))
-                                .foregroundColor(.accentColor.opacity(0.8))
+                                .foregroundColor(.secondary)
                                 .multilineTextAlignment(.center)
                                 .padding(.horizontal, 28)
                         }
@@ -359,7 +359,7 @@ struct DailyIdiomDialog: View {
                 }) {
                     Image(systemName: "calendar")
                         .font(.system(size: 20))
-                        .foregroundColor(.accentColor)
+                        .foregroundColor(.primary)
                         .padding(20)
                         .background(.ultraThinMaterial)
                         .clipShape(Circle())
@@ -377,13 +377,19 @@ struct DailyIdiomDialog: View {
                         .datePickerStyle(.graphical)
                         .padding()
 
-                        Button("確認") {
-                            isDatePickerPresented = false
-                            isPresented = false // 關閉當前 dialog
-                            onDateSelected(selectedDate) // 呼叫回傳
-                        }
-                        .padding()
-                        .disabled(selectedDate > today)
+                        Button {
+                                    isDatePickerPresented = false
+                                    isPresented = false
+                                    onDateSelected(selectedDate)
+                                } label: {
+                                    Text("確認")
+                                        .font(.system(size: 17, weight: .semibold))
+                                        .foregroundStyle(.primary)
+                                }
+                                .buttonStyle(.plain)
+                                .padding()
+                                .disabled(selectedDate > today)
+                                .opacity(selectedDate > today ? 0.5 : 1) // 視覺上也淡一點
                     }
                     .presentationDetents([.fraction(0.6)])
                     .presentationCornerRadius(48)

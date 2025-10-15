@@ -32,13 +32,17 @@ struct CustomTabBar: View {
             )
         }
         .background(
-            RoundedRectangle(cornerRadius: 16)
-                .fill(.regularMaterial)
+            // 正確：先建一個形狀，再同時套背景與填充
+            RoundedRectangle(cornerRadius: 16, style: .continuous)
+                .fill(Material.ultraThin) // 毛玻璃層
+                .background(.bar, in: RoundedRectangle(cornerRadius: 16, style: .continuous)) // 系統 bar 底色
         )
         .overlay(
-            RoundedRectangle(cornerRadius: 16)
-                .stroke(Color.white.opacity(0.2), lineWidth: 1)
+            // 分隔線用系統語意色
+            RoundedRectangle(cornerRadius: 16, style: .continuous)
+                .stroke(Color(.separator), lineWidth: 1)
         )
+
         .padding(.bottom, 32)
     }
     

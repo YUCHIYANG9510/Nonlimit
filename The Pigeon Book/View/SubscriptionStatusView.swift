@@ -29,7 +29,7 @@ struct SubscriptionStatusView: View {
                 HStack(spacing: 12) {
                     Text("The Pigeon book")
                         .font(.system(size: 24, weight: .heavy, design: .rounded))
-                        .foregroundColor(.accentColor)
+                        .foregroundColor(.primary)
 
                     Text("PRO")
                         .font(.system(size: 15, weight: .bold, design: .rounded))
@@ -45,11 +45,11 @@ struct SubscriptionStatusView: View {
                     VStack(spacing: 4) {
                         Text("您是鴿子專家")
                             .font(.system(size: 20, weight: .bold))
-                            .foregroundColor(.accentColor)
+                            .foregroundColor(.primary)
 
                         Text("感謝支持！")
                             .font(.system(size: 14, weight: .regular))
-                            .foregroundColor(.accentColor.opacity(0.7))
+                            .foregroundColor(.secondary)
                     }
 
                     if revenueCat.isTrialUser {
@@ -61,7 +61,7 @@ struct SubscriptionStatusView: View {
                     if !purchaseDateText.isEmpty {
                         Text(purchaseDateText)
                             .font(.footnote)
-                            .foregroundColor(.accentColor.opacity(0.7))
+                            .foregroundColor(.secondary)
                     }
 
                     Divider().padding(.vertical, 16)
@@ -71,7 +71,7 @@ struct SubscriptionStatusView: View {
                             Text("訂閱")
                             Spacer()
                             Text("PRO")
-                                .foregroundColor(.accentColor)
+                                .foregroundColor(.primary)
                         }
 
                         HStack {
@@ -94,25 +94,27 @@ struct SubscriptionStatusView: View {
 
                 Spacer()
 
-                Button(action: {
-                    if let url = URL(string: "https://apps.apple.com/account/subscriptions") {
+                Button {
+                        if let url = URL(string: "https://apps.apple.com/account/subscriptions") {
                         UIApplication.shared.open(url)
-                    }
-                }) {
-                    Text("管理訂閱")
-                        .fontWeight(.bold)
-                        .frame(maxWidth: .infinity)
-                        .padding()
-                        .background(Color.accentColor)
-                        .foregroundColor(.white)
-                        .cornerRadius(16)
-                }
-                .padding(.horizontal, 40)
+                                    }
+                                } label: {
+                                    Text("管理訂閱")
+                                        .fontWeight(.bold)
+                                        .frame(maxWidth: .infinity)
+                                }
+                                .buttonStyle(.borderedProminent)
+                                .controlSize(.large)
+                                .tint(.accentColor)
+                                .padding(.horizontal, 40)
 
-                Button("關閉") {
+                Button {
                     dismiss()
+                } label: {
+                    Text("關閉")
+                    .foregroundColor(.primary)
+                    .padding(.top, 16)
                 }
-                .padding(.top, 16)
             }
             .padding(.horizontal, 32)
             .padding(.vertical, 24)
