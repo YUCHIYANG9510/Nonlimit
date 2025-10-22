@@ -252,7 +252,7 @@ struct IconPickerView: View {
                             }
                             .padding(.vertical, 24)
                             .padding(.horizontal, 24)
-                            .background(Color.appCardBackground)
+                            .background(Color(uiColor: .secondarySystemGroupedBackground))
                             .cornerRadius(24)
                         }
                         .buttonStyle(PlainButtonStyle())
@@ -267,12 +267,13 @@ struct IconPickerView: View {
     }
 }
 
+//APP icon list 顯示名稱修改處
 enum AppIcon: String, CaseIterable {
     case `default` = "Default"
     case pink = "Pink"
-    case lightpink = "Light-Pink"
-    case simpleblack = "Simple-Black"
-    case deadblack = "Dead-Black"
+    case lightpink = "LightPink"
+    case simpleblack = "SimpleBlack"
+    case deadblack = "DeadBlack"
     
     var iconValue: String? {
         switch self {
