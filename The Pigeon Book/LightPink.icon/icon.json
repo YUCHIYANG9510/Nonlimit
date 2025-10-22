@@ -1,0 +1,40 @@
+{
+  "fill" : {
+    "automatic-gradient" : "display-p3:0.96387,0.82275,0.98242,1.00000"
+  },
+  "groups" : [
+    {
+      "layers" : [
+        {
+          "glass" : false,
+          "image-name" : "2_Pigeon_eyes.svg",
+          "name" : "2_Pigeon_eyes"
+        },
+        {
+          "image-name" : "2_Pigeon_body.svg",
+          "name" : "2_Pigeon_body"
+        },
+        {
+          "glass" : false,
+          "image-name" : "1_Pigeon_bg.svg",
+          "name" : "1_Pigeon_bg"
+        },
+        {
+          "image-name" : "0_Background_3.svg",
+          "name" : "0_Background_3"
+        }
+      ],
+      "shadow" : {
+        "kind" : "neutral",
+        "opacity" : 0.5
+      },
+      "translucency" : {
+        "enabled" : true,
+        "value" : 0.5
+      }
+    }
+  ],
+  "supported-platforms" : {
+    "squares" : "shared"
+  }
+}
