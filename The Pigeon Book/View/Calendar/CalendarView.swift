@@ -10,6 +10,10 @@ import SwiftUI
 
 // MARK: - Calendar View
 struct CalendarView: View {
+    // ✅ 測試模式：設定為 nil 使用真實日期，或設定測試日期
+    private let testDate: Date? = Calendar.current.date(from: DateComponents(year: 2026, month: 1, day: 3))
+    // private let testDate: Date? = nil // 正式版請使用這行
+    
     @State private var currentDate = Date()
     @State private var animateGradient = false
     @State private var showAddCalendarSheet = false
@@ -32,6 +36,9 @@ struct CalendarView: View {
             .ignoresSafeArea(.all)
             .hueRotation(.degrees(animateGradient ? 45 : 0))
             .onAppear {
+                // ✅ 使用測試日期或真實日期
+                currentDate = testDate ?? Date()
+                
                 withAnimation(.easeInOut(duration: 3).repeatForever(autoreverses: true)) {
                     animateGradient.toggle()
                 }

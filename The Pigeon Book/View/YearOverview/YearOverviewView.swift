@@ -3,34 +3,88 @@
 //  Nonlimit
 //
 //  Created by Designer on 2025/7/21.
+//  Updated for multi-year support
 //
+
 
 import SwiftUI
 
-
 // MARK: - Year Overview View
 struct YearOverviewView: View {
+    // ✅ 測試模式：設定為 nil 使用真實日期，或設定測試日期
+    private let testDate: Date? = Calendar.current.date(from: DateComponents(year: 2026, month: 1, day: 3))
+    // private let testDate: Date? = nil // 正式版請使用這行
+    
     @State private var animateGradient = false
     @State private var selectedDayInfo: DayInfo?
     @State private var scrollOffset: CGFloat = 0
     @State private var isShowingUpgrade = false
-    @StateObject private var revenueCat = RevenueCatManager.shared // 改用 RevenueCatManager
-    @Environment(\.horizontalSizeClass) var horizontalSizeClass // ← 新增
-    // 判斷是否為 iPad
+    @State private var selectedYear: Int?
+    @State private var showYearMenu = false // 改為 menu
+    @StateObject private var revenueCat = RevenueCatManager.shared
+    @Environment(\.horizontalSizeClass) var horizontalSizeClass
+    
     private var isiPad: Bool {
         horizontalSizeClass == .regular
     }
     
-    private var daysRemaining: Int {
-        let now = Date()
-        let calendar = Calendar.current
-        let year = calendar.component(.year, from: now)
-        let endOfYear = calendar.date(from: DateComponents(year: year, month: 12, day: 31)) ?? now
-        return calendar.dateComponents([.day], from: now, to: endOfYear).day ?? 0
+    // ✅ 當前日期（支援測試模式）
+    private var currentDate: Date {
+        testDate ?? Date()
     }
     
+    // ✅ 當前年份
+    private var currentYear: Int {
+        Calendar.current.component(.year, from: currentDate)
+    }
+    
+    // ✅ 實際選中的年份（確保初始值正確）
+    private var actualSelectedYear: Int {
+        selectedYear ?? currentYear
+    }
+    
+    // ✅ 只返回當前年份及之前的年份
+    private var availableYears: [Int] {
+        LunarCalendarDataManager.shared.getSupportedYears().filter { $0 <= currentYear }
+    }
+    
+    // ✅ 計算選定年份的剩餘天數
+    private var daysRemaining: Int {
+        let calendar = Calendar.current
+        let now = currentDate // 使用 currentDate
+        let currentYearValue = calendar.component(.year, from: now)
+        
+        // 只有當前年份才顯示剩餘天數
+        if actualSelectedYear == currentYearValue {
+            let endOfYear = calendar.date(from: DateComponents(year: actualSelectedYear, month: 12, day: 31)) ?? now
+            return calendar.dateComponents([.day], from: now, to: endOfYear).day ?? 0
+        } else {
+            // 過去年份顯示 0（已完成）
+            return 0
+        }
+    }
+    
+    // ✅ 計算選定年份的當前天數
     private var dayOfYear: Int {
-        Calendar.current.ordinality(of: .day, in: .year, for: Date()) ?? 1
+        let calendar = Calendar.current
+        let currentYearValue = calendar.component(.year, from: currentDate) // 使用 currentDate
+        
+        if actualSelectedYear == currentYearValue {
+            return calendar.ordinality(of: .day, in: .year, for: currentDate) ?? 1 // 使用 currentDate
+        } else {
+            // 過去年份顯示該年總天數（全部完成）
+            return isLeapYear(actualSelectedYear) ? 366 : 365
+        }
+    }
+    
+    // ✅ 取得選定年份的總天數
+    private var totalDaysInYear: Int {
+        isLeapYear(actualSelectedYear) ? 366 : 365
+    }
+    
+    // ✅ 判斷是否為閏年
+    private func isLeapYear(_ year: Int) -> Bool {
+        return (year % 4 == 0 && year % 100 != 0) || (year % 400 == 0)
     }
     
     var body: some View {
@@ -47,55 +101,76 @@ struct YearOverviewView: View {
             .ignoresSafeArea(.all)
             .hueRotation(.degrees(animateGradient ? 45 : 0))
             .onAppear {
+                // ✅ 初始化為當前年份
+                if selectedYear == nil {
+                    selectedYear = currentYear
+                }
+                
                 withAnimation(.easeInOut(duration: 3).repeatForever(autoreverses: true)) {
                     animateGradient.toggle()
                 }
                 
-                // 頁面出現時刷新狀態
                 Task {
                     await revenueCat.refreshStatus()
                 }
             }
             
             VStack(spacing: 0) {
-                // 固定在頂部的標題區域
+                // ✅ 頂部標題區域（新設計）
                 VStack {
                     Spacer()
                         .frame(height: 80)
                     
-                    HStack() {
-                        Text("2025")
-                            .font(.system(size: 16, weight: .regular, design: .monospaced))
-                            .fontWeight(.medium)
-                            .foregroundColor(.accentColor)
+                    HStack {
+                        // 左側：年份和剩餘天數
+                        HStack(spacing: 12) {
+                            Text(String(format: "%d", actualSelectedYear))
+                                .font(.system(size: 16, weight: .medium, design: .monospaced))
+                                .foregroundColor(.accentColor)
+                            
+                            Text("・")
+                                .font(.system(size: 8, weight: .regular, design: .monospaced))
+                                .foregroundColor(.accentColor)
+                            
+                            Text(daysRemaining > 0 ? "\(daysRemaining) days left" : "completed")
+                                .font(.system(size: 16, weight: .regular, design: .monospaced))
+                                .foregroundColor(.accentColor)
+                        }
                         
-                        Text("・")
-                            .font(.system(size: 8, weight: .regular, design: .monospaced))
-                            .fontWeight(.medium)
-                            .foregroundColor(.accentColor)
+                        Spacer()
                         
-                        Text("\(daysRemaining) days left")
-                            .font(.system(size: 16, weight: .regular, design: .monospaced))
-                            .fontWeight(.medium)
-                            .foregroundColor(.accentColor)
+                        // 右側：歷史記錄按鈕（只在有多個年份時顯示）
+                        if availableYears.count > 1 {
+                            Button(action: {
+                                let generator = UIImpactFeedbackGenerator(style: .light)
+                                generator.impactOccurred()
+                                showYearMenu.toggle()
+                            }) {
+                                Image(systemName: "clock.arrow.circlepath")
+                                    .font(.system(size: 18, weight: .medium))
+                                    .foregroundColor(.accentColor)
+                                    .padding(8)
+                            }
+                        }
                     }
+                    .padding(.horizontal, 30)
                     .padding(.bottom, 16)
                 }
                 .zIndex(2)
                 
                 // 可滾動的內容區域
                 ZStack {
-                    // 使用 GeometryReader 來追蹤滾動位置
                     ScrollViewReader { proxy in
                         ScrollView {
                             VStack(spacing: 0) {
-                                // 365天圖片網格
+                                // 動態顯示選定年份的天數
                                 LazyVGrid(columns: Array(repeating: GridItem(.flexible(), spacing: 4), count: 12), spacing: 4) {
-                                    ForEach(1...365, id: \.self) { dayIndex in
+                                    ForEach(1...totalDaysInYear, id: \.self) { dayIndex in
                                         if dayIndex <= dayOfYear {
-                                            // 已過去的日期顯示對應的成語圖片（縮小版）
+                                            // 已過去的日期顯示對應的成語圖片
                                             DayImageView(
                                                 dayIndex: dayIndex,
+                                                year: actualSelectedYear,
                                                 isCompleted: true,
                                                 onTap: {
                                                     handleDayTap(dayIndex: dayIndex)
@@ -105,6 +180,7 @@ struct YearOverviewView: View {
                                             // 未來的日期顯示圓點
                                             DayImageView(
                                                 dayIndex: dayIndex,
+                                                year: actualSelectedYear,
                                                 isCompleted: false,
                                                 onTap: nil
                                             )
@@ -114,7 +190,6 @@ struct YearOverviewView: View {
                                 .padding(.horizontal, 30)
                                 .padding(.top, 20)
                                 
-                                // 底部空間
                                 Spacer()
                                     .frame(height: 120)
                             }
@@ -172,7 +247,6 @@ struct YearOverviewView: View {
                 }
             }
         }
-        // 顯示 DailyIdiomDialog（付費用戶）
         .sheet(item: $selectedDayInfo) { dayInfo in
             DailyIdiomDialog(
                 date: dayInfo.date,
@@ -186,32 +260,113 @@ struct YearOverviewView: View {
             .presentationDetents([.fraction(isiPad ? 0.9 : 0.6)])
             .presentationCornerRadius(48)
         }
-
-        // 顯示 UpgradeView（免費用戶）
         .sheet(isPresented: $isShowingUpgrade) {
             UpgradeView()
                 .presentationDetents([.large])
                 .presentationCornerRadius(48)
         }
-        // 監聽購買完成通知，更新本地狀態
+        // ✅ 年份選擇 Menu（新設計）
+        .sheet(isPresented: $showYearMenu) {
+            yearMenuView
+                .presentationDetents([.height(CGFloat(availableYears.count * 60 + 120))])
+                .presentationCornerRadius(48)
+        }
         .onReceive(NotificationCenter.default.publisher(for: .purchaseCompleted)) { _ in
-            // 購買完成後關閉升級頁面
             isShowingUpgrade = false
         }
     }
     
-    // 處理日期點擊的函數
+    // ✅ 年份選擇 Menu 視圖（新設計）
+    private var yearMenuView: some View {
+        VStack(spacing: 0) {
+            // 標題
+            HStack {
+                Text("History")
+                    .font(.system(size: 20, weight: .semibold))
+                    .foregroundColor(.primary)
+                
+                Spacer()
+                
+                Button(action: {
+                    showYearMenu = false
+                }) {
+                    Image(systemName: "xmark")
+                        .font(.system(size: 16, weight: .medium))
+                        .foregroundColor(.secondary)
+                        .padding(8)
+                }
+            }
+            .padding(.horizontal, 30)
+            .padding(.top, 30)
+            .padding(.bottom, 20)
+            
+            Divider()
+                .padding(.horizontal, 30)
+            
+            // 年份列表
+            ScrollView {
+                VStack(spacing: 4) {
+                    ForEach(availableYears.sorted(by: >), id: \.self) { year in
+                        Button(action: {
+                            let generator = UIImpactFeedbackGenerator(style: .light)
+                            generator.impactOccurred()
+                            
+                            withAnimation(.spring(response: 0.3, dampingFraction: 0.7)) {
+                                selectedYear = year
+                                showYearMenu = false
+                            }
+                        }) {
+                            HStack {
+                                Text(String(format: "%d", year))
+                                    .font(.system(size: 17, weight: actualSelectedYear == year ? .semibold : .regular, design: .monospaced))
+                                
+                                if year == currentYear {
+                                    Text("Current")
+                                        .font(.system(size: 12, weight: .medium))
+                                        .foregroundColor(.accentColor)
+                                        .padding(.horizontal, 8)
+                                        .padding(.vertical, 4)
+                                        .background(
+                                            Capsule()
+                                                .fill(Color.accentColor.opacity(0.15))
+                                        )
+                                }
+                                
+                                Spacer()
+                                
+                                if actualSelectedYear == year {
+                                    Image(systemName: "checkmark")
+                                        .font(.system(size: 14, weight: .semibold))
+                                        .foregroundColor(.accentColor)
+                                }
+                            }
+                            .foregroundColor(actualSelectedYear == year ? .accentColor : .primary)
+                            .padding(.horizontal, 20)
+                            .padding(.vertical, 14)
+                            .background(
+                                RoundedRectangle(cornerRadius: 12)
+                                    .fill(actualSelectedYear == year ? Color.accentColor.opacity(0.1) : Color.clear)
+                            )
+                        }
+                        .buttonStyle(PlainButtonStyle())
+                    }
+                }
+                .padding(.horizontal, 30)
+                .padding(.vertical, 16)
+            }
+        }
+        .background(.ultraThinMaterial)
+    }
+    
+    // ✅ 處理日期點擊
     private func handleDayTap(dayIndex: Int) {
-        // 先刷新狀態，確保獲取最新的付費狀態
         Task {
             await revenueCat.refreshStatus()
             
-            // 使用最新狀態判斷
-            let date = dateForDayOfYear(dayIndex)
+            let date = dateForDayOfYear(dayIndex, year: actualSelectedYear)
             let dayData = LunarCalendarDataManager.shared.getData(for: date)
             
             print("🔍 handleDayTap - isPremiumUser: \(revenueCat.isPremiumUser)")
-            print("🔍 handleDayTap - isTrialUser: \(revenueCat.isTrialUser)")
             
             if revenueCat.isPremiumUser {
                 selectedDayInfo = DayInfo(date: date, lunarData: dayData)
@@ -221,26 +376,23 @@ struct YearOverviewView: View {
         }
     }
     
-    // 根據一年中的第幾天計算實際日期
-    private func dateForDayOfYear(_ dayOfYear: Int) -> Date {
+    // ✅ 根據一年中的第幾天和年份計算實際日期
+    private func dateForDayOfYear(_ dayOfYear: Int, year: Int) -> Date {
         let calendar = Calendar.current
-        let year = calendar.component(.year, from: Date())
         let startOfYear = calendar.date(from: DateComponents(year: year, month: 1, day: 1)) ?? Date()
         return calendar.date(byAdding: .day, value: dayOfYear - 1, to: startOfYear) ?? Date()
     }
 }
 
-
 // MARK: - Day Image View
 struct DayImageView: View {
     let dayIndex: Int
+    let year: Int
     let isCompleted: Bool
     let onTap: (() -> Void)?
     
-    private func getImageForDay(_ day: Int) -> String {
-        // 根據日期獲取對應的成語圖片
+    private func getImageForDay(_ day: Int, year: Int) -> String {
         let calendar = Calendar.current
-        let year = calendar.component(.year, from: Date())
         let startOfYear = calendar.date(from: DateComponents(year: year, month: 1, day: 1)) ?? Date()
         let date = calendar.date(byAdding: .day, value: day - 1, to: startOfYear) ?? Date()
         let lunarData = LunarCalendarDataManager.shared.getData(for: date)
@@ -250,14 +402,13 @@ struct DayImageView: View {
     var body: some View {
         ZStack {
             if isCompleted {
-                // 顯示成語圖片（縮小版）
                 Button(action: {
                     let generator = UIImpactFeedbackGenerator(style: .light)
-                      generator.impactOccurred()
+                    generator.impactOccurred()
                     
                     onTap?()
                 }) {
-                    Image(getImageForDay(dayIndex))
+                    Image(getImageForDay(dayIndex, year: year))
                         .resizable()
                         .aspectRatio(contentMode: .fit)
                         .frame(width: 24, height: 24)
@@ -265,7 +416,6 @@ struct DayImageView: View {
                 }
                 .buttonStyle(PlainButtonStyle())
             } else {
-                // 顯示圓點（不可點擊）
                 Circle()
                     .fill(Color.accentColor.opacity(0.2))
                     .frame(width: 2, height: 2)
@@ -275,25 +425,22 @@ struct DayImageView: View {
     }
 }
 
-
 // MARK: - Daily Idiom Dialog
 struct DailyIdiomDialog: View {
     let date: Date
     let lunarData: LunarCalendarData
     @Binding var isPresented: Bool
-    var onDateSelected: (Date) -> Void  // ✅ 新增 callback 傳出選擇的日期
+    var onDateSelected: (Date) -> Void
     
     @State private var isDatePickerPresented = false
     @State private var selectedDate = Date()
     
+    @Environment(\.horizontalSizeClass) var horizontalSizeClass
     
-    @Environment(\.horizontalSizeClass) var horizontalSizeClass // ← 新增
-    // 判斷是否為 iPad
-       private var isiPad: Bool {
-           horizontalSizeClass == .regular
-       }
+    private var isiPad: Bool {
+        horizontalSizeClass == .regular
+    }
     
-    // 日期格式化器
     private var dateFormatter: DateFormatter {
         let formatter = DateFormatter()
         formatter.dateFormat = "yyyy.MM.dd"
@@ -305,11 +452,10 @@ struct DailyIdiomDialog: View {
         formatter.dateFormat = "EEEE"
         return formatter
     }
-
+    
     private var today: Date {
         Calendar.current.startOfDay(for: Date())
     }
-
     
     @ViewBuilder
     private func datePickerContent() -> some View {
@@ -322,7 +468,7 @@ struct DailyIdiomDialog: View {
             )
             .datePickerStyle(.graphical)
             .padding()
-
+            
             Button {
                 isDatePickerPresented = false
                 isPresented = false
@@ -342,14 +488,11 @@ struct DailyIdiomDialog: View {
     var body: some View {
         NavigationView {
             ZStack(alignment: .bottomTrailing) {
-                // 背景漸層
                 RoundedRectangle(cornerRadius: 48)
                     .fill(.ultraThinMaterial)
                     .ignoresSafeArea()
                 
                 VStack(spacing: 30) {
-                    
-                    // 日期顯示區域
                     HStack {
                         Text(dateFormatter.string(from: date))
                             .font(.system(size: 14, weight: .regular, design: .monospaced))
@@ -364,7 +507,6 @@ struct DailyIdiomDialog: View {
                     .padding(.horizontal, 40)
                     .padding(.top, 40)
                     
-                    // 成語內容
                     VStack(spacing: 20) {
                         Image(lunarData.idiomImageName)
                             .resizable()
@@ -389,11 +531,8 @@ struct DailyIdiomDialog: View {
                     Spacer()
                 }
                 
-                // 右下角日曆按鈕
                 Button(action: {
-                    
-                    let generator =
-                    UIImpactFeedbackGenerator(style: .light)
+                    let generator = UIImpactFeedbackGenerator(style: .light)
                     generator.impactOccurred()
                     
                     selectedDate = date
@@ -409,16 +548,14 @@ struct DailyIdiomDialog: View {
                         .padding(.trailing, 20)
                 }
                 .sheet(isPresented: $isDatePickerPresented) {
-                        datePickerContent()
-                            .presentationCornerRadius(48)
-
-
-                }            }
+                    datePickerContent()
+                        .presentationCornerRadius(48)
+                }
+            }
             .navigationBarTitleDisplayMode(.inline)
         }
     }
 }
-
 
 #Preview {
     YearOverviewView()

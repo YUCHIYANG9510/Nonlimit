@@ -17,6 +17,7 @@
 		C25D8D1A2E30DAA600B5DCF6 /* RevenueCatUI in Frameworks */ = {isa = PBXBuildFile; productRef = C25D8D192E30DAA600B5DCF6 /* RevenueCatUI */; };
 		C25D8D1C2E31E0F500B5DCF6 /* RevenueCatManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = C25D8D1B2E31E0F300B5DCF6 /* RevenueCatManager.swift */; };
 		C25D8D1E2E31E39000B5DCF6 /* UpgradeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C25D8D1D2E31E38F00B5DCF6 /* UpgradeView.swift */; };
+		C27471932EA73923008D2489 /* DataMigrationHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = C27471922EA73922008D2489 /* DataMigrationHelper.swift */; };
 		C28C953C2BCAAE9F003CB92D /* NonlimitApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = C28C953B2BCAAE9F003CB92D /* NonlimitApp.swift */; };
 		C28C95402BCAAEA1003CB92D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C28C953F2BCAAEA1003CB92D /* Assets.xcassets */; };
 		C28C95432BCAAEA1003CB92D /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C28C95422BCAAEA1003CB92D /* Preview Assets.xcassets */; };
@@ -70,6 +71,7 @@
 		C25D8D142E30D3C400B5DCF6 /* IAP.storekit */ = {isa = PBXFileReference; lastKnownFileType = text; path = IAP.storekit; sourceTree = "<group>"; };
 		C25D8D1B2E31E0F300B5DCF6 /* RevenueCatManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RevenueCatManager.swift; sourceTree = "<group>"; };
 		C25D8D1D2E31E38F00B5DCF6 /* UpgradeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpgradeView.swift; sourceTree = "<group>"; };
+		C27471922EA73922008D2489 /* DataMigrationHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataMigrationHelper.swift; sourceTree = "<group>"; };
 		C28C95382BCAAE9F003CB92D /* The Pigeon Book.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "The Pigeon Book.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		C28C953B2BCAAE9F003CB92D /* NonlimitApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NonlimitApp.swift; sourceTree = "<group>"; };
 		C28C953F2BCAAEA1003CB92D /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -183,6 +185,7 @@
 				C2A084462E2E084B00B1924B /* Models */,
 				C2A084452E2E083600B1924B /* Utilities */,
 				C2D7161D2DE462D900921955 /* Helpers.swift */,
+				C27471922EA73922008D2489 /* DataMigrationHelper.swift */,
 				C2BB86C32DE1D74C00334E97 /* LunarCalendarDataManager.swift */,
 				C2BA46232DDDCB28004387FF /* AppState.swift */,
 				C21C49B82DC7B42400583000 /* MainView.swift */,
@@ -375,6 +378,7 @@
 				C21C49B92DC7B42500583000 /* MainView.swift in Sources */,
 				C2D7161E2DE462DA00921955 /* Helpers.swift in Sources */,
 				C2BA46242DDDCB29004387FF /* AppState.swift in Sources */,
+				C27471932EA73923008D2489 /* DataMigrationHelper.swift in Sources */,
 				C2BB86AB2DE1790700334E97 /* CardType.swift in Sources */,
 				C25D8D1C2E31E0F500B5DCF6 /* RevenueCatManager.swift in Sources */,
 			);
