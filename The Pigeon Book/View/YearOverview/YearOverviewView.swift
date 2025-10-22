@@ -319,16 +319,17 @@ struct YearOverviewView: View {
                             HStack {
                                 Text(String(format: "%d", year))
                                     .font(.system(size: 17, weight: actualSelectedYear == year ? .semibold : .regular, design: .monospaced))
+                                    .foregroundColor(.primary)
                                 
                                 if year == currentYear {
                                     Text("Current")
                                         .font(.system(size: 12, weight: .medium))
-                                        .foregroundColor(.accentColor)
+                                        .foregroundColor(.primary)
                                         .padding(.horizontal, 8)
                                         .padding(.vertical, 4)
                                         .background(
                                             Capsule()
-                                                .fill(Color.accentColor.opacity(0.15))
+                                                .fill(Color.primary.opacity(0.15))
                                         )
                                 }
                                 
@@ -337,7 +338,7 @@ struct YearOverviewView: View {
                                 if actualSelectedYear == year {
                                     Image(systemName: "checkmark")
                                         .font(.system(size: 14, weight: .semibold))
-                                        .foregroundColor(.accentColor)
+                                        .foregroundColor(.primary)
                                 }
                             }
                             .foregroundColor(actualSelectedYear == year ? .accentColor : .primary)
@@ -345,7 +346,7 @@ struct YearOverviewView: View {
                             .padding(.vertical, 14)
                             .background(
                                 RoundedRectangle(cornerRadius: 12)
-                                    .fill(actualSelectedYear == year ? Color.accentColor.opacity(0.1) : Color.clear)
+                                    .fill(actualSelectedYear == year ? Color.primary.opacity(0.1) : Color.clear)
                             )
                         }
                         .buttonStyle(PlainButtonStyle())
@@ -467,6 +468,7 @@ struct DailyIdiomDialog: View {
                 displayedComponents: [.date]
             )
             .datePickerStyle(.graphical)
+            .accentColor(.primary)
             .padding()
             
             Button {
@@ -474,7 +476,7 @@ struct DailyIdiomDialog: View {
                 isPresented = false
                 onDateSelected(selectedDate)
             } label: {
-                Text("確認")
+                Text("OK")
                     .font(.system(size: 17, weight: .semibold))
                     .foregroundStyle(.primary)
             }
