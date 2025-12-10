@@ -12,6 +12,7 @@ enum CardType: CaseIterable {
     case love
     case future
     case lunch
+    case drink
     
     var animationName: String {
         switch self {
@@ -19,6 +20,7 @@ enum CardType: CaseIterable {
         case .love: return "love-result.json"
         case .future: return "future-result.json"
         case .lunch: return "lunch-result.json"
+        case .drink: return "drink-result.json"
         }
     }
     
@@ -195,6 +197,28 @@ enum CardType: CaseIterable {
                 "蛋餅 🍳🥞",
                 
             ]
+            
+        case .drink:
+            return [
+                "珍珠奶茶 🧋",
+                "美式咖啡 ☕️",
+                "拿鐵咖啡 ☕️🥛",
+                "抹茶拿鐵 🍵",
+                "紅茶拿鐵 🧋",
+                "綠茶 🍃",
+                "水果茶 🍑🍋",
+                "氣泡水 🫧",
+                "奶蓋紅茶 🤎🧋",
+                "芒果冰沙 🥭🧊",
+                "巧克力牛奶 🍫🥛",
+                "椰子水 🥥",
+                "黑糖鮮奶 🧋",
+                "蔬果汁 🥬🍎",
+                "能量飲料 ⚡️",
+                "熱可可 🍫☕️",
+                "冰淇淋紅茶 🍨🧋"
+            ]
+
         }
     }
 }

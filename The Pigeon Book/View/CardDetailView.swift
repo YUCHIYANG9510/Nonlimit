@@ -133,6 +133,7 @@ struct CardDetailView: View {
         case .love: return "感情中想問什麼呢？"
         case .future: return "對未來感到迷惘？"
         case .lunch: return "午餐吃什麼？"
+        case .drink: return "想喝點什麼？"
         }
     }
 
@@ -142,6 +143,7 @@ struct CardDetailView: View {
         case .love: return "把你的煩惱說給我聽"
         case .future: return "說說你在焦慮什麼"
         case .lunch: return "一天中最困難的問題交給我吧！"
+        case .drink: return "讓我替你選一杯"
         }
     }
 
@@ -154,6 +156,8 @@ struct CardDetailView: View {
         case .future:
             return "mediation"
         case .lunch:
+            return "mediation"
+        case .drink:
             return "mediation"
         }
     }
@@ -192,6 +196,15 @@ struct CardDetailView: View {
                 Color(red: 255/255, green: 160/255, blue: 100/255),  // 橘橙
                 Color(red: 255/255, green: 220/255, blue: 140/255)   // 金黃
             )
+        case .drink:
+            return (
+                Color(red: 120/255, green: 210/255, blue: 255/255), // 冰藍
+                Color(red: 150/255, green: 230/255, blue: 255/255), // 清爽水藍
+                Color(red: 180/255, green: 245/255, blue: 255/255), // 氣泡淡藍
+                Color(red: 140/255, green: 220/255, blue: 240/255), // 海鹽薄荷
+                Color(red: 200/255, green: 255/255, blue: 255/255)  // 透明冰塊
+            )
+
         }
     }
 
@@ -201,9 +214,9 @@ struct CardDetailView: View {
         case .work:
             return [
                 "來自宇宙的訊息...",
-                "正在連接智慧能量...",
-                "解讀工作運勢中...",
-                "即將揭曉答案..."
+                "解讀你的職場能量...",
+                "工作指引即將顯現...",
+                "答案正在路上..."
             ]
         case .love:
             return [
@@ -226,6 +239,14 @@ struct CardDetailView: View {
                 "味蕾雷達啟動中...",
                 "完美午餐即將揭曉..."
             ]
+        case .drink:
+            return [
+                "來自宇宙的訊息...",
+                "飲料精靈正在思考...",
+                "調配你的專屬配方...",
+                "就是這杯了！"
+            ]
+
         }
     }
     
@@ -583,3 +604,11 @@ struct CardDetailView: View {
             .environmentObject(AppState())
     }
 }
+
+#Preview("Card Detail - Drink") {
+    NavigationView {
+        CardDetailView(icon: "drink-card-2", title: "DRINK", cardType: .drink)
+            .environmentObject(AppState())
+    }
+}
+

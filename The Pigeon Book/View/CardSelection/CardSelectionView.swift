@@ -43,6 +43,13 @@ struct OptimizedCardSelectionView: View {
             color: Color(red: 255/255, green: 151/255, blue: 77/255),
             cardType: .lunch,
             detailIcon: "lunch-card-2"
+        ),
+        CardSelectionInfo(
+            imageName: "icon_drink",
+            title: "飲料",
+            color: Color(red: 130/255, green: 200/255, blue: 255/255), // 你可自由改顏色
+            cardType: .drink,
+            detailIcon: "drink-card-2"
         )
     ]
     
@@ -159,7 +166,7 @@ struct HeaderView: View {
                 .foregroundColor(.accentColor.opacity(0.7))
         }
         .padding(.bottom, 4)
-        .padding(.top, 140)
+        .padding(.top, 120)
     }
 }
 
