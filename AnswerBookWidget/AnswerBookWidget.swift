@@ -64,6 +64,10 @@ struct FortuneEntry: TimelineEntry {
 
 // MARK: - Timeline Provider
 struct FortuneProvider: TimelineProvider {
+    // ✅ 測試模式：設定為 nil 使用真實日期，或設定測試日期
+    //private let testDate: Date? = Calendar.current.date(from: DateComponents(year: 2026, month: 1, day: 3))
+    private let testDate: Date? = nil // 正式版請使用這行
+    
     func placeholder(in context: Context) -> FortuneEntry {
         sampleEntry
     }
@@ -83,7 +87,8 @@ struct FortuneProvider: TimelineProvider {
     }
     
     private func getCurrentEntry() -> FortuneEntry {
-        let currentDate = Date()
+        // ✅ 使用測試日期或當前日期
+        let currentDate = testDate ?? Date()
         let calendar = Calendar.current
         let dayOfYear = calendar.ordinality(of: .day, in: .year, for: currentDate) ?? 1
         
@@ -103,9 +108,10 @@ struct FortuneProvider: TimelineProvider {
     }
 
     private var sampleEntry: FortuneEntry {
-        let sampleDate = Date()
+        // ✅ 預覽也使用測試日期
+        let sampleDate = testDate ?? Date()
         let lunarData = LunarCalendarDataManager.shared.getData(for: sampleDate)
-        let dayOfYear = Calendar.current.ordinality(of: .day, in: .year, for: sampleDate) ?? 139
+        let dayOfYear = Calendar.current.ordinality(of: .day, in: .year, for: sampleDate) ?? 1
         
         return FortuneEntry(
             date: sampleDate,
@@ -119,7 +125,6 @@ struct FortuneProvider: TimelineProvider {
         )
     }
 }
-
 // MARK: - 小工具畫面
 struct FortuneWidgetEntryView: View {
     var entry: FortuneProvider.Entry

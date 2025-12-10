@@ -12,8 +12,8 @@ import SwiftUI
 // MARK: - Year Overview View
 struct YearOverviewView: View {
     // ✅ 測試模式：設定為 nil 使用真實日期，或設定測試日期
-    private let testDate: Date? = Calendar.current.date(from: DateComponents(year: 2026, month: 1, day: 3))
-    // private let testDate: Date? = nil // 正式版請使用這行
+    //private let testDate: Date? = Calendar.current.date(from: DateComponents(year: 2026, month: 12, day: 31))
+    private let testDate: Date? = nil // 正式版請使用這行
     
     @State private var animateGradient = false
     @State private var selectedDayInfo: DayInfo?
@@ -137,10 +137,10 @@ struct YearOverviewView: View {
                                 .foregroundColor(.accentColor)
                         }
                         
-                        Spacer()
+                        /*  Spacer()
                         
                         // 右側：歷史記錄按鈕（只在有多個年份時顯示）
-                        if availableYears.count > 1 {
+                       if availableYears.count > 1 {
                             Button(action: {
                                 let generator = UIImpactFeedbackGenerator(style: .light)
                                 generator.impactOccurred()
@@ -151,7 +151,7 @@ struct YearOverviewView: View {
                                     .foregroundColor(.accentColor)
                                     .padding(8)
                             }
-                        }
+                        } */
                     }
                     .padding(.horizontal, 30)
                     .padding(.bottom, 16)

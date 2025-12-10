@@ -11,8 +11,8 @@ import SwiftUI
 // MARK: - Calendar View
 struct CalendarView: View {
     // ✅ 測試模式：設定為 nil 使用真實日期，或設定測試日期
-    private let testDate: Date? = Calendar.current.date(from: DateComponents(year: 2026, month: 1, day: 3))
-    // private let testDate: Date? = nil // 正式版請使用這行
+    //private let testDate: Date? = Calendar.current.date(from: DateComponents(year: 2026, month: 12, day: 31))
+    private let testDate: Date? = nil // 正式版請使用這行
     
     @State private var currentDate = Date()
     @State private var animateGradient = false

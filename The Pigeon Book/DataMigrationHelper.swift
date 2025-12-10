@@ -3420,7 +3420,7 @@ class DataMigrationHelper {
     
     /// 產生 Assets 資料夾結構
     static func generateAssetsFolderStructure() -> String {
-        var structure = """
+        let structure = """
         Assets.xcassets/
         ├── Images/
         │   ├── 2025/
