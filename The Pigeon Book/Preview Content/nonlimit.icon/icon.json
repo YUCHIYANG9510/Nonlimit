@@ -6,25 +6,20 @@
     {
       "layers" : [
         {
-          "glass" : false,
+          "glass" : true,
           "hidden" : false,
           "image-name" : "4_Pigeon.svg",
           "name" : "4_Pigeon"
         },
         {
-          "glass" : false,
+          "glass" : true,
           "hidden" : false,
           "image-name" : "3_Pigeon_bg.svg",
           "name" : "3_Pigeon_bg"
         },
         {
-          "blend-mode" : "normal",
-          "fill" : "automatic",
-          "glass" : true,
-          "hidden" : false,
           "image-name" : "2_Book.svg",
-          "name" : "2_Book",
-          "opacity" : 1
+          "name" : "2_Book"
         },
         {
           "hidden" : true,
