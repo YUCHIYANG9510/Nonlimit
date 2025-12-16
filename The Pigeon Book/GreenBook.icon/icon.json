@@ -1,0 +1,56 @@
+{
+  "fill" : {
+    "automatic-gradient" : "extended-gray:1.00000,1.00000"
+  },
+  "groups" : [
+    {
+      "layers" : [
+        {
+          "glass" : false,
+          "hidden" : false,
+          "image-name" : "4_Pigeon.svg",
+          "name" : "4_Pigeon"
+        },
+        {
+          "glass" : false,
+          "hidden" : false,
+          "image-name" : "3_Pigeon_bg.svg",
+          "name" : "3_Pigeon_bg"
+        },
+        {
+          "blend-mode" : "normal",
+          "fill" : "automatic",
+          "glass" : true,
+          "hidden" : false,
+          "image-name" : "2_Book.svg",
+          "name" : "2_Book",
+          "opacity" : 1
+        },
+        {
+          "hidden" : true,
+          "image-name" : "1_Book_bg.svg",
+          "name" : "1_Book_bg"
+        },
+        {
+          "glass" : false,
+          "image-name" : "Bg.svg",
+          "name" : "Bg"
+        }
+      ],
+      "shadow" : {
+        "kind" : "neutral",
+        "opacity" : 0.5
+      },
+      "translucency" : {
+        "enabled" : true,
+        "value" : 0.5
+      }
+    }
+  ],
+  "supported-platforms" : {
+    "circles" : [
+      "watchOS"
+    ],
+    "squares" : "shared"
+  }
+}
