@@ -271,11 +271,12 @@ struct IconPickerView: View {
 enum AppIcon: String, CaseIterable {
     //下方順序會影響 Setting 顯示順序
     case `default` = "Default"
-    case green = "Green"
-    case pink = "Pink"
-    case lightpink = "LightPink"
-    case simpleblack = "SimpleBlack"
-    case deadblack = "DeadBlack"
+    case greenbook = "GreenBook"
+    case green = "GreenClassic"
+    case pink = "PinkClassic"
+    case lightpink = "LightPinkClassic"
+    case simpleblack = "BlackHead"
+    case deadblack = "BlackDead"
 
     var iconValue: String? {
         switch self {
@@ -290,6 +291,8 @@ enum AppIcon: String, CaseIterable {
         switch self {
         case .default:
             return "icon_default" //previewImage 的名稱與這個要相同
+        case .greenbook:
+            return "Green-Book"
         case .green:
             return "Green"
         case .pink:
