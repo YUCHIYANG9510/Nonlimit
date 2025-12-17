@@ -6,35 +6,26 @@
     {
       "layers" : [
         {
-          "glass" : false,
-          "hidden" : false,
-          "image-name" : "4_Pigeon.svg",
-          "name" : "4_Pigeon"
-        },
-        {
-          "glass" : false,
-          "hidden" : false,
-          "image-name" : "3_Pigeon_bg.svg",
-          "name" : "3_Pigeon_bg"
-        },
-        {
           "blend-mode" : "normal",
           "fill" : "automatic",
           "glass" : true,
-          "hidden" : false,
-          "image-name" : "2_Book.svg",
-          "name" : "2_Book",
-          "opacity" : 1
-        },
-        {
-          "hidden" : true,
-          "image-name" : "1_Book_bg.svg",
-          "name" : "1_Book_bg"
+          "image-name" : "3_pigeon.svg",
+          "name" : "3_pigeon"
         },
         {
           "glass" : false,
-          "image-name" : "Bg.svg",
-          "name" : "Bg"
+          "image-name" : "2_blackbg.svg",
+          "name" : "2_blackbg"
+        },
+        {
+          "glass" : false,
+          "image-name" : "1_outline.svg",
+          "name" : "1_outline"
+        },
+        {
+          "glass" : false,
+          "image-name" : "0_Background.svg",
+          "name" : "0_Background"
         }
       ],
       "shadow" : {
