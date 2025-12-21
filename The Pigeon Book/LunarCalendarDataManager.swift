@@ -6293,8 +6293,8 @@ class LunarCalendarDataManager {
                 lunarTerm: "初九",
                 suitableActivities: "宜祭祀、祈福",
                 unsuitableActivities: "忌認養、入宅",
-                idiom: "永垂不朽",
-                idiomDescription: "永遠流傳而不可磨滅。",
+                idiom: "飲酒作樂",
+                idiomDescription: "指喝酒以尋求快樂，常用於慶祝、節慶或宴會等歡樂場合。",
                 idiomImageName: "2026_day321"
             ),
 
@@ -6599,8 +6599,8 @@ class LunarCalendarDataManager {
                 lunarTerm: "十三",
                 suitableActivities: "宜嫁娶、祈福",
                 unsuitableActivities: "忌四離",
-                idiom: "冬至湯圓",
-                idiomDescription: "冬至吃湯圓是華人社會重要的傳統習俗，象徵著團圓、圓滿和祈求好運。",
+                idiom: "禮尚往來",
+                idiomDescription: "指在人際交往中，注重禮節上的相互來往和回報。",
                 idiomImageName: "2026_day355"
             ),
 
@@ -6608,8 +6608,8 @@ class LunarCalendarDataManager {
                 lunarTerm: "冬至",
                 suitableActivities: "宜破屋、壞垣",
                 unsuitableActivities: "忌月破",
-                idiom: "禮尚往來",
-                idiomDescription: "指在人際交往中，注重禮節上的相互來往和回報。",
+                idiom: "冬至湯圓",
+                idiomDescription: "冬至吃湯圓是華人社會重要的傳統習俗，象徵著團圓、圓滿和祈求好運。",
                 idiomImageName: "2026_day356"
             ),
 
