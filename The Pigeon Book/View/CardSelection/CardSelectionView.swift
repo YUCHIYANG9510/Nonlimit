@@ -15,41 +15,42 @@ struct OptimizedCardSelectionView: View {
     
     let displayName: String
     
+    // 使用統一的配置
     private static let cardData: [CardSelectionInfo] = [
         CardSelectionInfo(
             imageName: "icon_work",
             title: "工作",
-            color: Color(red: 141/255, green: 125/255, blue: 220/255),
+            color: .appPurple,
             cardType: .work,
-            detailIcon: "work-card-2"
+            detailIcon: "briefcase.fill"
         ),
         CardSelectionInfo(
             imageName: "icon_love",
             title: "愛情",
-            color: Color(red: 236/255, green: 116/255, blue: 236/255),
+            color: .appPink,
             cardType: .love,
-            detailIcon: "love-card-2"
+            detailIcon: "heart.fill"
         ),
         CardSelectionInfo(
             imageName: "icon_future",
             title: "未來",
-            color: Color(red: 36/255, green: 212/255, blue: 148/255),
+            color: .appGreen,
             cardType: .future,
-            detailIcon: "future-card-2"
+            detailIcon: "sparkles"
         ),
         CardSelectionInfo(
             imageName: "icon_lunch",
             title: "午餐",
-            color: Color(red: 255/255, green: 151/255, blue: 77/255),
+            color: .appOrange,
             cardType: .lunch,
-            detailIcon: "lunch-card-2"
+            detailIcon: "fork.knife"
         ),
         CardSelectionInfo(
             imageName: "icon_drink",
             title: "飲料",
-            color: Color(red: 130/255, green: 200/255, blue: 255/255), // 你可自由改顏色
+            color: .appBlue,
             cardType: .drink,
-            detailIcon: "drink-card-2"
+            detailIcon: "cup.and.saucer.fill"
         )
     ]
     
@@ -195,10 +196,7 @@ struct CardSelectionButton: View {
             let generator = UIImpactFeedbackGenerator(style: .heavy)
             generator.impactOccurred()
             
-            print("🔍 點擊卡片: \(card.title)")
-            print("🔍 當前 dailyQuestionCount: \(appState.dailyQuestionCount)")
-            print("🔍 isPremiumUser: \(appState.isPremiumUser)")
-            print("🔍 canAskQuestion: \(appState.canAskQuestion())")
+            DebugLogger.debug("點擊卡片: \(card.title), 當前次數: \(appState.dailyQuestionCount), isPremium: \(appState.isPremiumUser)")
 
             if appState.canAskQuestion() {
                 // ✅ 允許進入 DetailView，但不扣次數
@@ -206,7 +204,7 @@ struct CardSelectionButton: View {
             } else {
                 // ❌ 免費次數已用完，跳出升級提示
                 appState.showUpgradeDialog = true
-                print("🔍 次數已用完，阻止進入 CardDetailView，顯示升級 alert")
+                DebugLogger.info("次數已用完，顯示升級提示")
             }
         }) {
             HStack(spacing: 4) {

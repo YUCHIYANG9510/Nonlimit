@@ -44,6 +44,10 @@
 		C2D7161E2DE462DA00921955 /* Helpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2D7161D2DE462D900921955 /* Helpers.swift */; };
 		C2D716542E16B62500921955 /* WidgetKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C2BB86742DE01BF800334E97 /* WidgetKit.framework */; };
 		C2D716552E16B62500921955 /* SwiftUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C2BB86762DE01BF800334E97 /* SwiftUI.framework */; };
+		F524175F2F9F22840071B102 /* DebugLogger.swift in Sources */ = {isa = PBXBuildFile; fileRef = F524175E2F9F22840071B102 /* DebugLogger.swift */; };
+		F52417632F9F22F90071B102 /* ColorPalette.swift in Sources */ = {isa = PBXBuildFile; fileRef = F52417622F9F22F90071B102 /* ColorPalette.swift */; };
+		F52417652F9F23010071B102 /* AppStorage+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = F52417642F9F23010071B102 /* AppStorage+Extensions.swift */; };
+		F52417672F9F230F0071B102 /* SharedComponents.swift in Sources */ = {isa = PBXBuildFile; fileRef = F52417662F9F230F0071B102 /* SharedComponents.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -103,6 +107,10 @@
 		C2D4F1502C15B0E5004DDD24 /* universe.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = universe.json; sourceTree = "<group>"; };
 		C2D7161D2DE462D900921955 /* Helpers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Helpers.swift; sourceTree = "<group>"; };
 		C2D716532E16B62500921955 /* calendarExtension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = calendarExtension.appex; sourceTree = BUILT_PRODUCTS_DIR; };
+		F524175E2F9F22840071B102 /* DebugLogger.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DebugLogger.swift; sourceTree = "<group>"; };
+		F52417622F9F22F90071B102 /* ColorPalette.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorPalette.swift; sourceTree = "<group>"; };
+		F52417642F9F23010071B102 /* AppStorage+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AppStorage+Extensions.swift"; sourceTree = "<group>"; };
+		F52417662F9F230F0071B102 /* SharedComponents.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SharedComponents.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
@@ -178,6 +186,10 @@
 				C2BB86782DE01BF800334E97 /* AnswerBookWidget */,
 				C2BB86732DE01BF800334E97 /* Frameworks */,
 				C28C95392BCAAE9F003CB92D /* Products */,
+				F524175E2F9F22840071B102 /* DebugLogger.swift */,
+				F52417622F9F22F90071B102 /* ColorPalette.swift */,
+				F52417642F9F23010071B102 /* AppStorage+Extensions.swift */,
+				F52417662F9F230F0071B102 /* SharedComponents.swift */,
 			);
 			sourceTree = "<group>";
 		};
@@ -408,9 +420,13 @@
 				C2BB86C42DE1D74D00334E97 /* LunarCalendarDataManager.swift in Sources */,
 				C25D8D1E2E31E39000B5DCF6 /* UpgradeView.swift in Sources */,
 				C28C953C2BCAAE9F003CB92D /* NonlimitApp.swift in Sources */,
+				F524175F2F9F22840071B102 /* DebugLogger.swift in Sources */,
 				C21C49B92DC7B42500583000 /* MainView.swift in Sources */,
+				F52417672F9F230F0071B102 /* SharedComponents.swift in Sources */,
 				C2D7161E2DE462DA00921955 /* Helpers.swift in Sources */,
 				C2BA46242DDDCB29004387FF /* AppState.swift in Sources */,
+				F52417652F9F23010071B102 /* AppStorage+Extensions.swift in Sources */,
+				F52417632F9F22F90071B102 /* ColorPalette.swift in Sources */,
 				C2BB86AB2DE1790700334E97 /* CardType.swift in Sources */,
 				C25D8D1C2E31E0F500B5DCF6 /* RevenueCatManager.swift in Sources */,
 			);

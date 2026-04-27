@@ -69,16 +69,16 @@ class AppState: ObservableObject {
     // 🔥 修改：與 RevenueCat 同步狀態
        @MainActor
        private func syncWithRevenueCat() async {
-           print("🔍 開始同步 RevenueCat 狀態...")
+           DebugLogger.info("開始同步 RevenueCat 狀態...")
            let revenueCat = RevenueCatManager.shared
            await revenueCat.checkSubscriptionStatus()
            
            let newPremiumStatus = revenueCat.isPremiumUser
            
-           print("🔍 RevenueCat 狀態檢查結果: \(newPremiumStatus)")
+           DebugLogger.debug("RevenueCat 狀態: \(newPremiumStatus)")
            
            if isPremiumUser != newPremiumStatus {
-               print("🔍 AppState 同步 RevenueCat 狀態: \(isPremiumUser) -> \(newPremiumStatus)")
+               DebugLogger.info("AppState 同步 RevenueCat: \(isPremiumUser) -> \(newPremiumStatus)")
                isPremiumUser = newPremiumStatus
                UserDefaults.standard.set(newPremiumStatus, forKey: premiumUserKey)
                
@@ -86,10 +86,8 @@ class AppState: ObservableObject {
                if newPremiumStatus {
                    showUpgradeView = false
                    showUpgradeDialog = false
-                   print("🔍 已升級為付費用戶，關閉升級 UI")
+                   DebugLogger.info("已升級為付費用戶，關閉升級 UI")
                }
-           } else {
-               print("🔍 狀態無變化，維持當前狀態: \(isPremiumUser)")
            }
        }
     
@@ -101,26 +99,26 @@ class AppState: ObservableObject {
     // 檢查是否可以提問
     func canAskQuestion() -> Bool {
         let canAsk = isPremiumUser || dailyQuestionCount < maxFreeQuestions
-        print("🔍 canAskQuestion: isPremium=\(isPremiumUser), count=\(dailyQuestionCount), canAsk=\(canAsk)")
+        DebugLogger.debug("canAskQuestion: isPremium=\(isPremiumUser), count=\(dailyQuestionCount), result=\(canAsk)")
         return canAsk
     }
     
     // 嘗試使用一次提問機會
     func useQuestionAttempt() -> Bool {
-        print("🔍 useQuestionAttempt 開始: isPremium=\(isPremiumUser), count=\(dailyQuestionCount)")
+        DebugLogger.debug("useQuestionAttempt: isPremium=\(isPremiumUser), count=\(dailyQuestionCount)")
         
         if isPremiumUser {
-            print("🔍 付費用戶，允許提問")
+            DebugLogger.info("付費用戶，允許提問")
             return true
         }
 
         if dailyQuestionCount < maxFreeQuestions {
             dailyQuestionCount += 1
             UserDefaults.standard.set(dailyQuestionCount, forKey: dailyCountKey)
-            print("🔍 免費用戶提問成功，剩餘次數: \(maxFreeQuestions - dailyQuestionCount)")
+            DebugLogger.info("免費提問成功，剩餘: \(maxFreeQuestions - dailyQuestionCount)")
             return true
         } else {
-            print("🔍 免費用戶提問次數用完，顯示升級對話框")
+            DebugLogger.warning("免費次數已用完")
             // 🔥 修改：在顯示升級對話框前先檢查一次狀態
             Task { @MainActor in
                 await syncWithRevenueCat()

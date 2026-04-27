@@ -9,7 +9,6 @@ import SwiftUI
 
 extension Color {
     static var appCardBackground: Color { Color(.secondarySystemBackground) } // 卡片底色
-    static var appDivider: Color { Color(.separator) }                        // 分隔線
     static var appTertiaryText: Color { Color(.tertiaryLabel) }               // 第三層級文字
     static var brand: Color {
             Color(UIColor { trait in
